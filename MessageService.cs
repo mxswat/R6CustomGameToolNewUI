@@ -3,6 +3,7 @@
     using ElectronCgi.DotNet;
     using System;
     using System.Threading.Tasks;
+    using Newtonsoft.Json;
 
     class MessageService
     {
@@ -35,6 +36,12 @@
         public void sendBoolMessage(string type, bool message)
         {
             this.connection.Send(type, message);
+        }
+
+        public void sendObjectMessage(string type, Object message)
+        {
+            var jsonString = JsonConvert.SerializeObject(message);
+            this.connection.Send(type, jsonString);
         }
     }
 }

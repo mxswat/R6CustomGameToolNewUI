@@ -26,6 +26,10 @@ class ComunicationService {
       console.log(`BattleyeIsRunning: ${request}`);
     })
 
+    this.connection.on('PlayerUpdated', (request) => {
+      console.log(`PlayerUpdated: ${request}`);
+    })
+
     // this.connection.close();
     // this.connection.send('closed', 'closed');
   }
