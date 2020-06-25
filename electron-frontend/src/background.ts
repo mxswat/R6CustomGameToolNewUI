@@ -97,7 +97,7 @@ import { ipcMain } from "electron";
 import { exec } from 'child_process';
 
 ipcMain.on('start-tool', (event, arg) => {
-  ComunicationServiceInst.startToolConnection();
+  ComunicationServiceInst.startToolConnection(win);
 })
 ipcMain.on('close-tool', (event, arg) => {
   ComunicationServiceInst.closeToolConnection();

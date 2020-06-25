@@ -1,9 +1,10 @@
 import { ConnectionBuilder, Connection } from 'electron-cgi'
 import { logger, logColors } from './logger';
+import { ipcMain, BrowserWindow } from "electron";
 
 class ComunicationService {
   private connection: Connection = null as any;
-
+  private win: BrowserWindow = null as any;
   constructor() {
     // Notthing do do here
   }
@@ -11,7 +12,8 @@ class ComunicationService {
   /**
    * startToolConnection
    */
-  public startToolConnection() {
+  public startToolConnection(win: BrowserWindow) {
+    this.win = win;
     logger.log('Connecting to R6S Custom Game Tool.exe!', logColors.Green);
     const pathToTool = process.env.NODE_ENV !== 'production'
       ? 'D:/MxRepos/R6S_Custom_Game_Tool/R6S Custom Game Tool/bin/x64/Release/R6S Custom Game Tool.exe'
@@ -27,18 +29,22 @@ class ComunicationService {
 
     this.connection.onDisconnect = () => {
       console.log('Lost connection to the .Net process');
+      win.webContents.send('tool-disconnected', 'test');
     };
 
     this.connection.on('BattleyeIsRunning', (request) => {
       console.log(`BattleyeIsRunning: ${request}`);
+      win.webContents.send('BattleyeIsRunning', request);
     })
 
     this.connection.on('R6SCGT_IsRunning', (request) => {
       console.log(`R6SCGT_IsRunning: ${request}`);
+      win.webContents.send('R6SCGT_IsRunning', request);
     })
 
     this.connection.on('PlayerUpdated', (request) => {
       console.log(`PlayerUpdated: ${request}`);
+      win.webContents.send('PlayerUpdated', request);
     })
 
     // this.connection.send('closed', 'closed');

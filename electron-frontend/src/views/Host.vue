@@ -7,6 +7,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { startTool } from "../services/ipcfront";
+
 @Component({
   components: {},
   created() {
