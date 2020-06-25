@@ -28,18 +28,19 @@ namespace R6S_Custom_Game_Tool
 
         public MemoryEngine()
         {
-            
+
         }
 
         public void startMemEngine()
         {
+            var IsRunning = "";
             try
             {
                 int iProcID = m.GetProcIdFromName("RainbowSix_Vulkan");
                 GameManager = "RainbowSix_Vulkan.exe+0x6713ED8";
                 RoundManager = "RainbowSix_Vulkan.exe+0x68E2CF0";
                 NetworkManager = "RainbowSix_Vulkan.exe+0x6923130";
-                //label3.Text = "Vulkan";
+                IsRunning = "Vulkan";
 
                 if (iProcID == 0)
                 {
@@ -47,7 +48,7 @@ namespace R6S_Custom_Game_Tool
                     GameManager = "RainbowSix.exe+0x6713ED8";
                     RoundManager = "RainbowSix.exe+0x6CA0848";
                     NetworkManager = "RainbowSix.exe+0x68E2CF0";
-                    //label3.Text = "DirectX";
+                    IsRunning = "DirectX";
                 }
 
                 if (iProcID > 0)
@@ -56,9 +57,13 @@ namespace R6S_Custom_Game_Tool
                     //label4.Text = "Active";
                     //label4.ForeColor = Color.Green;
                     //timer.Start();
+                    messageService.sendStringMessage("R6SCGT_IsRunning", IsRunning);
                 }
             }
-            catch (Exception) { /*timer.Start();*/ }
+            catch (Exception) {
+                /*timer.Start();*/
+                messageService.sendStringMessage("R6SCGT_IsRunning", "Error!");
+            }
         }
 
         public bool CheckBattleEyeStatus()
@@ -75,7 +80,8 @@ namespace R6S_Custom_Game_Tool
                 messageService.sendBoolMessage("BattleyeIsRunning", battleEyeStatus);
                 return battleEyeStatus;
             }
-            catch {
+            catch
+            {
                 messageService.sendBoolMessage("BattleyeIsRunning", false);
                 return !battleEyeStatus;
             }

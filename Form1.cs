@@ -152,38 +152,38 @@ namespace R6S_Custom_Game_Tool
 
             try
             {
-                // Loop 9 times? why?
-                for (int i = 0; i < 9; i++)
+                //// Loop 9 times? why?
+                //for (int i = 0; i < 9; i++)
+                //{
+                int RadioButtonIndex = Array.FindIndex(PlayerRadioButtonsChecked, item => item == true);
+                PlayerID = PlayerIDs[RadioButtonIndex];
+                if (m.ReadByte(PlayerBytes[RadioButtonIndex], "") == 0)
                 {
-                    int RadioButtonIndex = Array.FindIndex(PlayerRadioButtonsChecked, item => item == true);
-                    PlayerID = PlayerIDs[RadioButtonIndex];
-                    if (m.ReadByte(PlayerBytes[RadioButtonIndex], "") == 0)
-                    {
-                        label10.Text = "CurrentPlayer:Empty";
-                        label8.Text = "Primary Weapon:Empty";
-                        label13.Text = "Secondary Weapon:Empty";
-                        label14.Text = "Primary Gadget:Empty";
-                        label16.Text = "Secondary Gadget:Empty";
-                    }
-                    else
-                    {
-                        label10.Text = "CurrentPlayer:" + m.ReadString(PlayerBytes[RadioButtonIndex], "", 15);
-                        label8.Text = "Primary Weapon:" + PlayerPrimWeapons[RadioButtonIndex];
-                        label13.Text = "Secondary Weapon:" + PlayerSecWeapons[RadioButtonIndex];
-                        label14.Text = "Primary Gadget:" + PlayerPrimGadget[RadioButtonIndex];
-                        label16.Text = "Secondary Gadget:" + PlayerSecGadget[RadioButtonIndex];
-                        CountPlayer = RadioButtonIndex;
-                        label5.Visible = true;
-                        timer.Start();
-                        messageService.sendObjectMessage("PlayerUpdated", new
-                        {
-                            PrimaryWeapon = label8.Text,
-                            SecondaryWeapon = label13.Text,
-                            PrimaryGadget = label14.Text,
-                            SecondaryGadget = label16.Text,
-                        });
-                    }
+                    label10.Text = "CurrentPlayer:Empty";
+                    label8.Text = "Primary Weapon:Empty";
+                    label13.Text = "Secondary Weapon:Empty";
+                    label14.Text = "Primary Gadget:Empty";
+                    label16.Text = "Secondary Gadget:Empty";
                 }
+                else
+                {
+                    label10.Text = "CurrentPlayer:" + m.ReadString(PlayerBytes[RadioButtonIndex], "", 15);
+                    label8.Text = "Primary Weapon:" + PlayerPrimWeapons[RadioButtonIndex];
+                    label13.Text = "Secondary Weapon:" + PlayerSecWeapons[RadioButtonIndex];
+                    label14.Text = "Primary Gadget:" + PlayerPrimGadget[RadioButtonIndex];
+                    label16.Text = "Secondary Gadget:" + PlayerSecGadget[RadioButtonIndex];
+                    CountPlayer = RadioButtonIndex;
+                    label5.Visible = true;
+                    timer.Start();
+                    messageService.sendObjectMessage("PlayerUpdated", new
+                    {
+                        PrimaryWeapon = label8.Text,
+                        SecondaryWeapon = label13.Text,
+                        PrimaryGadget = label14.Text,
+                        SecondaryGadget = label16.Text,
+                    });
+                }
+                //}
             }
             catch (Exception) {; }
             if (label5.Visible)

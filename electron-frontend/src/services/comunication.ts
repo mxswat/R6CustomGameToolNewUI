@@ -26,6 +26,10 @@ class ComunicationService {
       console.log(`BattleyeIsRunning: ${request}`);
     })
 
+    this.connection.on('R6SCGT_IsRunning', (request) => {
+      console.log(`R6SCGT_IsRunning: ${request}`);
+    })
+
     this.connection.on('PlayerUpdated', (request) => {
       console.log(`PlayerUpdated: ${request}`);
     })
