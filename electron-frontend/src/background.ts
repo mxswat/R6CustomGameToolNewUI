@@ -6,7 +6,7 @@ import {
   installVueDevtools
 } from 'vue-cli-plugin-electron-builder/lib'
 import ComunicationServiceInst from "./services/comunication";
-ComunicationServiceInst;
+import path from "path";
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -24,9 +24,10 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      // Use pluginOptions.nodeIntegration, leave this alone
+      // Use pluginOptions.nodeIntegration, leave this alone // No, I don't think I will - Mx
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION as any
+      nodeIntegration: true,
+      preload: path.join(__dirname, 'preload.js')
     }
   })
 
@@ -91,3 +92,9 @@ if (isDevelopment) {
     })
   }
 }
+
+import { ipcMain } from "electron";
+ipcMain.on('start-tool', (event, arg) => {
+  console.log('start-tool-main')
+  // event.reply('asynchronous-reply', 'pong')
+})

@@ -131,61 +131,6 @@ eval("// Copyright Joyent, Inc. and other Node contributors.\n//\n// Permission 
 
 /***/ }),
 
-/***/ "./node_modules/electron-cgi/connection-builder.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/electron-cgi/connection-builder.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("const { spawn } = __webpack_require__(/*! child_process */ \"child_process\");\nconst { Connection } = __webpack_require__(/*! ./connection */ \"./node_modules/electron-cgi/connection.js\");\n\nexports.ConnectionBuilder = function ConnectionBuilder() {\n    var spawnArguments = null;\n    this.connectTo = (command, ...args) => {\n        spawnArguments = {\n            command,\n            args\n        };\n        return this;\n    };\n    this.build = () => {\n        if (!spawnArguments) {\n            throw new Error('Use connectTo(pathToExecutable, [arguments]) to specify to which executable to connect');\n        }\n        const executable = spawn(spawnArguments.command, spawnArguments.args);\n \n        if (!executable.pid)\n            throw new Error(`Could not start ${spawnArguments.command}. Are you sure you have the right path?`);\n \n        executable.on('exit', (code) => {\n            if(this.handleOnExit){\n                this.handleOnExit(code);\n            }\n            console.log(`Connection to ${spawnArguments.command} was terminated (code: ${code})`)\n        });\n        executable.stderr.on('data', data => {\n            if(this.handleOnStderr)\n            {\n                this.handleOnStderr(data);\n            }\n            process.stdout.write('\\x1b[7m'); //invert terminal colors\n            process.stdout.write(data);\n            process.stdout.write('\\x1b[0m'); //reset colors\n        });\n        return new Connection(executable.stdin, executable.stdout);\n    };\n        \n    this.handleOnStderr = null;\n    this.handleOnExit = null;\n    this.onStderr = function(handler) {\n        this.handleOnStderr = handler\n        return this;\n    }\n    this.onExit = function (handler) {\n        this.handleOnExit = handler;\n        return this;\n    }         \n}\n\n\n//# sourceURL=webpack:///./node_modules/electron-cgi/connection-builder.js?");
-
-/***/ }),
-
-/***/ "./node_modules/electron-cgi/connection.js":
-/*!*************************************************!*\
-  !*** ./node_modules/electron-cgi/connection.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("const Request = __webpack_require__(/*! ./request */ \"./node_modules/electron-cgi/request.js\");\nconst TabSeparatedInputStreamParser = __webpack_require__(/*! ./tab-separated-input-stream-parser */ \"./node_modules/electron-cgi/tab-separated-input-stream-parser.js\");\n\n/** @param {import('stream').Writable} outStream */\nexports.Connection = function Connection(outStream, inStream) {\n    const responseHandlersQueue = [];\n    const requestHandlersQueue = [];\n\n    const inputStreamParser = new TabSeparatedInputStreamParser();\n\n    inStream.setEncoding('utf8');\n    inStream.on('data', (chunk) => {\n        inputStreamParser.addPartial(chunk);\n    });\n\n    inStream.on('close', () => {\n        if (this.onDisconnect) {\n            this.onDisconnect();\n        }\n    });\n\n    inputStreamParser.onResponse(response => {\n        const responseIds = responseHandlersQueue.map(r => r.id);\n        if (responseIds.indexOf(response.id) !== -1) {\n            responseHandlersQueue.splice(responseIds.indexOf(response.id), 1)[0].onResponse(null, response.result);\n        }\n    });\n\n    inputStreamParser.onError(errorResponse => {\n        const responseIds = responseHandlersQueue.map(r => r.id);\n        if (responseIds.indexOf(errorResponse.requestId) !== -1) {\n            responseHandlersQueue.splice(responseIds.indexOf(errorResponse.requestId), 1)[0].onResponse(JSON.parse(errorResponse.error));\n        }\n    })\n\n    inputStreamParser.onRequest(request => {\n        const requestType = request.type;\n        requestHandlersQueue.filter(rh => rh.type === requestType).forEach(handlerContainer => {\n            const requestHandler = handlerContainer.onRequest;\n            const resultArgs = requestHandler(request.args)\n            sendResponse(request.id, resultArgs);\n        });\n    });\n\n    const sendResponse = (requestId, resultArgs) => {\n        if (!outStream.writable) return; //stream was closed    \n        outStream.write(`{\"type\": \"RESPONSE\", \"response\": ${JSON.stringify({\n            id: requestId,\n            result: JSON.stringify(resultArgs || null)\n        })}}\\t`);\n    }\n\n    const sendRequest = (request, onResponse) => {\n        if (!outStream.writable) return;\n        outStream.write(`{\"type\": \"REQUEST\", \"request\": ${JSON.stringify(request)}}\\t`);\n        if (onResponse) {\n            responseHandlersQueue.push({\n                id: request.id,\n                onResponse\n            });\n        }\n    };\n\n    this.onDisconnect = null;\n\n    this.send = (type, args = {}, onResponse = null) => {\n        if (typeof args === 'function' && onResponse === null){ //if there's only one argument and it's a function assume it's the callback\n            onResponse = args;\n            args = {}\n        }\n        if (onResponse === null) {\n            return new Promise((resolve, reject) => {\n                sendRequest(new Request(type, args), (err, result) => {\n                    if (err)\n                        reject(err)\n                    else\n                        resolve(result)\n                });    \n            });\n        } else {\n            sendRequest(new Request(type, args), onResponse);\n        }\n    };\n\n    this.on = (type, onRequest) => {\n        requestHandlersQueue.push({ type, onRequest })\n    }\n\n    this.close = () => {\n        outStream.end();\n    };\n}\n\n\n//# sourceURL=webpack:///./node_modules/electron-cgi/connection.js?");
-
-/***/ }),
-
-/***/ "./node_modules/electron-cgi/index.js":
-/*!********************************************!*\
-  !*** ./node_modules/electron-cgi/index.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("const { ConnectionBuilder } = __webpack_require__(/*! ./connection-builder */ \"./node_modules/electron-cgi/connection-builder.js\");\n\nmodule.exports = {\n    ConnectionBuilder\n};\n\n//# sourceURL=webpack:///./node_modules/electron-cgi/index.js?");
-
-/***/ }),
-
-/***/ "./node_modules/electron-cgi/request.js":
-/*!**********************************************!*\
-  !*** ./node_modules/electron-cgi/request.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("const uuidv4 = __webpack_require__(/*! uuid/v4 */ \"./node_modules/uuid/v4.js\");\n\nfunction Request(type, args) {\n    this.type = type;\n    this.id = uuidv4();\n    this.args = JSON.stringify(args);\n}\n\nmodule.exports = Request;\n\n//# sourceURL=webpack:///./node_modules/electron-cgi/request.js?");
-
-/***/ }),
-
-/***/ "./node_modules/electron-cgi/tab-separated-input-stream-parser.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/electron-cgi/tab-separated-input-stream-parser.js ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("const { EventEmitter } = __webpack_require__(/*! events */ \"events\");\n\nfunction TabSeparatedInputStreamParser() {\n    const messageEmitter = new EventEmitter();\n    let streamInput = '';\n\n    this.addPartial = streamContent => {        \n        streamInput += streamContent;\n        while (streamInput.indexOf('\\t') !== -1) {\n            const messageStr = streamInput.substring(0, streamInput.indexOf('\\t'));\n            streamInput = streamInput.substring(streamInput.indexOf('\\t') + 1);\n            let message = null;\n            try {\n                message = JSON.parse(messageStr);\n            } catch (e) {\n                throw new Error(`Invalid incoming JSON: ${messageStr}`);\n            }\n            if (message.type === 'RESPONSE') {\n                messageEmitter.emit('response',message.response);\n            }else if (message.type === 'REQUEST') {\n                messageEmitter.emit('request', message.request);\n            }else if (message.type === 'ERROR'){\n                messageEmitter.emit('error', message)\n            }\n        }\n    };\n\n    this.onResponse = handleResponseCallback => {\n        messageEmitter.on('response', handleResponseCallback);\n    };\n\n    this.onError = handleErrorCallback => {\n        messageEmitter.on('error', handleErrorCallback);\n    };\n\n\n    this.onRequest = handleRequestCallback => {\n        messageEmitter.on('request', handleRequestCallback);\n    };\n}\n\nmodule.exports = TabSeparatedInputStreamParser;\n\n//# sourceURL=webpack:///./node_modules/electron-cgi/tab-separated-input-stream-parser.js?");
-
-/***/ }),
-
 /***/ "./node_modules/fs.realpath/index.js":
 /*!*******************************************!*\
   !*** ./node_modules/fs.realpath/index.js ***!
@@ -1130,39 +1075,6 @@ eval("\n/**\n * For Node.js, simply re-export the core `util.deprecate` function
 
 /***/ }),
 
-/***/ "./node_modules/uuid/lib/bytesToUuid.js":
-/*!**********************************************!*\
-  !*** ./node_modules/uuid/lib/bytesToUuid.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("/**\n * Convert array of 16 byte values to UUID string format of the form:\n * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX\n */\nvar byteToHex = [];\nfor (var i = 0; i < 256; ++i) {\n  byteToHex[i] = (i + 0x100).toString(16).substr(1);\n}\n\nfunction bytesToUuid(buf, offset) {\n  var i = offset || 0;\n  var bth = byteToHex;\n  // join used to fix memory issue caused by concatenation: https://bugs.chromium.org/p/v8/issues/detail?id=3175#c4\n  return ([\n    bth[buf[i++]], bth[buf[i++]],\n    bth[buf[i++]], bth[buf[i++]], '-',\n    bth[buf[i++]], bth[buf[i++]], '-',\n    bth[buf[i++]], bth[buf[i++]], '-',\n    bth[buf[i++]], bth[buf[i++]], '-',\n    bth[buf[i++]], bth[buf[i++]],\n    bth[buf[i++]], bth[buf[i++]],\n    bth[buf[i++]], bth[buf[i++]]\n  ]).join('');\n}\n\nmodule.exports = bytesToUuid;\n\n\n//# sourceURL=webpack:///./node_modules/uuid/lib/bytesToUuid.js?");
-
-/***/ }),
-
-/***/ "./node_modules/uuid/lib/rng.js":
-/*!**************************************!*\
-  !*** ./node_modules/uuid/lib/rng.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("// Unique ID creation requires a high quality random # generator.  In node.js\n// this is pretty straight-forward - we use the crypto API.\n\nvar crypto = __webpack_require__(/*! crypto */ \"crypto\");\n\nmodule.exports = function nodeRNG() {\n  return crypto.randomBytes(16);\n};\n\n\n//# sourceURL=webpack:///./node_modules/uuid/lib/rng.js?");
-
-/***/ }),
-
-/***/ "./node_modules/uuid/v4.js":
-/*!*********************************!*\
-  !*** ./node_modules/uuid/v4.js ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("var rng = __webpack_require__(/*! ./lib/rng */ \"./node_modules/uuid/lib/rng.js\");\nvar bytesToUuid = __webpack_require__(/*! ./lib/bytesToUuid */ \"./node_modules/uuid/lib/bytesToUuid.js\");\n\nfunction v4(options, buf, offset) {\n  var i = buf && offset || 0;\n\n  if (typeof(options) == 'string') {\n    buf = options === 'binary' ? new Array(16) : null;\n    options = null;\n  }\n  options = options || {};\n\n  var rnds = options.random || (options.rng || rng)();\n\n  // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`\n  rnds[6] = (rnds[6] & 0x0f) | 0x40;\n  rnds[8] = (rnds[8] & 0x3f) | 0x80;\n\n  // Copy bytes to buffer, if provided\n  if (buf) {\n    for (var ii = 0; ii < 16; ++ii) {\n      buf[i + ii] = rnds[ii];\n    }\n  }\n\n  return buf || bytesToUuid(rnds);\n}\n\nmodule.exports = v4;\n\n\n//# sourceURL=webpack:///./node_modules/uuid/v4.js?");
-
-/***/ }),
-
 /***/ "./node_modules/vue-cli-plugin-electron-builder/lib/createProtocol.js":
 /*!****************************************************************************!*\
   !*** ./node_modules/vue-cli-plugin-electron-builder/lib/createProtocol.js ***!
@@ -1286,31 +1198,7 @@ eval("/*\n Yaku v0.16.7\n (c) 2015 Yad Smood. http://ysmood.org\n License MIT\n*
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var electron__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! electron */ \"electron\");\n/* harmony import */ var electron__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(electron__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var vue_cli_plugin_electron_builder_lib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-cli-plugin-electron-builder/lib */ \"./node_modules/vue-cli-plugin-electron-builder/lib/index.js\");\n/* harmony import */ var _services_comunication__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./services/comunication */ \"./src/services/comunication.ts\");\n\r\n\r\n\r\n\r\n_services_comunication__WEBPACK_IMPORTED_MODULE_2__[\"default\"];\r\nconst isDevelopment = \"development\" !== 'production';\r\n// Keep a global reference of the window object, if you don't, the window will\r\n// be closed automatically when the JavaScript object is garbage collected.\r\nlet win;\r\n// Scheme must be registered before the app is ready\r\nelectron__WEBPACK_IMPORTED_MODULE_0__[\"protocol\"].registerSchemesAsPrivileged([\r\n    { scheme: 'app', privileges: { secure: true, standard: true } }\r\n]);\r\nfunction createWindow() {\r\n    // Create the browser window.\r\n    win = new electron__WEBPACK_IMPORTED_MODULE_0__[\"BrowserWindow\"]({\r\n        width: 800,\r\n        height: 600,\r\n        webPreferences: {\r\n            // Use pluginOptions.nodeIntegration, leave this alone\r\n            // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info\r\n            nodeIntegration: false\r\n        }\r\n    });\r\n    if (true) {\r\n        // Load the url of the dev server if in development mode\r\n        win.loadURL(\"http://localhost:8080/\");\r\n        if (!process.env.IS_TEST)\r\n            win.webContents.openDevTools();\r\n    }\r\n    else {}\r\n    win.on('closed', () => {\r\n        win = null;\r\n    });\r\n}\r\n// Quit when all windows are closed.\r\nelectron__WEBPACK_IMPORTED_MODULE_0__[\"app\"].on('window-all-closed', () => {\r\n    // On macOS it is common for applications and their menu bar\r\n    // to stay active until the user quits explicitly with Cmd + Q\r\n    if (process.platform !== 'darwin') {\r\n        electron__WEBPACK_IMPORTED_MODULE_0__[\"app\"].quit();\r\n    }\r\n});\r\nelectron__WEBPACK_IMPORTED_MODULE_0__[\"app\"].on('activate', () => {\r\n    // On macOS it's common to re-create a window in the app when the\r\n    // dock icon is clicked and there are no other windows open.\r\n    if (win === null) {\r\n        createWindow();\r\n    }\r\n});\r\n// This method will be called when Electron has finished\r\n// initialization and is ready to create browser windows.\r\n// Some APIs can only be used after this event occurs.\r\nelectron__WEBPACK_IMPORTED_MODULE_0__[\"app\"].on('ready', async () => {\r\n    if (isDevelopment && !process.env.IS_TEST) {\r\n        // Install Vue Devtools\r\n        try {\r\n            await Object(vue_cli_plugin_electron_builder_lib__WEBPACK_IMPORTED_MODULE_1__[\"installVueDevtools\"])();\r\n        }\r\n        catch (e) {\r\n            console.error('Vue Devtools failed to install:', e.toString());\r\n        }\r\n    }\r\n    createWindow();\r\n});\r\n// Exit cleanly on request from parent process in development mode.\r\nif (isDevelopment) {\r\n    if (process.platform === 'win32') {\r\n        process.on('message', (data) => {\r\n            if (data === 'graceful-exit') {\r\n                electron__WEBPACK_IMPORTED_MODULE_0__[\"app\"].quit();\r\n            }\r\n        });\r\n    }\r\n    else {\r\n        process.on('SIGTERM', () => {\r\n            electron__WEBPACK_IMPORTED_MODULE_0__[\"app\"].quit();\r\n        });\r\n    }\r\n}\r\n\n\n//# sourceURL=webpack:///./src/background.ts?");
-
-/***/ }),
-
-/***/ "./src/services/comunication.ts":
-/*!**************************************!*\
-  !*** ./src/services/comunication.ts ***!
-  \**************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var electron_cgi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! electron-cgi */ \"./node_modules/electron-cgi/index.js\");\n/* harmony import */ var electron_cgi__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(electron_cgi__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./logger */ \"./src/services/logger.ts\");\n\r\n\r\nclass ComunicationService {\r\n    constructor() {\r\n        _logger__WEBPACK_IMPORTED_MODULE_1__[\"logger\"].log('Connecting to R6S Custom Game Tool.exe!', _logger__WEBPACK_IMPORTED_MODULE_1__[\"logColors\"].Green);\r\n        const pathToTool =  true\r\n            ? 'D:/MxRepos/R6S_Custom_Game_Tool/R6S Custom Game Tool/bin/x64/Release/R6S Custom Game Tool.exe'\r\n            : undefined;\r\n        console.log(`Path to the tool is: ${pathToTool}`);\r\n        this.connection = new electron_cgi__WEBPACK_IMPORTED_MODULE_0__[\"ConnectionBuilder\"]()\r\n            .connectTo(pathToTool)\r\n            .build();\r\n        this.connection.on('helloElectron', (request) => {\r\n            console.log(request);\r\n        });\r\n        this.connection.onDisconnect = () => {\r\n            console.log('Lost connection to the .Net process');\r\n        };\r\n        this.connection.on('BattleyeIsRunning', (request) => {\r\n            console.log(`BattleyeIsRunning: ${request}`);\r\n        });\r\n        this.connection.on('R6SCGT_IsRunning', (request) => {\r\n            console.log(`R6SCGT_IsRunning: ${request}`);\r\n        });\r\n        this.connection.on('PlayerUpdated', (request) => {\r\n            console.log(`PlayerUpdated: ${request}`);\r\n        });\r\n        // this.connection.close();\r\n        // this.connection.send('closed', 'closed');\r\n    }\r\n}\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (ComunicationService);\r\n\n\n//# sourceURL=webpack:///./src/services/comunication.ts?");
-
-/***/ }),
-
-/***/ "./src/services/logger.ts":
-/*!********************************!*\
-  !*** ./src/services/logger.ts ***!
-  \********************************/
-/*! exports provided: logger, logColors */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"logger\", function() { return logger; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"logColors\", function() { return logColors; });\nconst logger = {\r\n    log(content, color) {\r\n        if (color) {\r\n            console.log(`${color}%s\\x1b[0m`, content);\r\n        }\r\n        else {\r\n            console.log(content);\r\n        }\r\n    }\r\n};\r\nvar logColors;\r\n(function (logColors) {\r\n    logColors[\"Black\"] = \"\\u001B[30m\";\r\n    logColors[\"Red\"] = \"\\u001B[31m\";\r\n    logColors[\"Green\"] = \"\\u001B[32m\";\r\n    logColors[\"Yellow\"] = \"\\u001B[33m\";\r\n    logColors[\"Blue\"] = \"\\u001B[34m\";\r\n    logColors[\"Magenta\"] = \"\\u001B[35m\";\r\n    logColors[\"Cyan\"] = \"\\u001B[36m\";\r\n    logColors[\"White\"] = \"\\u001B[37m\";\r\n})(logColors || (logColors = {}));\r\n\r\n\n\n//# sourceURL=webpack:///./src/services/logger.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var electron__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! electron */ \"electron\");\n/* harmony import */ var electron__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(electron__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var vue_cli_plugin_electron_builder_lib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-cli-plugin-electron-builder/lib */ \"./node_modules/vue-cli-plugin-electron-builder/lib/index.js\");\n/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! path */ \"path\");\n/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(path__WEBPACK_IMPORTED_MODULE_2__);\n\r\n\r\n\r\n\r\nconst isDevelopment = \"development\" !== 'production';\r\n// Keep a global reference of the window object, if you don't, the window will\r\n// be closed automatically when the JavaScript object is garbage collected.\r\nlet win;\r\n// Scheme must be registered before the app is ready\r\nelectron__WEBPACK_IMPORTED_MODULE_0__[\"protocol\"].registerSchemesAsPrivileged([\r\n    { scheme: 'app', privileges: { secure: true, standard: true } }\r\n]);\r\nfunction createWindow() {\r\n    // Create the browser window.\r\n    win = new electron__WEBPACK_IMPORTED_MODULE_0__[\"BrowserWindow\"]({\r\n        width: 800,\r\n        height: 600,\r\n        webPreferences: {\r\n            // Use pluginOptions.nodeIntegration, leave this alone // No, I don't think I will - Mx\r\n            // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info\r\n            nodeIntegration: true,\r\n            preload: path__WEBPACK_IMPORTED_MODULE_2___default.a.join(__dirname, 'preload.js')\r\n        }\r\n    });\r\n    if (true) {\r\n        // Load the url of the dev server if in development mode\r\n        win.loadURL(\"http://localhost:8080/\");\r\n        if (!process.env.IS_TEST)\r\n            win.webContents.openDevTools();\r\n    }\r\n    else {}\r\n    win.on('closed', () => {\r\n        win = null;\r\n    });\r\n}\r\n// Quit when all windows are closed.\r\nelectron__WEBPACK_IMPORTED_MODULE_0__[\"app\"].on('window-all-closed', () => {\r\n    // On macOS it is common for applications and their menu bar\r\n    // to stay active until the user quits explicitly with Cmd + Q\r\n    if (process.platform !== 'darwin') {\r\n        electron__WEBPACK_IMPORTED_MODULE_0__[\"app\"].quit();\r\n    }\r\n});\r\nelectron__WEBPACK_IMPORTED_MODULE_0__[\"app\"].on('activate', () => {\r\n    // On macOS it's common to re-create a window in the app when the\r\n    // dock icon is clicked and there are no other windows open.\r\n    if (win === null) {\r\n        createWindow();\r\n    }\r\n});\r\n// This method will be called when Electron has finished\r\n// initialization and is ready to create browser windows.\r\n// Some APIs can only be used after this event occurs.\r\nelectron__WEBPACK_IMPORTED_MODULE_0__[\"app\"].on('ready', async () => {\r\n    if (isDevelopment && !process.env.IS_TEST) {\r\n        // Install Vue Devtools\r\n        try {\r\n            await Object(vue_cli_plugin_electron_builder_lib__WEBPACK_IMPORTED_MODULE_1__[\"installVueDevtools\"])();\r\n        }\r\n        catch (e) {\r\n            console.error('Vue Devtools failed to install:', e.toString());\r\n        }\r\n    }\r\n    createWindow();\r\n});\r\n// Exit cleanly on request from parent process in development mode.\r\nif (isDevelopment) {\r\n    if (process.platform === 'win32') {\r\n        process.on('message', (data) => {\r\n            if (data === 'graceful-exit') {\r\n                electron__WEBPACK_IMPORTED_MODULE_0__[\"app\"].quit();\r\n            }\r\n        });\r\n    }\r\n    else {\r\n        process.on('SIGTERM', () => {\r\n            electron__WEBPACK_IMPORTED_MODULE_0__[\"app\"].quit();\r\n        });\r\n    }\r\n}\r\n\r\nelectron__WEBPACK_IMPORTED_MODULE_0__[\"ipcMain\"].on('start-tool', (event, arg) => {\r\n    console.log('start-tool-main');\r\n    // event.reply('asynchronous-reply', 'pong')\r\n});\r\n\n\n//# sourceURL=webpack:///./src/background.ts?");
 
 /***/ }),
 
@@ -1344,28 +1232,6 @@ eval("module.exports = require(\"assert\");\n\n//# sourceURL=webpack:///external
 /***/ (function(module, exports) {
 
 eval("module.exports = require(\"buffer\");\n\n//# sourceURL=webpack:///external_%22buffer%22?");
-
-/***/ }),
-
-/***/ "child_process":
-/*!********************************!*\
-  !*** external "child_process" ***!
-  \********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("module.exports = require(\"child_process\");\n\n//# sourceURL=webpack:///external_%22child_process%22?");
-
-/***/ }),
-
-/***/ "crypto":
-/*!*************************!*\
-  !*** external "crypto" ***!
-  \*************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("module.exports = require(\"crypto\");\n\n//# sourceURL=webpack:///external_%22crypto%22?");
 
 /***/ }),
 
