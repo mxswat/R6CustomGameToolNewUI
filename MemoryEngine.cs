@@ -16,6 +16,7 @@ namespace R6S_Custom_Game_Tool
     /// <summary>
     /// MemoryEngine contains most of the mememory editing code. 
     /// I believe it's correct to separate the UI code from the Memory editing code, to have a better code readability
+    /// - Mx
     /// </summary>
     internal class MemoryEngine
     {
@@ -75,7 +76,8 @@ namespace R6S_Custom_Game_Tool
                     messageService.sendStringMessage("R6SCGT_IsRunning", IsRunning);
                 }
             }
-            catch (Exception) {
+            catch (Exception)
+            {
                 /*timer.Start();*/
                 messageService.sendStringMessage("R6SCGT_IsRunning", "Error!");
             }
@@ -112,6 +114,56 @@ namespace R6S_Custom_Game_Tool
         {
             m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{SlotID},{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", WeaponID);
             m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{SlotID},{LoadoutOffset6},{LoadoutOffset7},40,20,20,0,18", "int", "0");
+        }
+
+        public void changeGadget(string PlayerID, string GSlotID, string GadgetID, string WeaponsDependantG)
+        {
+            switch (GadgetID)
+            {
+                // Weapon dependant gadgets
+                case "F8":
+                case "118":
+                case "148":
+                case "1C8":
+                case "198":
+                case "1F8":
+                case "248":
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},10,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", WeaponsDependantG);
+                    break;
+                case "E0":
+                    //Zofia Launcher
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "54816");
+                    break;
+                case "F0":
+                    //Hibana Launcher
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "55136");
+                    break;
+                case "100":
+                    //BlowTorch
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "55616");
+                    break;
+                case "108":
+                    //GaraHook
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "55712");
+                    break;
+                case "168":
+                    //Stim Pistol
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "57472");
+                    break;
+                case "1A8":
+                    //Capitao Crossbow
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "58848");
+                    break;
+                case "1C0":
+                    //Ash Launcher
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "59328");
+                    break;
+                case "290":
+                    //Mozzie Pest Launcher
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "63616");
+                    break;
+            }
+            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{GSlotID},{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "int", $"{m.ReadInt($"{NetworkManager},B0,40,A8,D0,1E0,{GadgetID},38,20,190,A0,40,58,20,0,E0,F8,978")}");
         }
     }
 }

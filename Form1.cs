@@ -455,6 +455,9 @@ namespace R6S_Custom_Game_Tool
                 {
                     if (treeView3.SelectedNode.Name == Gadgets[i])
                     {
+                        string GadgetID = Gadgets[i];
+                        string WeaponsDependantG = WeaponsDependant[i];
+                        MemoryEngine.changeGadget(PlayerID, GSlotID, GadgetID, WeaponsDependantG);
                         if (i < 7)
                         {
                             m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},10,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", WeaponsDependant[i]);
