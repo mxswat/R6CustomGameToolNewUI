@@ -107,14 +107,15 @@ namespace R6S_Custom_Game_Tool
 
         private void timer_Tick(object sender, EventArgs e)
         {
+            // 65% Code lengh reduced from the first version 258 line to 90 lines
             bool[] PlayerRadioButtonsChecked = new bool[] {
-                radioButton6.Checked, 
-                radioButton5.Checked, 
-                radioButton7.Checked, 
-                radioButton8.Checked, 
-                radioButton9.Checked, 
-                radioButton10.Checked, 
-                radioButton11.Checked, 
+                radioButton6.Checked,
+                radioButton5.Checked,
+                radioButton7.Checked,
+                radioButton8.Checked,
+                radioButton9.Checked,
+                radioButton10.Checked,
+                radioButton11.Checked,
                 radioButton12.Checked,
                 radioButton13.Checked,
                 radioButton14.Checked
@@ -150,237 +151,29 @@ namespace R6S_Custom_Game_Tool
 
             try
             {
+                // Loop 9 times? why?
                 for (int i = 0; i < 9; i++)
                 {
-                    if (radioButton6.Checked == true)
+                    int RadioButtonIndex = Array.FindIndex(PlayerRadioButtonsChecked, item => item == true);
+                    PlayerID = PlayerIDs[RadioButtonIndex];
+                    if (m.ReadByte(PlayerBytes[RadioButtonIndex], "") == 0)
                     {
-                        PlayerID = "0";
-                        if (m.ReadByte($"{GameManager},508,0,0,30,8,1A8,0", "") == 0)
-                        {
-                            label10.Text = "CurrentPlayer:Empty";
-                            label8.Text = "Primary Weapon:Empty";
-                            label13.Text = "Secondary Weapon:Empty";
-                            label14.Text = "Primary Gadget:Empty";
-                            label16.Text = "Secondary Gadget:Empty";
-                        }
-                        else
-                        {
-                            label10.Text = "CurrentPlayer:" + m.ReadString($"{GameManager},508,0,0,30,8,1A8,0", "", 15);
-                            label8.Text = "Primary Weapon:" + PlayerPrimWeapons[0];
-                            label13.Text = "Secondary Weapon:" + PlayerSecWeapons[0];
-                            label14.Text = "Primary Gadget:" + PlayerPrimGadget[0];
-                            label16.Text = "Secondary Gadget:" + PlayerSecGadget[0];
-                            CountPlayer = 0;
-                            label5.Visible = true;
-                            timer.Start();
-                        }
+                        label10.Text = "CurrentPlayer:Empty";
+                        label8.Text = "Primary Weapon:Empty";
+                        label13.Text = "Secondary Weapon:Empty";
+                        label14.Text = "Primary Gadget:Empty";
+                        label16.Text = "Secondary Gadget:Empty";
                     }
-                    else if (radioButton5.Checked == true)
+                    else
                     {
-                        PlayerID = "8";
-                        if (m.ReadByte($"{GameManager},508,8,0,30,8,1A8,0", "") == 0)
-                        {
-                            label10.Text = "CurrentPlayer:Empty";
-                            label8.Text = "Primary Weapon:Empty";
-                            label13.Text = "Secondary Weapon:Empty";
-                            label14.Text = "Primary Gadget:Empty";
-                            label16.Text = "Secondary Gadget:Empty";
-                        }
-                        else
-                        {
-                            label10.Text = "CurrentPlayer:" + m.ReadString($"{GameManager},508,8,0,30,8,1A8,0", "", 15);
-                            label8.Text = "Primary Weapon:" + PlayerPrimWeapons[1];
-                            label13.Text = "Secondary Weapon:" + PlayerSecWeapons[1];
-                            label14.Text = "Primary Gadget:" + PlayerPrimGadget[1];
-                            label16.Text = "Secondary Gadget:" + PlayerSecGadget[1];
-                            CountPlayer = 1;
-                            label5.Visible = true;
-                            timer.Start();
-                        }
-                    }
-                    else if (radioButton7.Checked == true)
-                    {
-                        PlayerID = "10";
-                        if (m.ReadByte($"{GameManager},508,10,0,30,8,1A8,0", "") == 0)
-                        {
-                            label10.Text = "CurrentPlayer:Empty";
-                            label8.Text = "Primary Weapon:Empty";
-                            label13.Text = "Secondary Weapon:Empty";
-                            label14.Text = "Primary Gadget:Empty";
-                            label16.Text = "Secondary Gadget:Empty";
-                        }
-                        else
-                        {
-                            label10.Text = "CurrentPlayer:" + m.ReadString($"{GameManager},508,10,0,30,8,1A8,0", "", 15);
-                            label8.Text = "Primary Weapon:" + PlayerPrimWeapons[2];
-                            label13.Text = "Secondary Weapon:" + PlayerSecWeapons[2];
-                            label14.Text = "Primary Gadget:" + PlayerPrimGadget[2];
-                            label16.Text = "Secondary Gadget:" + PlayerSecGadget[2];
-                            CountPlayer = 2;
-                            label5.Visible = true;
-                            timer.Start();
-                        }
-                    }
-                    else if (radioButton8.Checked == true)
-                    {
-                        PlayerID = "18";
-                        if (m.ReadByte($"{GameManager},508,18,0,30,8,1A8,0", "") == 0)
-                        {
-                            label10.Text = "CurrentPlayer:Empty";
-                            label8.Text = "Primary Weapon:Empty";
-                            label13.Text = "Secondary Weapon:Empty";
-                            label14.Text = "Primary Gadget:Empty";
-                            label16.Text = "Secondary Gadget:Empty";
-                        }
-                        else
-                        {
-                            label10.Text = "CurrentPlayer:" + m.ReadString($"{GameManager},508,18,0,30,8,1A8,0", "", 15);
-                            label8.Text = "Primary Weapon:" + PlayerPrimWeapons[3];
-                            label13.Text = "Secondary Weapon:" + PlayerSecWeapons[3];
-                            label14.Text = "Primary Gadget:" + PlayerPrimGadget[3];
-                            label16.Text = "Secondary Gadget:" + PlayerSecGadget[3];
-                            CountPlayer = 3;
-                            label5.Visible = true;
-                            timer.Start();
-                        }
-                    }
-                    else if (radioButton9.Checked == true)
-                    {
-                        PlayerID = "20";
-                        if (m.ReadByte($"{GameManager},508,20,0,30,8,1A8,0", "") == 0)
-                        {
-                            label10.Text = "CurrentPlayer:Empty";
-                            label8.Text = "Primary Weapon:Empty";
-                            label13.Text = "Secondary Weapon:Empty";
-                            label14.Text = "Primary Gadget:Empty";
-                            label16.Text = "Secondary Gadget:Empty";
-                        }
-                        else
-                        {
-                            label10.Text = "CurrentPlayer:" + m.ReadString($"{GameManager},508,20,0,30,8,1A8,0", "", 15);
-                            label8.Text = "Primary Weapon:" + PlayerPrimWeapons[4];
-                            label13.Text = "Secondary Weapon:" + PlayerSecWeapons[4];
-                            label14.Text = "Primary Gadget:" + PlayerPrimGadget[4];
-                            label16.Text = "Secondary Gadget:" + PlayerSecGadget[4];
-                            CountPlayer = 4;
-                            label5.Visible = true;
-                            timer.Start();
-                        }
-                    }
-                    else if (radioButton10.Checked == true)
-                    {
-                        PlayerID = "28";
-                        if (m.ReadByte($"{GameManager},508,28,0,30,8,1A8,0", "") == 0)
-                        {
-                            label10.Text = "CurrentPlayer:Empty";
-                            label8.Text = "Primary Weapon:Empty";
-                            label13.Text = "Secondary Weapon:Empty";
-                            label14.Text = "Primary Gadget:Empty";
-                            label16.Text = "Secondary Gadget:Empty";
-                        }
-                        else
-                        {
-                            label10.Text = "CurrentPlayer:" + m.ReadString($"{GameManager},508,28,0,30,8,1A8,0", "", 15);
-                            label8.Text = "Primary Weapon:" + PlayerPrimWeapons[5];
-                            label13.Text = "Secondary Weapon:" + PlayerSecWeapons[5];
-                            label14.Text = "Primary Gadget:" + PlayerPrimGadget[5];
-                            label16.Text = "Secondary Gadget:" + PlayerSecGadget[5];
-                            CountPlayer = 5;
-                            label5.Visible = true;
-                            timer.Start();
-                        }
-                    }
-                    else if (radioButton11.Checked == true)
-                    {
-                        PlayerID = "30";
-                        if (m.ReadByte($"{GameManager},508,30,0,30,8,1A8,0", "") == 0)
-                        {
-                            label10.Text = "CurrentPlayer:Empty";
-                            label8.Text = "Primary Weapon:Empty";
-                            label13.Text = "Secondary Weapon:Empty";
-                            label14.Text = "Primary Gadget:Empty";
-                            label16.Text = "Secondary Gadget:Empty";
-                        }
-                        else
-                        {
-                            label10.Text = "CurrentPlayer:" + m.ReadString($"{GameManager},508,30,0,30,8,1A8,0", "", 15);
-                            label8.Text = "Primary Weapon:" + PlayerPrimWeapons[6];
-                            label13.Text = "Secondary Weapon:" + PlayerSecWeapons[6];
-                            label14.Text = "Primary Gadget:" + PlayerPrimGadget[6];
-                            label16.Text = "Secondary Gadget:" + PlayerSecGadget[6];
-                            CountPlayer = 6;
-                            label5.Visible = true;
-                            timer.Start();
-                        }
-                    }
-                    else if (radioButton12.Checked == true)
-                    {
-                        PlayerID = "38";
-                        if (m.ReadByte($"{GameManager},508,38,0,30,8,1A8,0", "") == 0)
-                        {
-                            label10.Text = "CurrentPlayer:Empty";
-                            label8.Text = "Primary Weapon:Empty";
-                            label13.Text = "Secondary Weapon:Empty";
-                            label14.Text = "Primary Gadget:Empty";
-                            label16.Text = "Secondary Gadget:Empty";
-                        }
-                        else
-                        {
-                            label10.Text = "CurrentPlayer:" + m.ReadString($"{GameManager},508,38,0,30,8,1A8,0", "", 15);
-                            label8.Text = "Primary Weapon:" + PlayerPrimWeapons[7];
-                            label13.Text = "Secondary Weapon:" + PlayerSecWeapons[7];
-                            label14.Text = "Primary Gadget:" + PlayerPrimGadget[7];
-                            label16.Text = "Secondary Gadget:" + PlayerSecGadget[7];
-                            CountPlayer = 7;
-                            label5.Visible = true;
-                            timer.Start();
-                        }
-                    }
-                    else if (radioButton13.Checked == true)
-                    {
-                        PlayerID = "40";
-                        if (m.ReadByte($"{GameManager},508,40,0,30,8,1A8,0", "") == 0)
-                        {
-                            label10.Text = "CurrentPlayer:Empty";
-                            label8.Text = "Primary Weapon:Empty";
-                            label13.Text = "Secondary Weapon:Empty";
-                            label14.Text = "Primary Gadget:Empty";
-                            label16.Text = "Secondary Gadget:Empty";
-                        }
-                        else
-                        {
-                            label10.Text = "CurrentPlayer:" + m.ReadString($"{GameManager},508,40,0,30,8,1A8,0", "", 15);
-                            label8.Text = "Primary Weapon:" + PlayerPrimWeapons[8];
-                            label13.Text = "Secondary Weapon:" + PlayerSecWeapons[8];
-                            label14.Text = "Primary Gadget:" + PlayerPrimGadget[8];
-                            label16.Text = "Secondary Gadget:" + PlayerSecGadget[8];
-                            CountPlayer = 8;
-                            label5.Visible = true;
-                            timer.Start();
-                        }
-                    }
-                    else if (radioButton14.Checked == true)
-                    {
-                        PlayerID = "48";
-                        if (m.ReadByte($"{GameManager},508,48,0,30,8,1A8,0", "") == 0)
-                        {
-                            label10.Text = "CurrentPlayer:Empty";
-                            label8.Text = "Primary Weapon:Empty";
-                            label13.Text = "Secondary Weapon:Empty";
-                            label14.Text = "Primary Gadget:Empty";
-                            label16.Text = "Secondary Gadget:Empty";
-                        }
-                        else
-                        {
-                            label10.Text = "CurrentPlayer:" + m.ReadString($"{GameManager},508,48,0,30,8,1A8,0", "", 15);
-                            label8.Text = "Primary Weapon:" + PlayerPrimWeapons[9];
-                            label13.Text = "Secondary Weapon:" + PlayerSecWeapons[9];
-                            label14.Text = "Primary Gadget:" + PlayerPrimGadget[9];
-                            label16.Text = "Secondary Gadget:" + PlayerSecGadget[9];
-                            CountPlayer = 9;
-                            label5.Visible = true;
-                            timer.Start();
-                        }
+                        label10.Text = "CurrentPlayer:" + m.ReadString(PlayerBytes[RadioButtonIndex], "", 15);
+                        label8.Text = "Primary Weapon:" + PlayerPrimWeapons[RadioButtonIndex];
+                        label13.Text = "Secondary Weapon:" + PlayerSecWeapons[RadioButtonIndex];
+                        label14.Text = "Primary Gadget:" + PlayerPrimGadget[RadioButtonIndex];
+                        label16.Text = "Secondary Gadget:" + PlayerSecGadget[RadioButtonIndex];
+                        CountPlayer = RadioButtonIndex;
+                        label5.Visible = true;
+                        timer.Start();
                     }
                 }
             }
