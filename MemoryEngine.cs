@@ -120,7 +120,7 @@ namespace R6S_Custom_Game_Tool
         {
             switch (GadgetID)
             {
-                // Weapon dependant gadgets
+                // Weapon dependant gadgets e.g BB shield, or monty shield
                 case "F8":
                 case "118":
                 case "148":
@@ -161,6 +161,8 @@ namespace R6S_Custom_Game_Tool
                 case "290":
                     //Mozzie Pest Launcher
                     m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "63616");
+                    break;
+                default:
                     break;
             }
             m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{GSlotID},{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "int", $"{m.ReadInt($"{NetworkManager},B0,40,A8,D0,1E0,{GadgetID},38,20,190,A0,40,58,20,0,E0,F8,978")}");

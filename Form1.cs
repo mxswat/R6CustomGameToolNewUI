@@ -410,8 +410,6 @@ namespace R6S_Custom_Game_Tool
                         {
                             MemoryEngine.changeWeapon(PlayerID, SlotID, Weapons[i]);
                             // Write moved to MemoryEngine
-                            //m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{SlotID},{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", Weapons[i]);
-                            //m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{SlotID},{LoadoutOffset6},{LoadoutOffset7},40,20,20,0,18", "int", "0");
                             if (SlotID == "10")
                             {
                                 PlayerPrimWeapons[CountPlayer] = treeView1.SelectedNode.Text;
@@ -451,142 +449,31 @@ namespace R6S_Custom_Game_Tool
         {
             try
             {
-                for (int i = 0; i < Gadgets.Length; i++)
+                for (int j = 0; j < 9; j++)
                 {
-                    if (treeView3.SelectedNode.Name == Gadgets[i])
+                    for (int i = 0; i < Gadgets.Length; i++)
                     {
-                        string GadgetID = Gadgets[i];
-                        string WeaponsDependantG = WeaponsDependant[i];
-                        MemoryEngine.changeGadget(PlayerID, GSlotID, GadgetID, WeaponsDependantG);
-                        if (i < 7)
+                        if (treeView3.SelectedNode != null)
                         {
-                            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},10,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", WeaponsDependant[i]);
-                            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{GSlotID},{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "int", $"{m.ReadInt($"{NetworkManager},B0,40,A8,D0,1E0,{Gadgets[i]},38,20,190,A0,40,58,20,0,E0,F8,978")}");
-                            if (GSlotID == "28")
+                            if (treeView3.SelectedNode.Name == Gadgets[i])
                             {
-                                PlayerPrimGadget[CountPlayer] = treeView3.SelectedNode.Text;
-                            }
-                            else
-                            {
-                                PlayerSecGadget[CountPlayer] = treeView3.SelectedNode.Text;
+                                string GadgetID = Gadgets[i];
+                                string WeaponsDependantG = i <= WeaponsDependant.Length ? WeaponsDependant[i] : null;
+                                MemoryEngine.changeGadget(PlayerID, GSlotID, GadgetID, WeaponsDependantG);
+                                // All the gadget switch code moved to MemoryEngine
+                                if (GSlotID == "28")
+                                {
+                                    PlayerPrimGadget[CountPlayer] = treeView3.SelectedNode.Text;
+                                }
+                                else
+                                {
+                                    PlayerSecGadget[CountPlayer] = treeView3.SelectedNode.Text;
+                                }
+                                label5.Visible = true;
+                                timer.Start();
+                                treeView3.SelectedNode = null;
                             }
                         }
-                        if (i == 12)
-                        {
-                            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "54816");//Zofia Launcher
-                            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{GSlotID},{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "int", $"{m.ReadInt($"{NetworkManager},B0,40,A8,D0,1E0,{Gadgets[i]},38,20,190,A0,40,58,20,0,E0,F8,978")}");
-                            if (GSlotID == "28")
-                            {
-                                PlayerPrimGadget[CountPlayer] = treeView3.SelectedNode.Text;
-                            }
-                            else
-                            {
-                                PlayerSecGadget[CountPlayer] = treeView3.SelectedNode.Text;
-                            }
-                        }
-                        else if (i == 13)
-                        {
-                            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "55136");//Hibana Launcher
-                            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{GSlotID},{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "int", $"{m.ReadInt($"{NetworkManager},B0,40,A8,D0,1E0,{Gadgets[i]},38,20,190,A0,40,58,20,0,E0,F8,978")}");
-                            if (GSlotID == "28")
-                            {
-                                PlayerPrimGadget[CountPlayer] = treeView3.SelectedNode.Text;
-                            }
-                            else
-                            {
-                                PlayerSecGadget[CountPlayer] = treeView3.SelectedNode.Text;
-                            }
-                        }
-                        else if (i == 14)
-                        {
-                            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "55616");//BlowTorch
-                            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{GSlotID},{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "int", $"{m.ReadInt($"{NetworkManager},B0,40,A8,D0,1E0,{Gadgets[i]},38,20,190,A0,40,58,20,0,E0,F8,978")}");
-                            if (GSlotID == "28")
-                            {
-                                PlayerPrimGadget[CountPlayer] = treeView3.SelectedNode.Text;
-                            }
-                            else
-                            {
-                                PlayerSecGadget[CountPlayer] = treeView3.SelectedNode.Text;
-                            }
-                        }
-                        else if (i == 15)
-                        {
-                            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "55712");//GaraHook
-                            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{GSlotID},{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "int", $"{m.ReadInt($"{NetworkManager},B0,40,A8,D0,1E0,{Gadgets[i]},38,20,190,A0,40,58,20,0,E0,F8,978")}");
-                            if (GSlotID == "28")
-                            {
-                                PlayerPrimGadget[CountPlayer] = treeView3.SelectedNode.Text;
-                            }
-                            else
-                            {
-                                PlayerSecGadget[CountPlayer] = treeView3.SelectedNode.Text;
-                            }
-                        }
-                        else if (i == 16)
-                        {
-                            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "57472");//Stim Pistol
-                            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{GSlotID},{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "int", $"{m.ReadInt($"{NetworkManager},B0,40,A8,D0,1E0,{Gadgets[i]},38,20,190,A0,40,58,20,0,E0,F8,978")}");
-                            if (GSlotID == "28")
-                            {
-                                PlayerPrimGadget[CountPlayer] = treeView3.SelectedNode.Text;
-                            }
-                            else
-                            {
-                                PlayerSecGadget[CountPlayer] = treeView3.SelectedNode.Text;
-                            }
-                        }
-                        else if (i == 17)
-                        {
-                            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "58848");//Capitao Crossbow
-                            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{GSlotID},{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "int", $"{m.ReadInt($"{NetworkManager},B0,40,A8,D0,1E0,{Gadgets[i]},38,20,190,A0,40,58,20,0,E0,F8,978")}");
-                            if (GSlotID == "28")
-                            {
-                                PlayerPrimGadget[CountPlayer] = treeView3.SelectedNode.Text;
-                            }
-                            else
-                            {
-                                PlayerSecGadget[CountPlayer] = treeView3.SelectedNode.Text;
-                            }
-                        }
-                        else if (i == 18)
-                        {
-                            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "59328");//Ash Launcher
-                            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{GSlotID},{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "int", $"{m.ReadInt($"{NetworkManager},B0,40,A8,D0,1E0,{Gadgets[i]},38,20,190,A0,40,58,20,0,E0,F8,978")}");
-                            if (GSlotID == "28")
-                            {
-                                PlayerPrimGadget[CountPlayer] = treeView3.SelectedNode.Text;
-                            }
-                            else
-                            {
-                                PlayerSecGadget[CountPlayer] = treeView3.SelectedNode.Text;
-                            }
-                        }
-                        else if (i == 19)
-                        {
-                            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "63616");//Mozzie Pest Launcher
-                            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{GSlotID},{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "int", $"{m.ReadInt($"{NetworkManager},B0,40,A8,D0,1E0,{Gadgets[i]},38,20,190,A0,40,58,20,0,E0,F8,978")}");
-                            if (GSlotID == "28")
-                            {
-                                PlayerPrimGadget[CountPlayer] = treeView3.SelectedNode.Text;
-                            }
-                            else
-                            {
-                                PlayerSecGadget[CountPlayer] = treeView3.SelectedNode.Text;
-                            }
-                        }
-                        m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{GSlotID},{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "int", $"{m.ReadInt($"{NetworkManager},B0,40,A8,D0,1E0,{Gadgets[i]},38,20,190,A0,40,58,20,0,E0,F8,978")}");
-                        if (GSlotID == "28")
-                        {
-                            PlayerPrimGadget[CountPlayer] = treeView3.SelectedNode.Text;
-                        }
-                        else
-                        {
-                            PlayerSecGadget[CountPlayer] = treeView3.SelectedNode.Text;
-                        }
-                        label5.Visible = true;
-                        timer.Start();
-                        treeView3.SelectedNode = null;
                     }
                 }
             }
