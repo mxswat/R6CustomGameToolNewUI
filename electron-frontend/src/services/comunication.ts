@@ -39,6 +39,4 @@ class ComunicationService {
   }
 }
 
-const ComunicationServiceInst = new ComunicationService();
-
-export default ComunicationServiceInst;
+export default ComunicationService;
