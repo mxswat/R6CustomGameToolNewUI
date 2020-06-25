@@ -208,8 +208,7 @@ namespace R6S_Custom_Game_Tool
                         {
                             if (treeView1.SelectedNode.Name == $"{i}")
                             {
-                                m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayersID[j]},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{SlotID},{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", Weapons[i]);
-                                m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayersID[j]},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{SlotID},{LoadoutOffset6},{LoadoutOffset7},40,20,20,0,18", "int", "0");
+                                MemoryEngine.changeWeapon(PlayersID[j], SlotID, Weapons[i]);
                                 if (SlotID == "10")
                                 {
                                     PlayerPrimWeapons[j] = treeView1.SelectedNode.Text;
@@ -224,7 +223,7 @@ namespace R6S_Custom_Game_Tool
                             }
                             else if (treeView1.SelectedNode.Name == "114")
                             {
-                                m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayersID[j]},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{SlotID},{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "int", "0");
+                                MemoryEngine.giveHands(PlayersID[j], SlotID);
                                 if (SlotID == "10")
                                 {
                                     PlayerPrimWeapons[j] = "None";
@@ -389,7 +388,7 @@ namespace R6S_Custom_Game_Tool
                         else if (treeView1.SelectedNode.Name == "114")
                         {
                             // MX:TODO: Do it later
-                            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{SlotID},{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "int", "0");
+                            MemoryEngine.giveHands(PlayerID, SlotID);
                             if (SlotID == "10")
                             {
                                 PlayerPrimWeapons[CountPlayer] = "None";

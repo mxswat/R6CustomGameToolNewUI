@@ -116,6 +116,11 @@ namespace R6S_Custom_Game_Tool
             m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{SlotID},{LoadoutOffset6},{LoadoutOffset7},40,20,20,0,18", "int", "0");
         }
 
+        public void giveHands(string PlayerID, string SlotID)
+        {
+            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{SlotID},{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "int", "0");
+        }
+
         public void randomizeAll()
         {
             Random random = new Random();
