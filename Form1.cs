@@ -66,32 +66,8 @@ namespace R6S_Custom_Game_Tool
                 label9.Text = "Battleye:Off";
             }
             MemoryEngine.startMemEngine();
-            try
-            {
-                int iProcID = m.GetProcIdFromName("RainbowSix_Vulkan");
-                GameManager = "RainbowSix_Vulkan.exe+0x6713ED8";
-                RoundManager = "RainbowSix_Vulkan.exe+0x68E2CF0";
-                NetworkManager = "RainbowSix_Vulkan.exe+0x6923130";
-                label3.Text = "Vulkan";
-
-                if (iProcID == 0)
-                {
-                    iProcID = m.GetProcIdFromName("RainbowSix");
-                    GameManager = "RainbowSix.exe+0x6713ED8";
-                    RoundManager = "RainbowSix.exe+0x6CA0848";
-                    NetworkManager = "RainbowSix.exe+0x68E2CF0";
-                    label3.Text = "DirectX";
-                }
-
-                if (iProcID > 0)
-                {
-                    m.OpenProcess(iProcID);
-                    label4.Text = "Active";
-                    label4.ForeColor = Color.Green;
-                    timer.Start();
-                }
-            }
-            catch (Exception) { timer.Start(); }
+            // OpenProcess moved to MemoryEngine.startMemEngine();
+            timer.Start();
         }
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)
