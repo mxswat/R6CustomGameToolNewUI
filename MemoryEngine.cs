@@ -47,7 +47,7 @@ namespace R6S_Custom_Game_Tool
 
         }
 
-        public void startMemEngine()
+        public EngineStartData startMemEngine()
         {
             var IsRunning = "";
             try
@@ -75,11 +75,13 @@ namespace R6S_Custom_Game_Tool
                     //timer.Start();
                     messageService.sendStringMessage("R6SCGT_IsRunning", IsRunning);
                 }
+                return new EngineStartData(m, GameManager, RoundManager, NetworkManager);
             }
             catch (Exception)
             {
                 /*timer.Start();*/
                 messageService.sendStringMessage("R6SCGT_IsRunning", "Error!");
+                return null;
             }
         }
 
@@ -193,6 +195,22 @@ namespace R6S_Custom_Game_Tool
                     break;
             }
             m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{GSlotID},{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "int", $"{m.ReadInt($"{NetworkManager},B0,40,A8,D0,1E0,{GadgetID},38,20,190,A0,40,58,20,0,E0,F8,978")}");
+        }
+    }
+
+    class EngineStartData
+    {
+        public Mem Mem;
+        public string GameManager;
+        public string RoundManager;
+        public string NetworkManager;
+
+        public EngineStartData(Mem mem, string gameManager, string roundManager, string networkManager)
+        {
+            Mem = mem;
+            GameManager = gameManager;
+            RoundManager = roundManager;
+            NetworkManager = networkManager;
         }
     }
 }

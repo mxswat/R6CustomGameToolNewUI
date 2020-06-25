@@ -68,6 +68,13 @@ export default class Home extends Vue {}
   border-radius: 13px;
 }
 
+.link-btt {
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
 .buttonsub {
   font-size: 13px;
   text-transform: uppercase;
