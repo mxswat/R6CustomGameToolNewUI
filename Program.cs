@@ -14,7 +14,7 @@ namespace R6S_Custom_Game_Tool
         [STAThread]
         static void Main()
         {
-            //new MemoryEngine();
+            new MemoryEngine();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());

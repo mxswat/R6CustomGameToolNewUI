@@ -18,22 +18,26 @@ namespace R6S_Custom_Game_Tool
         private MessageService messageService = MessageService.GetInstance();
         public MemoryEngine()
         {
-            //CheckForIllegalCrossThreadCalls = false;
+            
+        }
+
+        public bool CheckBattleEyeStatus()
+        {
+            var battleEyeStatus = true;
             try
             {
                 var srv = new ServiceController("BEService");
-                var battleEyeStatus = "On";
-                //label9.Text = "Battleye:On";
                 if (srv.Status != ServiceControllerStatus.Running)
                 {
                     //label9.Text = "Battleye:Off";
-                    battleEyeStatus = "Off";
+                    battleEyeStatus = false;
                 }
-                messageService.sendStringMessage("Battleye", battleEyeStatus);
+                messageService.sendBoolMessage("BattleyeIsRunning", battleEyeStatus);
+                return battleEyeStatus;
             }
-            catch
-            {
-                messageService.sendStringMessage("Battleye", "catch");
+            catch {
+                messageService.sendBoolMessage("BattleyeIsRunning", false);
+                return !battleEyeStatus;
             }
         }
     }

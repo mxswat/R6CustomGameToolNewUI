@@ -18,20 +18,12 @@ class ComunicationService {
       console.log(request);
     })
 
-    this.connection.send('helloC#', 'Hello from Electron', (error, theGreeting) => {
-      if (error) {
-        console.log(error); //serialized exception from the .NET handler
-        return;
-      }
-      console.log(theGreeting); // will print "Hello John!"
-    });
-
     this.connection.onDisconnect = () => {
       console.log('Lost connection to the .Net process');
     };
 
-    this.connection.on('Battleye', (request) => {
-      console.log(`Battleye: ${request}`);
+    this.connection.on('BattleyeIsRunning', (request) => {
+      console.log(`BattleyeIsRunning: ${request}`);
     })
 
     // this.connection.close();

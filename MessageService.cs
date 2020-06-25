@@ -6,7 +6,8 @@
 
     class MessageService
     {
-        private MessageService() {
+        private MessageService()
+        {
             this.connection = new ConnectionBuilder()
                 .WithLogging()
                 .Build();
@@ -28,9 +29,12 @@
 
         public void sendStringMessage(string type, string message)
         {
-            _instance.connection.Send("helloElectron", "hello electron from sendStringMessage");
-            _instance.connection.Send(type, message);
+            this.connection.Send(type, message);
         }
 
+        public void sendBoolMessage(string type, Boolean message)
+        {
+            this.connection.Send(type, message);
+        }
     }
 }
