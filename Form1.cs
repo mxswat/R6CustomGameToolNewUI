@@ -59,7 +59,12 @@ namespace R6S_Custom_Game_Tool
         private void Form1_Load(object sender, EventArgs e)
         {
             CheckForIllegalCrossThreadCalls = false;
-            MemoryEngine.CheckBattleEyeStatus();
+            bool isBattleEyeRunning = MemoryEngine.CheckBattleEyeStatus();
+            label9.Text = "Battleye:On";
+            if (!isBattleEyeRunning)
+            {
+                label9.Text = "Battleye:Off";
+            }
             try
             {
                 int iProcID = m.GetProcIdFromName("RainbowSix_Vulkan");

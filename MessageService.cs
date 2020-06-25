@@ -32,7 +32,7 @@
             this.connection.Send(type, message);
         }
 
-        public void sendBoolMessage(string type, Boolean message)
+        public void sendBoolMessage(string type, bool message)
         {
             this.connection.Send(type, message);
         }
