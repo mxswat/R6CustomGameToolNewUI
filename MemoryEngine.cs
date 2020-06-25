@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Memory;
+using System.Threading;
+using System.ServiceProcess;
+
+namespace R6S_Custom_Game_Tool
+{
+    internal class MemoryEngine
+    {
+        private MessageService messageService = MessageService.GetInstance();
+        public MemoryEngine()
+        {
+            //CheckForIllegalCrossThreadCalls = false;
+            try
+            {
+                var srv = new ServiceController("BEService");
+                var battleEyeStatus = "On";
+                //label9.Text = "Battleye:On";
+                if (srv.Status != ServiceControllerStatus.Running)
+                {
+                    //label9.Text = "Battleye:Off";
+                    battleEyeStatus = "Off";
+                }
+                messageService.sendStringMessage("Battleye", battleEyeStatus);
+            }
+            catch
+            {
+                messageService.sendStringMessage("Battleye", "catch");
+            }
+        }
+    }
+}

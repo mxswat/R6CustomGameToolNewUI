@@ -2,33 +2,35 @@
 {
     using ElectronCgi.DotNet;
     using System;
+    using System.Threading.Tasks;
 
-    internal class MessageService
+    class MessageService
     {
-        private Connection connection;
-        public MessageService()
-        {
+        private MessageService() {
             this.connection = new ConnectionBuilder()
-                        .WithLogging()
-                        .Build();
-
-            // expects a request named "greeting" with a string argument and returns a string
-            // connection.On("greeting", (string name) =>
-            // {
-            //     Console.WriteLine($"Hello {name}!");
-            // });
-
+                .WithLogging()
+                .Build();
             this.connection.Send("helloElectron", "hello electron from c#");
+            Task.Run(() => this.connection.Listen());
+        }
+        private Connection connection;
 
-            //connection.Send()
+        private static MessageService _instance;
 
-            // wait for incoming requests
-            this.connection.Listen();
+        public static MessageService GetInstance()
+        {
+            if (_instance == null)
+            {
+                _instance = new MessageService();
+            }
+            return _instance;
         }
 
         public void sendStringMessage(string type, string message)
         {
-            this.connection.Send(type, message);
+            _instance.connection.Send("helloElectron", "hello electron from sendStringMessage");
+            _instance.connection.Send(type, message);
         }
+
     }
 }

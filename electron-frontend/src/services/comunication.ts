@@ -30,7 +30,12 @@ class ComunicationService {
       console.log('Lost connection to the .Net process');
     };
 
-    this.connection.close();
+    this.connection.on('Battleye', (request) => {
+      console.log(`Battleye: ${request}`);
+    })
+
+    // this.connection.close();
+    // this.connection.send('closed', 'closed');
   }
 }
 
