@@ -408,9 +408,10 @@ namespace R6S_Custom_Game_Tool
                     {
                         if (treeView1.SelectedNode.Name == $"{i}")
                         {
-
-                            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{SlotID},{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", Weapons[i]);
-                            m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{SlotID},{LoadoutOffset6},{LoadoutOffset7},40,20,20,0,18", "int", "0");
+                            MemoryEngine.changeWeapon(PlayerID, SlotID, Weapons[i]);
+                            // Write moved to MemoryEngine
+                            //m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{SlotID},{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", Weapons[i]);
+                            //m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{SlotID},{LoadoutOffset6},{LoadoutOffset7},40,20,20,0,18", "int", "0");
                             if (SlotID == "10")
                             {
                                 PlayerPrimWeapons[CountPlayer] = treeView1.SelectedNode.Text;
@@ -423,9 +424,10 @@ namespace R6S_Custom_Game_Tool
                             timer.Start();
                             treeView1.SelectedNode = null;
                         }
+                        // Hands
                         else if (treeView1.SelectedNode.Name == "114")
                         {
-
+                            // MX:TODO: Do it later
                             m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{SlotID},{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "int", "0");
                             if (SlotID == "10")
                             {
