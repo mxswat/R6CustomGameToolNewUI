@@ -94,7 +94,18 @@ if (isDevelopment) {
 }
 
 import { ipcMain } from "electron";
+import { exec } from 'child_process';
+
 ipcMain.on('start-tool', (event, arg) => {
-  console.log('start-tool-main')
-  // event.reply('asynchronous-reply', 'pong')
+  ComunicationServiceInst.startToolConnection();
+})
+ipcMain.on('close-tool', (event, arg) => {
+  ComunicationServiceInst.closeToolConnection();
+  console.log('closed')
+  // Kills a process based on filename of the exe and all child processes
+  exec(`taskkill /im "R6S Custom Game Tool.exe" /t`, (err: any) => {
+    if (err) {
+      throw err
+    }
+  })
 })

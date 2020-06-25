@@ -2,9 +2,16 @@ import { ConnectionBuilder, Connection } from 'electron-cgi'
 import { logger, logColors } from './logger';
 
 class ComunicationService {
-  private connection: Connection;
+  private connection: Connection = null as any;
 
   constructor() {
+    // Notthing do do here
+  }
+
+  /**
+   * startToolConnection
+   */
+  public startToolConnection() {
     logger.log('Connecting to R6S Custom Game Tool.exe!', logColors.Green);
     const pathToTool = process.env.NODE_ENV !== 'production'
       ? 'D:/MxRepos/R6S_Custom_Game_Tool/R6S Custom Game Tool/bin/x64/Release/R6S Custom Game Tool.exe'
@@ -34,9 +41,14 @@ class ComunicationService {
       console.log(`PlayerUpdated: ${request}`);
     })
 
-    // this.connection.close();
     // this.connection.send('closed', 'closed');
+  }
+
+  closeToolConnection() {
+    this.connection.close();
   }
 }
 
-export default ComunicationService;
+const ComunicationServiceInst = new ComunicationService();
+
+export default ComunicationServiceInst;
