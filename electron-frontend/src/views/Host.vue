@@ -5,9 +5,14 @@
     </div>
     <div class="container">
       <div class="players">
-        <span></span>
+        <span class="player" v-for="(player, index) in players" :key="player.username">
+          <input v-model="selectedPlayer" type="radio" :id="'player-' + index" name="player" :value="index" />
+          <label :for="'player-' + index">{{player.username}}</label>
+        </span>
       </div>
-      <div class="weapons"></div>
+      <div class="weapons">
+        {{selectedPlayer}}
+      </div>
       <div class="gadgets"></div>
     </div>
   </div>
@@ -19,7 +24,18 @@ import { startTool } from "../services/ipcfront";
 
 @Component({
   components: {},
+  data() {
+    return {
+      selectedPlayer: null,
+      players: []
+    };
+  },
   created() {
+    for (let i = 0; i < 10; i++) {
+      this.players.push({
+        username: "Player " + (i + 1)
+      });
+    }
     startTool();
   }
 })
@@ -33,6 +49,5 @@ export default class Host extends Vue {}
 }
 
 .container {
-
 }
 </style>
