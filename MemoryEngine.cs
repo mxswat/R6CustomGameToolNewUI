@@ -116,6 +116,28 @@ namespace R6S_Custom_Game_Tool
             m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},{SlotID},{LoadoutOffset6},{LoadoutOffset7},40,20,20,0,18", "int", "0");
         }
 
+        public void randomizeAll()
+        {
+            Random random = new Random();
+            string[] GadgetsNoLaunchers = { "D8", "158", "230", "270", "278", "E8", "170", "190", "1E0", "1E8", "210", "220", "228", "288", "258", "268", "120", "140", "150", "1D8", "160", "188", "1A0", "298", "218", "1F0", "238", "240", "128", "208", "110", "130", "1B0", "280", "180", "200", "250" };
+            string[] WeaponsP = { "63840", "63808", "59456", "59584", "60768", "61632", "57184", "58752", "59296", "57408", "58016", "57984", "58592", "54752", "56128", "59008", "55200", "60320", "60384", "55936", "54880", "55552", "54624", "59776", "54656", "59136", "63648", "58784", "57952", "58944", "54944", "62560", "59104", "57120", "56960", "58624", "56064", "61120", "55584", "62208", "56608", "60576", "39712", "58112", "58304", "60000", "60032", "56288", "56864", "57824", "60928", "62912", "55168", "58368", "56672", "57312", "62784", "61088", "61024", "60128", "59680", "63680", "57760", "58240", "60064", "56224", "57440", "56736", "55008", "55328", "58464", "58496", "55968", "56352", "57280", "61056", "60224", "63072", "59168", "56576", "59488", "59552", "59968", "57504", "62400", "62304", "57344", "58560", "56416", "60864", "58912", "63040", "63328", "58144", "57248", "60160", "60192", "55488", "57856", "59840", "63552" };
+            string[] WeaponsS = { "63840", "63808", "59456", "59584", "60768", "61632", "57184", "58752", "59296", "57408", "58016", "57984", "58592", "54752", "56128", "59008", "55200", "60320", "60384", "55936", "54880", "55552", "54624", "59776", "54656", "59136", "63648", "58784", "57952", "58944", "54944", "62560", "59104", "57120", "56960", "58624", "56064", "61120", "55584", "62208", "56608", "60576", "39712", "58112", "58304", "60000", "60032", "56288", "56864", "57824", "60928", "62912", "55168", "58368", "56672", "57312", "62784", "61088", "61024", "60128", "59680", "63680", "57760", "58240", "60064", "56224", "57440", "56736", "55008", "55328", "58464", "58496", "55968", "56352", "57280", "61056", "60224", "63072", "59168", "56576", "59488", "59552", "59968", "57504", "62400", "62304", "57344", "58560", "56416", "60864", "58912", "63040", "63328", "58144", "57248", "60160", "60192", "55488", "57856", "59840" };
+            try
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    // To lazy to Replace this lines with the actuall functions
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayersID[j]},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},28,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "int", $"{m.ReadInt($"{NetworkManager},B0,40,A8,D0,1E0,{GadgetsNoLaunchers[random.Next(GadgetsNoLaunchers.Length)]},38,20,190,A0,40,58,20,0,E0,F8,978")}");
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayersID[j]},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},38,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "int", $"{m.ReadInt($"{NetworkManager},B0,40,A8,D0,1E0,{GadgetsNoLaunchers[random.Next(GadgetsNoLaunchers.Length)]},38,20,190,A0,40,58,20,0,E0,F8,978")}");
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayersID[j]},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},10,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", $"{WeaponsP[random.Next(WeaponsP.Length)]}");
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayersID[j]},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},10,{LoadoutOffset6},{LoadoutOffset7},40,20,20,0,18", "int", "0");
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayersID[j]},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},18,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", $"{WeaponsS[random.Next(WeaponsS.Length)]}");
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayersID[j]},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},18,{LoadoutOffset6},{LoadoutOffset7},40,20,20,0,18", "int", "0");
+                }
+            }
+            catch (Exception) {; }
+        }
+
         public void changeGadget(string PlayerID, string GSlotID, string GadgetID, string WeaponsDependantG)
         {
             switch (GadgetID)
