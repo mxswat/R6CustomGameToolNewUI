@@ -30,7 +30,8 @@
                 v-for="gunCategory in gunslibrary"
                 v-bind:key="gunCategory.name"
               >
-                {{gunCategory.name}}
+                <input class="css-dropdown" :id="'check'+ gunCategory.name" type="checkbox" name="menu" />
+                <label class="css-dropdown" :for="'check'+ gunCategory.name">{{gunCategory.name}}</label>
                 <div
                   class="nodes"
                   v-for="gun in gunCategory.children"
@@ -181,6 +182,17 @@ input[type="radio"]:checked + label {
 }
 
 // LIST COMMON CODE
+.nodes {
+  display: none;
+}
+
+input.css-dropdown {
+  display: none;
+  &:checked~div.nodes{
+    display: block;
+  }
+}
+
 .list-inner {
   overflow: auto;
 }
