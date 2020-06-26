@@ -144,9 +144,10 @@ namespace R6S_Custom_Game_Tool
             for (int i = PlayerRadioButtons.Length - 1; i >= 0; i--)
             {
                 // Set player radio text to his ingame name
+                string playerIGN = "";
                 try
                 {
-                    string playerIGN = m.ReadString(PlayerBytes[i], "", 15);
+                    playerIGN = m.ReadString(PlayerBytes[i], "", 15);
                     PlayerRadioButtons[i].Text = playerIGN != "" ? playerIGN : PlayerRadioButtons[i].Text;
                 }
                 catch (Exception)
@@ -154,23 +155,21 @@ namespace R6S_Custom_Game_Tool
                     // No throw, I don't want to block the tool
                     // I'm aware that in some cases it can't get the fith player
                 }
-                
+
+                string PrimaryWeaponName = PlayerPrimWeapons[i];
+                string SecondaryWeaponName = PlayerSecWeapons[i];
+                string PrimaryGadgetName = PlayerPrimGadget[i];
+                string SecondaryGadgetName = PlayerSecGadget[i];
+
                 if (RadioButtonIndex == i && m.ReadByte(PlayerBytes[RadioButtonIndex], "") != 0)
                 {
                     label10.Text = "CurrentPlayer:" + m.ReadString(PlayerBytes[RadioButtonIndex], "", 15);
-                    label8.Text = "Primary Weapon:" + PlayerPrimWeapons[RadioButtonIndex];
-                    label13.Text = "Secondary Weapon:" + PlayerSecWeapons[RadioButtonIndex];
-                    label14.Text = "Primary Gadget:" + PlayerPrimGadget[RadioButtonIndex];
-                    label16.Text = "Secondary Gadget:" + PlayerSecGadget[RadioButtonIndex];
+                    label8.Text = "Primary Weapon:" + PrimaryWeaponName;
+                    label13.Text = "Secondary Weapon:" + SecondaryWeaponName;
+                    label14.Text = "Primary Gadget:" + PrimaryGadgetName;
+                    label16.Text = "Secondary Gadget:" + SecondaryGadgetName;
                     CountPlayer = RadioButtonIndex;
                     label5.Visible = true;
-                    messageService.sendObjectMessage("PlayerUpdated", new
-                    {
-                        PrimaryWeapon = label8.Text,
-                        SecondaryWeapon = label13.Text,
-                        PrimaryGadget = label14.Text,
-                        SecondaryGadget = label16.Text,
-                    });
                 }
                 else
                 {
@@ -181,7 +180,14 @@ namespace R6S_Custom_Game_Tool
                     label14.Text = "Primary Gadget:Empty";
                     label16.Text = "Secondary Gadget:Empty";
                 }
-
+                messageService.sendObjectMessage("PlayerUpdated", new
+                {
+                    Name = playerIGN != "" ? playerIGN : null,
+                    PrimaryWeapon = PrimaryWeaponName,
+                    SecondaryWeapon = SecondaryWeaponName,
+                    PrimaryGadget = PrimaryGadgetName,
+                    SecondaryGadget = SecondaryGadgetName,
+                });
             }
             timer.Start();
             if (label5.Visible)
