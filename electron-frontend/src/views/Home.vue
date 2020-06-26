@@ -5,11 +5,11 @@
     <div class="links">
       <router-link to="/host" class="host underline-from-left">Mod a custom game</router-link>
       <br />
-      <span class="buttonsub">Mod you custom game or your THUNT</span>
+      <span class="buttonsub">Mod your custom game or THUNT</span>
     </div>
     <div class="links">
       <router-link to="/join" class="join">
-        Join a custom game
+        Join a modded game
         <br />
         <span class="buttonsub">custom loadout as client coming soon</span>
       </router-link>

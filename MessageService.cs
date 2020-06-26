@@ -40,8 +40,7 @@
 
         public void sendObjectMessage(string type, Object message)
         {
-            var jsonString = JsonConvert.SerializeObject(message);
-            this.connection.Send(type, jsonString);
+            this.connection.Send(type, message);
         }
     }
 }

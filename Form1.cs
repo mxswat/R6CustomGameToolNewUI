@@ -182,6 +182,7 @@ namespace R6S_Custom_Game_Tool
                 }
                 messageService.sendObjectMessage("PlayerUpdated", new
                 {
+                    Index = i,
                     Name = playerIGN != "" ? playerIGN : null,
                     PrimaryWeapon = PrimaryWeaponName,
                     SecondaryWeapon = SecondaryWeaponName,
