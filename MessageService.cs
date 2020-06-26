@@ -38,6 +38,9 @@
             this.connection.Send(type, message);
         }
 
+        /// <summary>
+        /// REMINDER! When Object are sent to Electron the proprierty names have the first letter as LOWERCASE!!!!
+        /// </summary>
         public void sendObjectMessage(string type, Object message)
         {
             this.connection.Send(type, message);
