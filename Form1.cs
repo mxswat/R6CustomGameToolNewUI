@@ -91,22 +91,12 @@ namespace R6S_Custom_Game_Tool
             }
         }
 
+        /// <summary>
+        ///    This function cares about updating the C# and Electron UI with the current player Data
+        /// </summary>
         private void timer_Tick(object sender, EventArgs e)
         {
             // 65% Code lengh reduced from the first version 258 line to 90 lines
-            bool[] PlayerRadioButtonsChecked = new bool[] {
-                radioButton6.Checked,
-                radioButton5.Checked,
-                radioButton7.Checked,
-                radioButton8.Checked,
-                radioButton9.Checked,
-                radioButton10.Checked,
-                radioButton11.Checked,
-                radioButton12.Checked,
-                radioButton13.Checked,
-                radioButton14.Checked
-            };
-
             string[] PlayerBytes = new string[]
             {
                 $"{GameManager},508,0,0,30,8,1A8,0",
@@ -135,38 +125,65 @@ namespace R6S_Custom_Game_Tool
                 "48"
             };
 
-            //// Loop 9 times? why?
-            //for (int i = 0; i < 9; i++)
-            //{
-            int RadioButtonIndex = Array.FindIndex(PlayerRadioButtonsChecked, item => item == true);
-            PlayerID = PlayerIDs[RadioButtonIndex];
-            if (m.ReadByte(PlayerBytes[RadioButtonIndex], "") == 0)
+            RadioButton[] PlayerRadioButtons = new RadioButton[]
             {
-                label10.Text = "CurrentPlayer:Empty";
-                label8.Text = "Primary Weapon:Empty";
-                label13.Text = "Secondary Weapon:Empty";
-                label14.Text = "Primary Gadget:Empty";
-                label16.Text = "Secondary Gadget:Empty";
-            }
-            else
+                radioButton6,  // Player 1
+                radioButton5, // Player 2
+                radioButton7, // Player 3
+                radioButton8, // Player 4
+                radioButton9, // Player 5
+                radioButton10, // Player 6
+                radioButton11, // Player 7
+                radioButton12, // Player 8
+                radioButton13, // Player 9
+                radioButton14, // Player 10
+            };
+
+            int RadioButtonIndex = Array.FindIndex(PlayerRadioButtons, item => item.Checked == true);
+            // Players Radio button text
+            for (int i = PlayerRadioButtons.Length - 1; i >= 0; i--)
             {
-                label10.Text = "CurrentPlayer:" + m.ReadString(PlayerBytes[RadioButtonIndex], "", 15);
-                label8.Text = "Primary Weapon:" + PlayerPrimWeapons[RadioButtonIndex];
-                label13.Text = "Secondary Weapon:" + PlayerSecWeapons[RadioButtonIndex];
-                label14.Text = "Primary Gadget:" + PlayerPrimGadget[RadioButtonIndex];
-                label16.Text = "Secondary Gadget:" + PlayerSecGadget[RadioButtonIndex];
-                CountPlayer = RadioButtonIndex;
-                label5.Visible = true;
-                messageService.sendObjectMessage("PlayerUpdated", new
+                // Set player radio text to his ingame name
+                try
                 {
-                    PrimaryWeapon = label8.Text,
-                    SecondaryWeapon = label13.Text,
-                    PrimaryGadget = label14.Text,
-                    SecondaryGadget = label16.Text,
-                });
-                timer.Start();
+                    string playerIGN = m.ReadString(PlayerBytes[i], "", 15);
+                    PlayerRadioButtons[i].Text = playerIGN != "" ? playerIGN : PlayerRadioButtons[i].Text;
+                }
+                catch (Exception)
+                {
+                    // No throw, I don't want to block the tool
+                    // I'm aware that in some cases it can't get the fith player
+                }
+                
+                if (RadioButtonIndex == i && m.ReadByte(PlayerBytes[RadioButtonIndex], "") != 0)
+                {
+                    label10.Text = "CurrentPlayer:" + m.ReadString(PlayerBytes[RadioButtonIndex], "", 15);
+                    label8.Text = "Primary Weapon:" + PlayerPrimWeapons[RadioButtonIndex];
+                    label13.Text = "Secondary Weapon:" + PlayerSecWeapons[RadioButtonIndex];
+                    label14.Text = "Primary Gadget:" + PlayerPrimGadget[RadioButtonIndex];
+                    label16.Text = "Secondary Gadget:" + PlayerSecGadget[RadioButtonIndex];
+                    CountPlayer = RadioButtonIndex;
+                    label5.Visible = true;
+                    messageService.sendObjectMessage("PlayerUpdated", new
+                    {
+                        PrimaryWeapon = label8.Text,
+                        SecondaryWeapon = label13.Text,
+                        PrimaryGadget = label14.Text,
+                        SecondaryGadget = label16.Text,
+                    });
+                }
+                else
+                {
+                    PlayerID = PlayerIDs[RadioButtonIndex];
+                    label10.Text = "CurrentPlayer:Empty";
+                    label8.Text = "Primary Weapon:Empty";
+                    label13.Text = "Secondary Weapon:Empty";
+                    label14.Text = "Primary Gadget:Empty";
+                    label16.Text = "Secondary Gadget:Empty";
+                }
+
             }
-            //}
+            timer.Start();
             if (label5.Visible)
             {
                 label5.Visible = false;
@@ -254,22 +271,11 @@ namespace R6S_Custom_Game_Tool
             System.Diagnostics.Process.Start("https://discord.gg/u7PBEr7");
         }
 
+        /// <summary>
+        ///    This function cares about updating the player Names for C# and Electron and on C# in particular also the right side of the UI
+        /// </summary>
         private void timer1_Tick(object sender, EventArgs e)
         {
-            try
-            {
-                radioButton6.Text = m.ReadString($"{GameManager},508,0,0,30,8,1A8,0", "", 15);
-                radioButton5.Text = m.ReadString($"{GameManager},508,8,0,30,8,1A8,0", "", 15);
-                radioButton7.Text = m.ReadString($"{GameManager},508,10,0,30,8,1A8,0", "", 15);
-                radioButton8.Text = m.ReadString($"{GameManager},508,18,0,30,8,1A8,0", "", 15);
-                radioButton9.Text = m.ReadString($"{GameManager},508,20,0,30,8,1A8,0", "", 15);
-                radioButton10.Text = m.ReadString($"{GameManager},508,28,0,30,8,1A8,0", "", 15);
-                radioButton11.Text = m.ReadString($"{GameManager},508,30,0,30,8,1A8,0", "", 15);
-                radioButton12.Text = m.ReadString($"{GameManager},508,38,0,30,8,1A8,0", "", 15);
-                radioButton13.Text = m.ReadString($"{GameManager},508,40,0,30,8,1A8,0", "", 15);
-                radioButton14.Text = m.ReadString($"{GameManager},508,48,0,30,8,1A8,0", "", 15);
-            }
-            catch {; }
             try
             {
                 if (textBox1.Focused == false)
