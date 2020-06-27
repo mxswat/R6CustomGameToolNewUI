@@ -111,19 +111,7 @@ namespace R6S_Custom_Game_Tool
                 $"{GameManager},508,48,0,30,8,1A8,0"
             };
 
-            string[] PlayerIDs = new string[]
-            {
-                "0",
-                "8",
-                "10",
-                "18",
-                "20",
-                "28",
-                "30",
-                "38",
-                "40",
-                "48"
-            };
+
 
             RadioButton[] PlayerRadioButtons = new RadioButton[]
             {
@@ -173,7 +161,7 @@ namespace R6S_Custom_Game_Tool
                 }
                 else
                 {
-                    PlayerID = PlayerIDs[RadioButtonIndex];
+                    PlayerID = MemoryEngine.PlayerIDs[RadioButtonIndex];
                     label10.Text = "CurrentPlayer:Empty";
                     label8.Text = "Primary Weapon:Empty";
                     label13.Text = "Secondary Weapon:Empty";

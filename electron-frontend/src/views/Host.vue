@@ -51,7 +51,7 @@
                       name="primary"
                       :value="gun.index"
                     />
-                    <label class="label primary" :for="'primary-' + gun.index" data-title="Set as Primary weapon">P</label>
+                    <label class="label primary" :for="'primary-' + gun.index" data-title="Set as Primary weapon" @click="changeWeapon(0, gun.index, selectedPlayer)">P</label>
                     <input
                       class="radio secondary"
                       type="radio"
@@ -81,7 +81,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { startTool, PlayerUpdated$ } from "../services/ipcfront";
+import { startTool, PlayerUpdated$, changeWeapon } from "../services/ipcfront";
 import { Subscription } from "rxjs";
 import animationTabs from "../defaults/hosttabs";
 import GUNS from "../defaults/guns";
@@ -107,7 +107,7 @@ export default class Host extends Vue {
         username: "Player " + (i + 1)
       });
     }
-    // startTool();
+    startTool();
     this.gunslibrary = GUNS;
     this.subscribeToSubjects();
   }
@@ -129,6 +129,10 @@ export default class Host extends Vue {
   }
   beforeDestroy() {
     this.subscriptions.forEach(x => x.unsubscribe());
+  }
+
+  changeWeapon(slotIndex, gunIndex, selectedPlayerIndex) {
+    changeWeapon(selectedPlayerIndex, slotIndex, gunIndex);
   }
 }
 </script>

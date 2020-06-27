@@ -12,6 +12,14 @@ function startTool() {
     windowAny.ipcRenderer.send('start-tool', 'start');
 }
 
+function changeWeapon(playerIndex: string, slotIndex: string, weaponIndex: string) {
+    windowAny.ipcRenderer.send('changeWeapon', {
+        playerIndex: playerIndex,
+        slotIndex: slotIndex,
+        weaponIndex: weaponIndex,
+    });
+}
+
 // TODO USE RXJS
 windowAny.ipcRenderer.on('BattleyeIsRunning', (event: any, arg: any) => {
     console.log('BattleyeIsRunning', arg)
@@ -28,4 +36,5 @@ export {
     BattleyeIsRunning$,
     R6SCGT_IsRunning$,
     PlayerUpdated$,
+    changeWeapon
 };

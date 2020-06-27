@@ -52,6 +52,10 @@ class ComunicationService {
     }
   }
 
+  changeWeapon(playload: any) {
+    this.connection.send('changeWeapon', playload);
+  }
+
   closeToolConnection() {
     this.connection.close();
   }

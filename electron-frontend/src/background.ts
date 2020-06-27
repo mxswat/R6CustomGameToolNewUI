@@ -5,8 +5,9 @@ import {
   createProtocol,
   installVueDevtools
 } from 'vue-cli-plugin-electron-builder/lib'
-import ComunicationServiceInst from "./services/comunication";
+
 import path from "path";
+import IpcBackIns from './services/ipcBack';
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -44,6 +45,8 @@ function createWindow() {
   win.on('closed', () => {
     win = null
   })
+
+  IpcBackIns.start(win);
 }
 
 // Quit when all windows are closed.
@@ -92,20 +95,3 @@ if (isDevelopment) {
     })
   }
 }
-
-import { ipcMain } from "electron";
-import { exec } from 'child_process';
-
-ipcMain.on('start-tool', (event, arg) => {
-  ComunicationServiceInst.startToolConnection(win);
-})
-ipcMain.on('close-tool', (event, arg) => {
-  ComunicationServiceInst.closeToolConnection();
-  console.log('closed')
-  // Kills a process based on filename of the exe and all child processes
-  exec(`taskkill /im "R6S Custom Game Tool.exe" /t`, (err: any) => {
-    if (err) {
-      throw err
-    }
-  })
-})
