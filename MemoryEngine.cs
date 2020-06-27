@@ -59,9 +59,15 @@ namespace R6S_Custom_Game_Tool
         /// </summary>
         public string[] WeaponsDependant = { "55456", "56128", "56960", "59648", "58592", "60672", "62208" };
 
-        public MemoryEngine()
-        {
+        private static MemoryEngine _instance;
 
+        public static MemoryEngine GetInstance()
+        {
+            if (_instance == null)
+            {
+                _instance = new MemoryEngine();
+            }
+            return _instance;
         }
 
         public EngineStartData startMemEngine()
