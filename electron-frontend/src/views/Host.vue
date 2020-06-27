@@ -23,20 +23,53 @@
       <div class="container">
         <div class="list">
           <div class="list-container">
-            <span>Weapons</span>
+            <h3 class="list-title">Weapons</h3>
+            <input class="search" type="text" name="" id="" placeholder="Search...">
             <div class="list-inner">
               <div
                 class="category"
                 v-for="gunCategory in gunslibrary"
                 v-bind:key="gunCategory.name"
               >
-                <input class="css-dropdown" :id="'check'+ gunCategory.name" type="checkbox" name="menu" />
-                <label class="css-dropdown" :for="'check'+ gunCategory.name">{{gunCategory.name}}</label>
-                <div
-                  class="nodes"
-                  v-for="gun in gunCategory.children"
-                  v-bind:key="gun.index"
-                >{{gun.name}}</div>
+                <input
+                  class="css-dropdown"
+                  :id="'check'+ gunCategory.name"
+                  type="checkbox"
+                  name="menu"
+                />
+                <label class="css-dropdown" :for="'check'+ gunCategory.name">
+                  {{gunCategory.name}}
+                  <div class="arrow-down"></div>
+                </label>
+                <div class="nodes" v-for="gun in gunCategory.children" v-bind:key="gun.index">
+                  <span class="node-name">{{gun.name}}</span>
+                  <div class="select-buttons">
+                    <input
+                      class="radio primary"
+                      type="radio"
+                      :id="'primary-' + gun.index"
+                      name="primary"
+                      :value="gun.index"
+                    />
+                    <label class="label primary" :for="'primary-' + gun.index" data-title="Set as Primary weapon">P</label>
+                    <input
+                      class="radio secondary"
+                      type="radio"
+                      :id="'secondary-' + gun.index"
+                      name="secondary"
+                      :value="gun.index"
+                    />
+                    <label class="label secondary" :for="'secondary-' + gun.index" data-title="Set as Secondary weapon">S</label>
+                    <input
+                      class="radio everyone"
+                      type="radio"
+                      :id="'everyone-' + gun.index"
+                      name="everyone"
+                      :value="gun.index"
+                    />
+                    <label class="label everyone" :for="'everyone-' + gun.index">E</label>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -58,7 +91,6 @@ export default class Host extends Vue {
   selectedPlayer = 0;
   players: Array<any> = [];
   subscriptions: Array<Subscription> = [];
-  ù;
   // Definition copied from the VS UI
   // TODO DEFINE TYPE
   gunslibrary: {
@@ -85,12 +117,12 @@ export default class Host extends Vue {
   subscribeToSubjects() {
     this.subscriptions.push(PlayerUpdated$.subscribe(this.onPlayerUpdated));
   }
-  onPlayerUpdated(playerData) {
+  onPlayerUpdated(playerData: any) {
     if (playerData && playerData.name !== null) {
       const index = playerData.index;
       this.players[index].username = playerData.name;
-      this.players[index].primaryWeapon = playerData.primaryweapon;
-      this.players[index].secondaryWeapon = playerData.secondaryweapon;
+      this.players[index].primary = playerData.primary;
+      this.players[index].secondary = playerData.secondary;
       this.players[index].primaryGadget = playerData.primarygadget;
       this.players[index].secondaryGadget = playerData.secondarygadget;
     }
@@ -152,7 +184,7 @@ export default class Host extends Vue {
   z-index: 2;
 }
 
-input[type="radio"]:checked + label {
+input.playerradio[type="radio"]:checked + label {
   font-weight: 600;
   border-radius: 20px;
 }
@@ -182,19 +214,115 @@ input[type="radio"]:checked + label {
 }
 
 // LIST COMMON CODE
+.list-title {
+  text-transform: uppercase;
+  margin-left: 8px;
+}
+.search {
+  background: #202225;
+  border-radius: 10px;
+  padding: 8px;
+  border: 0px;
+  font-size: 16px;
+  color: white;
+  margin: 8px;
+}
+
 .nodes {
   display: none;
+  padding: 4px;
+  padding-left: 16px;
+  max-width: 100%;
+  align-items: center;
+  .node-name {
+    font-size: 18px;
+  }
+  input.radio {
+    display: none;
+    &:checked + label {
+      font-weight: 600;
+      opacity: 1;
+      &.primary {
+        background: linear-gradient(141.54deg, #64e8de 0%, #8a64eb 100%);
+      }
+      &.secondary {
+        background: linear-gradient(141.54deg, #ff9482 0%, #7d77ff 100%);
+      }
+      &.everyone {
+        background: linear-gradient(141.54deg, #7bf2e9 0%, #b65eba 100%);
+      }
+    }
+  }
+  label.label {
+    // padding: 8px;
+    // cursor: pointer;
+    // font-weight: 400;
+    // width: 19px;
+    // text-align: center;
+    // border-radius: 10px;
+    // margin-right: 8px;
+    // opacity: 0.5;
+    // border: 1px solid gray;
+    padding: 4px;
+    cursor: pointer;
+    font-weight: 400;
+    width: 24px;
+    text-align: center;
+    border-radius: 10px;
+    margin-right: 8px;
+    opacity: 0.5;
+    border: 1px solid gray;
+    font-size: 20px;
+  }
+  .select-buttons {
+    display: flex;
+    margin-left: auto;
+    &:hover {
+      label.label {
+        opacity: 1;
+      }
+    }
+  }
+  &:hover {
+    .select-buttons {
+      display: flex;
+    }
+  }
 }
 
 input.css-dropdown {
   display: none;
-  &:checked~div.nodes{
-    display: block;
+  &:checked {
+    ~ div.nodes {
+      display: flex;
+    }
+    ~ label .arrow-down {
+      transform: rotate(180deg);
+    }
   }
 }
 
+label.css-dropdown {
+  padding: 8px;
+  display: flex;
+  cursor: pointer;
+}
+
+.arrow-down {
+  height: 14px;
+  width: 14px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' fill='white' height='10' role='presentation' class='vs__open-indicator'%3E%3Cpath d='M9.211364 7.59931l4.48338-4.867229c.407008-.441854.407008-1.158247 0-1.60046l-.73712-.80023c-.407008-.441854-1.066904-.441854-1.474243 0L7 5.198617 2.51662.33139c-.407008-.441853-1.066904-.441853-1.474243 0l-.737121.80023c-.407008.441854-.407008 1.158248 0 1.600461l4.48338 4.867228L7 10l2.211364-2.40069z'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  margin-left: auto;
+  background-position: bottom;
+  transition: transform 300ms;
+}
+
 .list-inner {
-  overflow: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100%;
+  width: 100%;
 }
 
 .list {
