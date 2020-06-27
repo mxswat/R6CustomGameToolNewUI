@@ -95,35 +95,37 @@ input:focus {
   background: transparent;
 }
 
-[data-title] {
-  position: relative;
-}
+.tooltips-on {
+  [data-title] {
+    position: relative;
+  }
 
-[data-title]:hover::before {
-  content: attr(data-title);
-  position: absolute;
-  display: inline-block;
-  padding: 3px 6px;
-  border-radius: 2px;
-  background: #000;
-  color: #fff;
-  font-size: 12px;
-  font-family: sans-serif;
-  white-space: nowrap;
-  top: -24px;
-  right: -58px;
-  z-index: 999;
-}
-[data-title]:hover::after {
-  content: "";
-  position: absolute;
-  top: -4px;
-  left: 8px;
-  display: inline-block;
-  color: #fff;
-  border: 8px solid transparent;
-  border-top: 8px solid #000;
-  z-index: 999;
+  [data-title]:hover::before {
+    content: attr(data-title);
+    position: absolute;
+    display: inline-block;
+    padding: 3px 6px;
+    border-radius: 2px;
+    background: #000;
+    color: #fff;
+    font-size: 12px;
+    font-family: sans-serif;
+    white-space: nowrap;
+    top: -24px;
+    right: -58px;
+    z-index: 999;
+  }
+  [data-title]:hover::after {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: 8px;
+    display: inline-block;
+    color: #fff;
+    border: 8px solid transparent;
+    border-top: 8px solid #000;
+    z-index: 999;
+  }
 }
 </style>
 
