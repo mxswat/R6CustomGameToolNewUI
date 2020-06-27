@@ -1,19 +1,21 @@
+// TODO REMIND TO CHECK SIZE OOF selector WHEN PLAYER LIST IS UPDATED
+
 function animationTabs() {
-    var tabs = document.getElementsByClassName("players")[0];
+    const tabs: any = document.getElementsByClassName("players")[0];
     // First by default is active
     tabs.querySelector(".playerlabel").classList.add("active");
-    var selector = document
+    const selector = document
       .getElementsByClassName("tabs")[0]
       .getElementsByClassName("playerlabel").length;
 
-    var activeItem = tabs.querySelector(".active");
-    var activeWidth = activeItem.clientWidth;
-    document.getElementsByClassName("selector")[0].style.left =
+    const activeItem = tabs.querySelector(".active");
+    const activeWidth = activeItem.clientWidth;
+    (document.getElementsByClassName("selector")[0] as any).style.left =
       activeItem.offsetLeft + "px";
-    document.getElementsByClassName("selector")[0].style.width =
+      (document.getElementsByClassName("selector")[0] as any).style.width =
       activeWidth + "px";
 
-    var links = document
+    const links = document
       .getElementsByClassName("players")[0]
       .getElementsByClassName("playerlabel");
 
@@ -25,11 +27,11 @@ function animationTabs() {
           .getElementsByClassName("active")[0]
           .classList.remove("active");
         this.classList.add("active");
-        var activeWidth = this.clientWidth;
-        var itemPos = this.offsetLeft;
-        document.getElementsByClassName("selector")[0].style.left =
+        const activeWidth = this.clientWidth;
+        const itemPos = this.offsetLeft;
+        (document.getElementsByClassName("selector")[0] as any).style.left =
           itemPos + "px";
-        document.getElementsByClassName("selector")[0].style.width =
+        (document.getElementsByClassName("selector")[0] as any).style.width =
           activeWidth + "px";
       });
     }
