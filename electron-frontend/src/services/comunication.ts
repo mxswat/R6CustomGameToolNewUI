@@ -1,6 +1,7 @@
 import { ConnectionBuilder, Connection } from 'electron-cgi'
 import { logger, logColors } from './logger';
-import { ipcMain, BrowserWindow } from "electron";
+import { app, BrowserWindow } from "electron";
+import path from 'path';
 
 class ComunicationService {
   private connection: Connection = null as any;
@@ -14,11 +15,13 @@ class ComunicationService {
    * startToolConnection
    */
   public startToolConnection(win: BrowserWindow) {
+    // dev dist runs in \R6CustomGameToolNewUI\electron-frontend\dist_electron
+    // check it using: console.log("require('electron').app.getAppPath();", require('electron').app.getAppPath())
     if (!this.isConnected) {
       this.win = win;
       logger.log('Connecting to R6S Custom Game Tool.exe!', logColors.Green);
       const pathToTool = process.env.NODE_ENV !== 'production'
-        ? 'D:/MxRepos/R6S_Custom_Game_Tool/R6S Custom Game Tool/bin/x64/Release/R6S Custom Game Tool.exe'
+        ? path.join(app.getAppPath(), '..', '..', '/bin/x64/Release/R6S Custom Game Tool.exe')
         : 'R6S Custom Game Tool.exe';
       console.log(`Path to the tool is: ${pathToTool}`);
       this.connection = new ConnectionBuilder()
