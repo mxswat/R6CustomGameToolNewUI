@@ -1,0 +1,5 @@
+{
+    "scripts": {
+        "electrondev": "cd electron-frontend && npm run electron:serve"
+    }
+}
