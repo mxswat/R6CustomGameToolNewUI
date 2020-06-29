@@ -12,6 +12,10 @@ module.exports = {
                 "portable": {
                     "artifactName": "R6CGT_portable.exe"
                 },
+                "extraFiles": {
+                    "from": "tool",
+                    "to": "./resources/app.asar.unpacked/tool/"
+                }
             }
         }
     }

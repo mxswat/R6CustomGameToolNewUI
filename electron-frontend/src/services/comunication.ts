@@ -20,9 +20,12 @@ class ComunicationService {
     if (!this.isConnected) {
       this.win = win;
       logger.log('Connecting to R6S Custom Game Tool.exe!', logColors.Green);
+      console.log('process.resourcesPath', process.resourcesPath);
+      // Load files from project
+      // https://github.com/nklayman/vue-cli-plugin-electron-builder/issues/353
       const pathToTool = process.env.NODE_ENV !== 'production'
         ? path.join(app.getAppPath(), '..', '..', '/bin/x64/Release/R6S Custom Game Tool.exe')
-        : path.join(app.getAppPath(), 'R6S Custom Game Tool.exe')
+        : path.join(process.resourcesPath, '/app.asar.unpacked/tool/R6S Custom Game Tool.exe')
       console.log(`Path to the tool is: ${pathToTool}`);
       this.connection = new ConnectionBuilder()
         .connectTo(pathToTool)
