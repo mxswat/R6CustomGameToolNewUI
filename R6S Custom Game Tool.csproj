@@ -85,21 +85,6 @@
   <PropertyGroup>
     <StartupObject>R6S_Custom_Game_Tool.Program</StartupObject>
   </PropertyGroup>
-  <PropertyGroup>
-    <ManifestCertificateThumbprint>BFD55CD4451A82BA202F4976945CCF71A8F5B296</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>R6S Custom Game Tool_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <TargetZone>LocalIntranet</TargetZone>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>true</SignManifests>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Costura, Version=4.1.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
       <HintPath>packages\Costura.Fody.4.1.0\lib\net40\Costura.dll</HintPath>
@@ -229,7 +214,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="R6S Custom Game Tool_TemporaryKey.pfx" />
     <None Include="Resources\iconfinder-discord-4661587_122459.ico" />
     <None Include="Resources\iconfinder-discord-4661587_122459 %282%29.ico" />
     <None Include="Resources\questionmark1_83827.ico" />
