@@ -23,15 +23,17 @@ import { Component, Vue } from "vue-property-decorator";
 @Component({
   components: {},
   mounted() {
-    VANTA.RINGS({
-      el: "#home",
-      mouseControls: true,
-      touchControls: true,
-      minHeight: 200.0,
-      minWidth: 200.0,
-      scale: 1.0,
-      scaleMobile: 1.0
-    });
+    setTimeout(() => {
+      VANTA.RINGS({
+        el: "#home",
+        mouseControls: true,
+        touchControls: true,
+        minHeight: 200.0,
+        minWidth: 200.0,
+        scale: 1.0,
+        scaleMobile: 1.0
+      });
+    }, 1000);
   }
 })
 export default class Home extends Vue {}

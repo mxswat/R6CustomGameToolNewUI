@@ -22,7 +22,7 @@ class ComunicationService {
       logger.log('Connecting to R6S Custom Game Tool.exe!', logColors.Green);
       const pathToTool = process.env.NODE_ENV !== 'production'
         ? path.join(app.getAppPath(), '..', '..', '/bin/x64/Release/R6S Custom Game Tool.exe')
-        : 'R6S Custom Game Tool.exe';
+        : path.join(app.getAppPath(), 'R6S Custom Game Tool.exe')
       console.log(`Path to the tool is: ${pathToTool}`);
       this.connection = new ConnectionBuilder()
         .connectTo(pathToTool)
@@ -49,7 +49,7 @@ class ComunicationService {
       })
   
       this.connection.on('PlayerUpdated', (request) => {
-        console.log("PlayerUpdated", Date.now());
+        // console.log("PlayerUpdated", Date.now());
         win.webContents.send('PlayerUpdated', request);
       })
     }

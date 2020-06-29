@@ -61,13 +61,14 @@ import { Component, Prop } from "vue-property-decorator";
 
 @Component
 export default class List extends Vue {
+  // Strict Class Initialization using !: to avoid build fail
   @Prop({ default: [] })
-  list: Array<any>;
+  list!: Array<any>;
 
   @Prop({ default: "none" })
-  Title: string;
+  Title!: string;
 
-  selectItem(slotIndex, elementIndex) {
+  selectItem(slotIndex: string, elementIndex: string) {
     this.$emit("selectedElement", {
       slotIndex,
       elementIndex

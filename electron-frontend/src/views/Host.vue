@@ -49,22 +49,8 @@ export default class Host extends Vue {
   subscriptions: Array<Subscription> = [];
   // Definition copied from the VS UI
   // TODO DEFINE TYPE
-  gunslist: {
-    name: string;
-    children: {
-      name: string;
-      index: string;
-      type: string;
-    }[];
-  }[] = [];
-  gadgetslist: {
-    name: string;
-    children: {
-      name: string;
-      index: string;
-      type: string;
-    }[];
-  }[] = [];
+  gunslist: any = [];
+  gadgetslist: any = [];
   created() {
     for (let i = 0; i < 10; i++) {
       this.players.push({
