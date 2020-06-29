@@ -125,7 +125,7 @@ let holdId;
 let holdGadgets = [];
 let obj;
 let gadgetsJSON = [];
- 
+
 for (let i = 0; i < gadgets.length; i++) {
     const gadgetAtI = gadgets[i];
     if (gadgetAtI.indexOf('[') > -1) {
@@ -137,8 +137,8 @@ for (let i = 0; i < gadgets.length; i++) {
     } else {
         if (i % 2 == 0 && i !== 0) {
             holdGadgets.push({
-                index: holdId,
-                name: gadgetAtI,
+                index: gadgetAtI,
+                name: holdId,
                 type: null
             })
             holdId = '';
