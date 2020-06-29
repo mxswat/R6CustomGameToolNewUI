@@ -1,7 +1,7 @@
 <template>
   <div class="list">
     <div class="list-container">
-      <h3 class="list-title">Weapons</h3>
+      <h3 class="list-title">{{Title}}</h3>
       <input class="search" type="text" name id placeholder="Search..." />
       <div class="list-inner">
         <div class="category" v-for="category in list" v-bind:key="category.name">
@@ -24,7 +24,7 @@
                 class="label primary"
                 :for="'primary-' + element.index"
                 data-title="Set as Primary weapon"
-                @click="changeWeapon(0, element.index, selectedPlayer)"
+                @click="selectItem(0, element.index)"
               >P</label>
               <input
                 class="radio secondary"
@@ -37,6 +37,7 @@
                 class="label secondary"
                 :for="'secondary-' + element.index"
                 data-title="Set as Secondary weapon"
+                @click="selectItem(1, element.index)"
               >S</label>
               <input
                 class="radio everyone"
@@ -44,7 +45,6 @@
                 :id="'everyone-' + element.index"
                 name="everyone"
                 :value="element.index"
-                @click="changeWeapon(0, element.index, selectedPlayer)"
               />
               <label class="label everyone" :for="'everyone-' + element.index">E</label>
             </div>
@@ -58,7 +58,6 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
-import { PlayerUpdated$, changeWeapon } from "../services/ipcfront";
 
 @Component
 export default class List extends Vue {
@@ -66,10 +65,13 @@ export default class List extends Vue {
   list: Array<any>;
 
   @Prop({ default: "none" })
-  selectedPlayer: Array<any>;
+  Title: string;
 
-  changeWeapon(slotIndex, elementIndex, selectedPlayerIndex) {
-    changeWeapon(selectedPlayerIndex, slotIndex, elementIndex);
+  selectItem(slotIndex, elementIndex) {
+    this.$emit("selectedElement", {
+      slotIndex,
+      elementIndex
+    });
   }
 }
 </script>

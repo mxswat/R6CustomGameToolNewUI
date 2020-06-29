@@ -21,10 +21,8 @@
     </div>
     <div class="overflow-container">
       <div class="container">
-        <List :list="gunslist" :selectedPlayer="selectedPlayer"></List>
-      </div>
-      <div class="container">
-        <List :list="gadgetslist" :selectedPlayer="selectedPlayer"></List>
+        <List v-on:selectedElement="onSelectedItem($event)" :list="gunslist" :Title="'Weapons'"></List>
+        <List v-on:selectedElement="onSelectedItem($event)" :list="gadgetslist" :Title="'Gadgets'"></List>
       </div>
     </div>
   </div>
@@ -73,7 +71,7 @@ export default class Host extends Vue {
         username: "Player " + (i + 1)
       });
     }
-    // startTool();
+    startTool();
     this.gunslist = GUNS;
     this.gadgetslist = GADGETS;
     this.subscribeToSubjects();
@@ -96,6 +94,10 @@ export default class Host extends Vue {
   }
   beforeDestroy() {
     this.subscriptions.forEach(x => x.unsubscribe());
+  }
+
+  onSelectedItem(event: any) {
+    changeWeapon(this.selectedPlayer.toString(), event.slotIndex, event.elementIndex);
   }
 }
 </script>

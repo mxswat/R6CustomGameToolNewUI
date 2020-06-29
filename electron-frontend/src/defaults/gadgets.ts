@@ -3,37 +3,37 @@ const GADGETS = [
         "name": "[Weapon Dependant(Will Replace Primary)]",
         "children": [
             {
-                "index": "118",
+                "index": "F8",
                 "name": "Montange",
                 "type": null
             },
             {
-                "index": "148",
+                "index": "118",
                 "name": "Blackbeard",
                 "type": null
             },
             {
-                "index": "1C8",
+                "index": "148",
                 "name": "Glaz",
                 "type": null
             },
             {
-                "index": "198",
+                "index": "1C8",
                 "name": "Clash",
                 "type": null
             },
             {
-                "index": "1F8",
+                "index": "198",
                 "name": "Buck",
                 "type": null
             },
             {
-                "index": "248",
+                "index": "1F8",
                 "name": "Blitz",
                 "type": null
             },
             {
-                "index": "Node0",
+                "index": "248",
                 "name": "Kali",
                 "type": null
             }
@@ -44,31 +44,26 @@ const GADGETS = [
         "children": [
             {
                 "index": "D8",
-                "name": "",
-                "type": null
-            },
-            {
-                "index": "158",
                 "name": "Frost",
                 "type": null
             },
             {
-                "index": "230",
+                "index": "158",
                 "name": "Ela",
                 "type": null
             },
             {
-                "index": "270",
+                "index": "230",
                 "name": "Lesion",
                 "type": null
             },
             {
-                "index": "278",
+                "index": "270",
                 "name": "Goyo",
                 "type": null
             },
             {
-                "index": "Node1",
+                "index": "278",
                 "name": "Kapkan",
                 "type": null
             }
@@ -79,46 +74,41 @@ const GADGETS = [
         "children": [
             {
                 "index": "E0",
-                "name": "",
-                "type": null
-            },
-            {
-                "index": "F0",
                 "name": "Zofia",
                 "type": null
             },
             {
-                "index": "100",
+                "index": "F0",
                 "name": "Hibana",
                 "type": null
             },
             {
-                "index": "108",
+                "index": "100",
                 "name": "Maverick",
                 "type": null
             },
             {
-                "index": "168",
+                "index": "108",
                 "name": "Amaru",
                 "type": null
             },
             {
-                "index": "1A8",
+                "index": "168",
                 "name": "Doc",
                 "type": null
             },
             {
-                "index": "1C0",
+                "index": "1A8",
                 "name": "Capitao",
                 "type": null
             },
             {
-                "index": "290",
+                "index": "1C0",
                 "name": "Ash",
                 "type": null
             },
             {
-                "index": "Node2",
+                "index": "290",
                 "name": "Mozzie",
                 "type": null
             }
@@ -129,61 +119,56 @@ const GADGETS = [
         "children": [
             {
                 "index": "E8",
-                "name": "",
-                "type": null
-            },
-            {
-                "index": "170",
                 "name": "Valkyrie",
                 "type": null
             },
             {
-                "index": "190",
+                "index": "170",
                 "name": "Warden",
                 "type": null
             },
             {
-                "index": "1E0",
+                "index": "190",
                 "name": "Mira",
                 "type": null
             },
             {
-                "index": "1E8",
+                "index": "1E0",
                 "name": "Alibi",
                 "type": null
             },
             {
-                "index": "210",
+                "index": "1E8",
                 "name": "Jackal",
                 "type": null
             },
             {
-                "index": "220",
+                "index": "210",
                 "name": "Dokkaebi",
                 "type": null
             },
             {
-                "index": "228",
+                "index": "220",
                 "name": "Pulse",
                 "type": null
             },
             {
-                "index": "288",
+                "index": "228",
                 "name": "Lion",
                 "type": null
             },
             {
-                "index": "258",
+                "index": "288",
                 "name": "Iana",
                 "type": null
             },
             {
-                "index": "268",
+                "index": "258",
                 "name": "Maestro",
                 "type": null
             },
             {
-                "index": "Node3",
+                "index": "268",
                 "name": "Echo",
                 "type": null
             }
@@ -194,101 +179,96 @@ const GADGETS = [
         "children": [
             {
                 "index": "120",
-                "name": "",
-                "type": null
-            },
-            {
-                "index": "140",
                 "name": "Tachanka",
                 "type": null
             },
             {
-                "index": "150",
+                "index": "140",
                 "name": "Bandit",
                 "type": null
             },
             {
-                "index": "1D8",
+                "index": "150",
                 "name": "Twitch",
                 "type": null
             },
             {
-                "index": "160",
+                "index": "1D8",
                 "name": "Rook",
                 "type": null
             },
             {
-                "index": "188",
+                "index": "160",
                 "name": "Jager",
                 "type": null
             },
             {
-                "index": "1A0",
+                "index": "188",
                 "name": "Castle",
                 "type": null
             },
             {
-                "index": "298",
+                "index": "1A0",
                 "name": "Finka",
                 "type": null
             },
             {
-                "index": "218",
+                "index": "298",
                 "name": "Thatcher",
                 "type": null
             },
             {
-                "index": "1F0",
+                "index": "218",
                 "name": "Wamai",
                 "type": null
             },
             {
-                "index": "238",
+                "index": "1F0",
                 "name": "Mute",
                 "type": null
             },
             {
-                "index": "240",
+                "index": "238",
                 "name": "Recruit Primary Gadget Attack",
                 "type": null
             },
             {
-                "index": "128",
+                "index": "240",
                 "name": "Recruit Primary Gadget Defense",
                 "type": null
             },
             {
-                "index": "208",
+                "index": "128",
                 "name": "Nokk",
                 "type": null
             },
             {
-                "index": "110",
+                "index": "208",
                 "name": "Caveira",
                 "type": null
             },
             {
-                "index": "130",
+                "index": "110",
                 "name": "Ying",
                 "type": null
             },
             {
-                "index": "1B0",
+                "index": "130",
                 "name": "Smoke",
                 "type": null
             },
             {
-                "index": "280",
+                "index": "1B0",
                 "name": "Gridlock",
                 "type": null
             },
             {
-                "index": "138",
+                "index": "280",
                 "name": "Oryx",
                 "type": null
             },
             {
-                "index": "Node5",
+                "index": "138",
                 "name": "Melusi",
                 "type": null
             }
@@ -299,26 +279,21 @@ const GADGETS = [
         "children": [
             {
                 "index": "180",
-                "name": "",
-                "type": null
-            },
-            {
-                "index": "200",
                 "name": "Sledge",
                 "type": null
             },
             {
-                "index": "250",
+                "index": "200",
                 "name": "Thermite",
                 "type": null
             },
             {
-                "index": "1B8",
+                "index": "250",
                 "name": "Fuze",
                 "type": null
             },
             {
-                "index": "Node6",
+                "index": "1B8",
                 "name": "Ace",
                 "type": null
             }
