@@ -7,15 +7,16 @@ module.exports = {
                 "productName": "R6CGT",
                 "appId": "R6ModdingCommunity.R6CGT",
                 "win": {
-                    "target": ["portable"]
+                    "target": ["portable"],
                 },
                 "portable": {
-                    "artifactName": "R6CGT_portable.exe"
+                    "artifactName": "R6CGT_portable.exe",
+                    "requestExecutionLevel": "admin"
                 },
                 "extraFiles": {
                     "from": "tool",
                     "to": "./resources/app.asar.unpacked/tool/"
-                }
+                },
             }
         }
     }
