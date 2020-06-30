@@ -83,6 +83,7 @@ export default class Home extends Vue {}
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 500;
+  margin-right: 8px;
 }
 
 .buttonsub {

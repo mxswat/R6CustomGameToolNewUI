@@ -19,7 +19,7 @@ const TEAM = [
         name: 'Zer0Bytes',
         task: 'Sigs & UI Concepts',
         links: {
-            reddit: 'https://www.reddit.com/user/Zer0Bytes_',
+            Reddit: 'https://www.reddit.com/user/Zer0Bytes_',
             GitHub: 'http://github.com/DataCluster0/',
         }
     },
@@ -29,6 +29,13 @@ const TEAM = [
         links: {
             Twitter: 'https://twitter.com/m7w78',
             GitHub: 'http://github.com/maxim7w/',
+        }
+    },
+    {
+        name: 'Misa Hanako',
+        task: 'Beta Testing',
+        links: {
+            twitter: 'https://twitter.com/hanakomisa',
         }
     }
 ];
