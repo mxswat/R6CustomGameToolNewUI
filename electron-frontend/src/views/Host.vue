@@ -26,8 +26,18 @@
     </div>
     <div class="overflow-container">
       <div class="container">
-        <List v-on:selectedElement="onSelectedItem($event)" :enabled="timerCheck" :list="gunslist" :Title="'weapons'"></List>
-        <List v-on:selectedElement="onSelectedItem($event)" :enabled="timerCheck" :list="gadgetslist" :Title="'gadgets'"></List>
+        <List
+          v-on:selectedElement="onSelectedItem($event, true)"
+          :enabled="timerCheck"
+          :list="gunslist"
+          :Title="'weapons'"
+        ></List>
+        <List
+          v-on:selectedElement="onSelectedItem($event, false)"
+          :enabled="timerCheck"
+          :list="gadgetslist"
+          :Title="'gadgets'"
+        ></List>
         <div class="utils">
           <h3 class="list-title">Utility</h3>
           <div class="switch">
@@ -51,7 +61,8 @@ import {
   startTool,
   BehaviorSubjects,
   changeWeapon,
-  stopTimer
+  stopTimer,
+  changeGadget
 } from "../services/ipcfront";
 
 import { Subscription } from "rxjs";
@@ -118,12 +129,20 @@ export default class Host extends Vue {
     this.subscriptions.forEach(x => x.unsubscribe());
   }
 
-  onSelectedItem(event: any) {
-    changeWeapon(
-      this.selectedPlayer.toString(),
-      event.slotIndex,
-      event.elementIndex
-    );
+  onSelectedItem(event: any, isWeapon: boolean) {
+    if (isWeapon) {
+      changeWeapon(
+        this.selectedPlayer.toString(),
+        event.slotIndex,
+        event.elementIndex
+      );
+    } else {
+      changeGadget(
+        this.selectedPlayer.toString(),
+        event.slotIndex,
+        event.elementIndex
+      );
+    }
   }
 
   stopTimer() {

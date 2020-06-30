@@ -24,6 +24,14 @@ function changeWeapon(playerIndex: string, slotIndex: string, weaponIndex: strin
     });
 }
 
+function changeGadget(playerIndex: string, slotIndex: string, gadgetIndex: string) {
+    windowAny.ipcRenderer.send('changeGadget', {
+        playerIndex: playerIndex,
+        slotIndex: slotIndex,
+        gadgetIndex: gadgetIndex,
+    });
+}
+
 windowAny.ipcRenderer.on('BattleyeIsRunning', (event: any, arg: any) => {
     BattleyeIsRunning$.next(arg);
     console.log('BattleyeIsRunning', arg);
@@ -46,6 +54,7 @@ const BehaviorSubjects = {
 export {
     startTool,
     changeWeapon,
+    changeGadget,
     BehaviorSubjects,
     stopTimer
 };

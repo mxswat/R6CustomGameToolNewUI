@@ -42,14 +42,14 @@
                 data-title="Set as Secondary weapon"
                 @click="selectItem(1, element.index)"
               >S</label>
-              <input
+              <!-- <input
                 class="radio everyone"
                 type="radio"
                 :id="'everyone-' + element.index"
                 name="everyone"
                 :value="element.index"
               />
-              <label class="label everyone" :for="'everyone-' + element.index">E</label>
+              <label class="label everyone" :for="'everyone-' + element.index">E</label> -->
             </div>
           </div>
         </div>

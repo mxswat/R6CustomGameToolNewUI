@@ -18,6 +18,11 @@
                 requestedWeaponChange(payload);
                 return false;
             });
+            this.connection.On("changeGadget", (GadgetChangeRequest payload) =>
+            {
+                requestedGadgetChange(payload);
+                return false;
+            });
             this.connection.On("stopTimer", (bool payload) =>
             {
                 stopTimer(payload);
@@ -65,6 +70,18 @@
             MemoryEngine.changeWeapon(playerID, slotID, weaponId);
         }
 
+        private void requestedGadgetChange(GadgetChangeRequest payload)
+        {
+            MemoryEngine MemoryEngine = MemoryEngine.GetInstance();
+            string playerID = MemoryEngine.PlayerIDs[payload.playerIndex];
+            string slotID = MemoryEngine.SlotIDs[payload.slotIndex];
+            int gadgetIdx = Array.FindIndex(MemoryEngine.Gadgets, item => item == payload.gadgetIndex);
+
+            string GadgetID = MemoryEngine.Gadgets[gadgetIdx];
+            string WeaponsDependantG = gadgetIdx <= MemoryEngine.WeaponsDependant.Length ? MemoryEngine.WeaponsDependant[gadgetIdx] : null;
+            MemoryEngine.changeGadget(playerID, slotID, GadgetID, WeaponsDependantG);
+        }
+
         private void stopTimer(bool value)
         {
             MemoryEngine MemoryEngine = MemoryEngine.GetInstance();
@@ -77,5 +94,12 @@
         public int playerIndex;
         public int slotIndex;
         public int weaponIndex;
+    }
+
+    internal class GadgetChangeRequest
+    {
+        public int playerIndex;
+        public int slotIndex;
+        public string gadgetIndex;
     }
 }
