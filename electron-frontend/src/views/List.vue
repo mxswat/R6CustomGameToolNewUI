@@ -2,6 +2,9 @@
   <div class="list">
     <div class="list-container">
       <h3 class="list-title">{{Title}}</h3>
+      <div class="disableUI" v-if="!enabled">
+        <span>Before changing {{Title}} you need to stop the timer</span>
+      </div>
       <input class="search" type="text" name id placeholder="Search..." />
       <div class="list-inner">
         <div class="category" v-for="category in list" v-bind:key="category.name">
@@ -67,6 +70,9 @@ export default class List extends Vue {
 
   @Prop({ default: "none" })
   Title!: string;
+
+  @Prop({ default: false })
+  enabled!: boolean;
 
   selectItem(slotIndex: string, elementIndex: string) {
     this.$emit("selectedElement", {
@@ -205,5 +211,23 @@ label.css-dropdown {
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: auto;
+  position: relative;
+}
+
+.disableUI {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #202225e8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    pointer-events: none;
+    font-size: 23px;
+    text-align: center;
+    font-weight: 400;
+    padding: 19px;
+  }
 }
 </style>

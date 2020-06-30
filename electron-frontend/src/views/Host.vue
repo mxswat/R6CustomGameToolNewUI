@@ -26,8 +26,8 @@
     </div>
     <div class="overflow-container">
       <div class="container">
-        <List v-on:selectedElement="onSelectedItem($event)" :list="gunslist" :Title="'Weapons'"></List>
-        <List v-on:selectedElement="onSelectedItem($event)" :list="gadgetslist" :Title="'Gadgets'"></List>
+        <List v-on:selectedElement="onSelectedItem($event)" :enabled="timerCheck" :list="gunslist" :Title="'weapons'"></List>
+        <List v-on:selectedElement="onSelectedItem($event)" :enabled="timerCheck" :list="gadgetslist" :Title="'gadgets'"></List>
         <div class="utils">
           <h3 class="list-title">Utility</h3>
           <div class="switch">
