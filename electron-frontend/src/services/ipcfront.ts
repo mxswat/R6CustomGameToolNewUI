@@ -22,7 +22,7 @@ function changeWeapon(playerIndex: string, slotIndex: string, weaponIndex: strin
 
 // TODO USE RXJS
 windowAny.ipcRenderer.on('BattleyeIsRunning', (event: any, arg: any) => {
-    console.log('BattleyeIsRunning', arg)
+    BattleyeIsRunning$.next(arg);
 })
 windowAny.ipcRenderer.on('R6SCGT_IsRunning', (event: any, arg: any) => {
     console.log('R6SCGT_IsRunning', arg)
