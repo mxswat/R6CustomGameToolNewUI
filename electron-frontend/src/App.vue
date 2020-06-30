@@ -48,6 +48,9 @@ h4 {
   font-weight: 400;
   margin: 0;
 }
+a {
+  color: white;
+}
 #app {
   font-family: "Lato";
   font-weight: 300;

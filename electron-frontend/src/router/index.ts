@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Host from '../views/Host.vue'
+import Credits from '../views/Credits.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ Vue.use(VueRouter)
     path: '/host',
     name: 'Host',
     component: Host
+  },
+  {
+    path: '/Credits',
+    name: 'Credits',
+    component: Credits
   },
 ]
 

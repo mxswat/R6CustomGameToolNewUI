@@ -2,6 +2,8 @@
   <div class="host-page">
     <div class="History">
       <router-link to="/" class="link-btt underline-from-left">Home</router-link>
+      <span class="link-btt">{{BehaviorSubjects.R6SCGT_IsRunning$.value}}</span>
+      <span class="link-btt">{{BehaviorSubjects.BattleyeIsRunning$.value}}</span>
     </div>
     <div class="tabs-container">
       <div class="players tabs">
@@ -30,7 +32,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { startTool, PlayerUpdated$, changeWeapon } from "../services/ipcfront";
+import { startTool, BehaviorSubjects, changeWeapon } from "../services/ipcfront";
 
 import { Subscription } from "rxjs";
 import animationTabs from "../defaults/hosttabs";
@@ -51,6 +53,8 @@ export default class Host extends Vue {
   // TODO DEFINE TYPE
   gunslist: any = [];
   gadgetslist: any = [];
+  BehaviorSubjects: any;
+
   created() {
     for (let i = 0; i < 10; i++) {
       this.players.push({
@@ -60,13 +64,14 @@ export default class Host extends Vue {
     startTool();
     this.gunslist = GUNS;
     this.gadgetslist = GADGETS;
+    this.BehaviorSubjects = BehaviorSubjects;
     this.subscribeToSubjects();
   }
   mounted() {
     animationTabs();
   }
   subscribeToSubjects() {
-    this.subscriptions.push(PlayerUpdated$.subscribe(this.onPlayerUpdated));
+    this.subscriptions.push(BehaviorSubjects.PlayerUpdated$.subscribe(this.onPlayerUpdated));
   }
   onPlayerUpdated(playerData: any) {
     if (playerData && playerData.name !== null) {
@@ -104,11 +109,6 @@ export default class Host extends Vue {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-}
-
-.History {
-  padding: 8px 16px;
-  background: #202225;
 }
 
 .playerradio {

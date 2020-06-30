@@ -80,6 +80,7 @@ export default class List extends Vue {
 <style lang="scss">
 // LIST COMMON CODE
 .list-title {
+  margin-top: 8px;
   text-transform: uppercase;
   margin-left: 8px;
 }

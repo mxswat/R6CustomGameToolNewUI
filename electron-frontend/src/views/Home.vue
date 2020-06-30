@@ -3,7 +3,7 @@
     <h1 class="welcome">Welcome to R6S Custom game tool</h1>
     <h2 class="todo">What do you want to do?</h2>
     <div class="links">
-      <router-link to="/host" class="host underline-from-left">Mod a custom game</router-link>
+      <router-link to="/host" class="home-link underline-from-left">Mod a custom game</router-link>
       <br />
       <span class="buttonsub">Mod your custom game or THUNT</span>
     </div>
@@ -14,6 +14,11 @@
         <span class="buttonsub">custom loadout as client coming soon</span>
       </router-link>
     </div>
+    <div class="links">
+      <router-link to="/credits" class="home-link underline-from-left">Credits and Help</router-link>
+      <br />
+      <span class="buttonsub">Meet the R6 modding team</span>
+    </div>
   </div>
 </template>
 
@@ -23,17 +28,15 @@ import { Component, Vue } from "vue-property-decorator";
 @Component({
   components: {},
   mounted() {
-    setTimeout(() => {
-      VANTA.RINGS({
-        el: "#home",
-        mouseControls: true,
-        touchControls: true,
-        minHeight: 200.0,
-        minWidth: 200.0,
-        scale: 1.0,
-        scaleMobile: 1.0
-      });
-    }, 1000);
+    VANTA.RINGS({
+      el: "#home",
+      mouseControls: true,
+      touchControls: true,
+      minHeight: 200.0,
+      minWidth: 200.0,
+      scale: 1.0,
+      scaleMobile: 1.0
+    });
   }
 })
 export default class Home extends Vue {}
@@ -50,6 +53,11 @@ export default class Home extends Vue {}
   flex-direction: column;
 }
 
+.History {
+  padding: 8px 16px;
+  background: #202225;
+}
+
 .welcome {
   margin-top: 41px;
   font-size: 40px;
@@ -59,7 +67,7 @@ export default class Home extends Vue {}
   margin-top: 40px;
 }
 
-.host,
+.home-link,
 .join {
   margin: 24px 0px;
   color: white;
@@ -87,7 +95,7 @@ export default class Home extends Vue {}
   cursor: not-allowed;
 }
 
-.host {
+.home-link {
   margin-top: 60px;
 }
 

@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow } from 'electron'
+import { app, protocol, BrowserWindow, shell } from 'electron'
 import {
   createProtocol,
   installVueDevtools
@@ -41,6 +41,18 @@ function createWindow() {
     // Load the index.html when not in development
     win.loadURL('app://./index.html')
   }
+
+  // open target=blank links in default browser
+  win.webContents.on('new-window', function (e: any, url: any) {
+    // make sure local urls stay in electron perimeter
+    if ('file://' === url.substr(0, 'file://'.length)) {
+      return;
+    }
+
+    // and open every other protocols on the browser      
+    e.preventDefault();
+    shell.openExternal(url);
+  });
 
   win.on('closed', () => {
     win = null

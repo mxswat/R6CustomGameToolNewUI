@@ -20,21 +20,27 @@ function changeWeapon(playerIndex: string, slotIndex: string, weaponIndex: strin
     });
 }
 
-// TODO USE RXJS
 windowAny.ipcRenderer.on('BattleyeIsRunning', (event: any, arg: any) => {
     BattleyeIsRunning$.next(arg);
+    console.log('BattleyeIsRunning', arg);
 })
 windowAny.ipcRenderer.on('R6SCGT_IsRunning', (event: any, arg: any) => {
-    console.log('R6SCGT_IsRunning', arg)
+    R6SCGT_IsRunning$.next(arg);
+    console.log('R6SCGT_IsRunning', arg);
 })
 windowAny.ipcRenderer.on('PlayerUpdated', (event: any, arg: any) => {
     PlayerUpdated$.next(arg);
+    // console.log('PlayerUpdated', arg);
 })
 
-export {
-    startTool,
+const BehaviorSubjects = {
     BattleyeIsRunning$,
     R6SCGT_IsRunning$,
     PlayerUpdated$,
-    changeWeapon
+}
+
+export {
+    startTool,
+    changeWeapon,
+    BehaviorSubjects
 };

@@ -21,6 +21,7 @@ function animationTabs() {
 
     for (let i = 0; i < links.length; i++) {
       const link = links[i];
+      // TODO REMOVE THIS LISTNER AND ADD VUE EVENTS
       link.addEventListener("click", function(e: any) {
         document
           .getElementsByClassName("tabs")[0]

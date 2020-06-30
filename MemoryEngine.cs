@@ -97,6 +97,7 @@ namespace R6S_Custom_Game_Tool
                     //label4.ForeColor = Color.Green;
                     //timer.Start();
                     messageService.sendStringMessage("R6SCGT_IsRunning", IsRunning);
+                    CheckBattleEyeStatus();
                 }
                 return new EngineStartData(m, GameManager, RoundManager, NetworkManager);
             }
