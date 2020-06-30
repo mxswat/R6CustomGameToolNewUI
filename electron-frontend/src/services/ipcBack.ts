@@ -28,6 +28,10 @@ class IpcBack {
         ipcMain.on('changeWeapon', (event, arg) => {
             ComunicationServiceInst.changeWeapon(arg);
         });
+
+        ipcMain.on('stopTimer', (event, arg) => {
+            ComunicationServiceInst.sendToC('stopTimer', arg);
+        });
     }
 }
 

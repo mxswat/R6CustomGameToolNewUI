@@ -12,6 +12,10 @@ function startTool() {
     windowAny.ipcRenderer.send('start-tool', 'start');
 }
 
+function stopTimer(params: boolean) {
+    windowAny.ipcRenderer.send('stopTimer', params);
+}
+
 function changeWeapon(playerIndex: string, slotIndex: string, weaponIndex: string) {
     windowAny.ipcRenderer.send('changeWeapon', {
         playerIndex: playerIndex,
@@ -42,5 +46,6 @@ const BehaviorSubjects = {
 export {
     startTool,
     changeWeapon,
-    BehaviorSubjects
+    BehaviorSubjects,
+    stopTimer
 };

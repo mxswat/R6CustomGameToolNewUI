@@ -32,7 +32,7 @@
           <h3 class="list-title">Utility</h3>
           <div class="switch">
             <div>
-              <input type="checkbox" id="1" />
+              <input type="checkbox" id="1" v-model="timerCheck" @change="stopTimer($event)" />
               <label for="1">
                 <span class="switch-label">Stop timer</span>
                 <span></span>
@@ -50,7 +50,8 @@ import { Component, Vue } from "vue-property-decorator";
 import {
   startTool,
   BehaviorSubjects,
-  changeWeapon
+  changeWeapon,
+  stopTimer
 } from "../services/ipcfront";
 
 import { Subscription } from "rxjs";
@@ -75,6 +76,7 @@ export default class Host extends Vue {
   BehaviorSubjects: any;
   BattleyeIsRunning: boolean;
   R6SCGT_IsRunning: boolean;
+  timerCheck: boolean = false;
 
   created() {
     for (let i = 0; i < 10; i++) {
@@ -122,6 +124,10 @@ export default class Host extends Vue {
       event.slotIndex,
       event.elementIndex
     );
+  }
+
+  stopTimer() {
+    stopTimer(this.timerCheck);
   }
 }
 </script>

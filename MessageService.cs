@@ -18,6 +18,11 @@
                 requestedWeaponChange(payload);
                 return false;
             });
+            this.connection.On("stopTimer", (bool payload) =>
+            {
+                stopTimer(payload);
+                return false;
+            });
             Task.Run(() => this.connection.Listen());
         }
         private Connection connection;
@@ -58,6 +63,12 @@
             string slotID = MemoryEngine.SlotIDs[payload.slotIndex];
             string weaponId = MemoryEngine.Weapons[payload.weaponIndex];
             MemoryEngine.changeWeapon(playerID, slotID, weaponId);
+        }
+
+        private void stopTimer(bool value)
+        {
+            MemoryEngine MemoryEngine = MemoryEngine.GetInstance();
+            MemoryEngine.setTimerBlocked(value);
         }
     }
 
