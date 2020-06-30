@@ -85,8 +85,8 @@ export default class Host extends Vue {
   gunslist: any = [];
   gadgetslist: any = [];
   BehaviorSubjects: any;
-  BattleyeIsRunning: boolean;
-  R6SCGT_IsRunning: boolean;
+  BattleyeIsRunning: boolean = false;
+  R6SCGT_IsRunning: boolean = false;
   timerCheck: boolean = false;
 
   created() {
@@ -107,10 +107,10 @@ export default class Host extends Vue {
   subscribeToSubjects() {
     this.subscriptions = [
       BehaviorSubjects.PlayerUpdated$.subscribe(this.onPlayerUpdated),
-      BehaviorSubjects.BattleyeIsRunning$.subscribe((value: boolean) => {
+      BehaviorSubjects.BattleyeIsRunning$.subscribe((value: any) => {
         this.BattleyeIsRunning = value;
       }),
-      BehaviorSubjects.R6SCGT_IsRunning$.subscribe((value: boolean) => {
+      BehaviorSubjects.R6SCGT_IsRunning$.subscribe((value: any) => {
         this.R6SCGT_IsRunning = value;
       })
     ];
