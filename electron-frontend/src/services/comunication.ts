@@ -41,20 +41,19 @@ class ComunicationService {
         win.webContents.send('tool-disconnected', 'test');
       };
 
-      this.connection.on('BattleyeIsRunning', (request) => {
-        console.log(`BattleyeIsRunning: ${request}`);
-        win.webContents.send('BattleyeIsRunning', request);
-      })
+      const eventNames = [
+        'BattleyeIsRunning',
+        'R6SCGT_IsRunning',
+        'PlayerUpdated'
+      ]
 
-      this.connection.on('R6SCGT_IsRunning', (request) => {
-        console.log(`R6SCGT_IsRunning: ${request}`);
-        win.webContents.send('R6SCGT_IsRunning', request);
-      })
-
-      this.connection.on('PlayerUpdated', (request) => {
-        // console.log("PlayerUpdated", Date.now());
-        win.webContents.send('PlayerUpdated', request);
-      })
+      for (let i = 0; i < eventNames.length; i++) {
+        const eventName = eventNames[i];
+        this.connection.on(eventName, (request) => {
+          // console.log(`${eventName} ${request}`);
+          win.webContents.send(eventName, request);
+        })
+      }
     }
   }
 

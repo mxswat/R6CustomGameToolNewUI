@@ -46,7 +46,6 @@ windowAny.ipcRenderer.on('R6SCGT_IsRunning', (event: any, arg: any) => {
 })
 windowAny.ipcRenderer.on('PlayerUpdated', (event: any, arg: any) => {
     PlayerUpdated$.next(arg);
-    // console.log('PlayerUpdated', arg);
 })
 
 const BehaviorSubjects = {

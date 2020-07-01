@@ -28,7 +28,6 @@
                 stopTimer(payload);
                 return false;
             });
-            Task.Run(() => this.connection.Listen());
             this.connection.On("randomizeAll", (string notthinghere) =>
             {
                 randomizeAll();

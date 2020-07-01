@@ -6,7 +6,7 @@
     </div>
     <div class="toolbar">
       <span class="link-btt">Battle eye: {{BattleyeIsRunning ? 'ON' : 'OFF'}}</span>
-      <span class="link-btt">Attached: {{BattleyeIsRunning ? 'Yes' : 'No'}}</span>
+      <span class="link-btt">Attached: {{R6SCGT_IsRunning ? 'Yes' : 'No'}}</span>
     </div>
     <div class="tabs-container">
       <div class="players tabs">
@@ -110,13 +110,14 @@ export default class Host extends Vue {
     animationTabs();
   }
   subscribeToSubjects() {
+    const _this = this;
     this.subscriptions = [
       BehaviorSubjects.PlayerUpdated$.subscribe(this.onPlayerUpdated),
       BehaviorSubjects.BattleyeIsRunning$.subscribe((value: any) => {
-        this.BattleyeIsRunning = value;
+        _this.BattleyeIsRunning = value;
       }),
       BehaviorSubjects.R6SCGT_IsRunning$.subscribe((value: any) => {
-        this.R6SCGT_IsRunning = value;
+        _this.R6SCGT_IsRunning = value;
       })
     ];
   }
