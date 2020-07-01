@@ -64,6 +64,10 @@ input:focus {
   outline: none;
 }
 
+button:focus {
+    outline: none;
+}
+
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;

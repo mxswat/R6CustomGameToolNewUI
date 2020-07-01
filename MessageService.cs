@@ -29,7 +29,14 @@
                 return false;
             });
             Task.Run(() => this.connection.Listen());
+            this.connection.On("randomizeAll", (string notthinghere) =>
+            {
+                randomizeAll();
+                return false;
+            });
+            Task.Run(() => this.connection.Listen());
         }
+
         private Connection connection;
 
         private static MessageService _instance;
@@ -86,6 +93,12 @@
         {
             MemoryEngine MemoryEngine = MemoryEngine.GetInstance();
             MemoryEngine.setTimerBlocked(value);
+        }
+
+        private void randomizeAll()
+        {
+            MemoryEngine MemoryEngine = MemoryEngine.GetInstance();
+            MemoryEngine.randomizeAll();
         }
     }
 

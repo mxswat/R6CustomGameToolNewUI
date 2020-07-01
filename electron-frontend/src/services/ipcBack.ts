@@ -32,6 +32,10 @@ class IpcBack {
         ipcMain.on('stopTimer', (event, arg) => {
             ComunicationServiceInst.sendToC('stopTimer', arg);
         });
+
+        ipcMain.on('randomizeAll', (event, arg) => {
+            ComunicationServiceInst.sendToC('randomizeAll', arg);
+        });
     }
 }
 

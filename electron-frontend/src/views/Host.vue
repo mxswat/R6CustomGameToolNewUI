@@ -41,11 +41,15 @@
         <div class="utils">
           <h3 class="list-title">Utility</h3>
           <div class="switch">
-            <div>
+            <div class="u-buttons">
               <input type="checkbox" id="1" v-model="timerCheck" @change="stopTimer($event)" />
               <label for="1">
                 <span class="switch-label">Stop timer</span>
                 <span></span>
+              </label>
+              <label for="random">
+                <span class="switch-label">Randomize all</span>
+                <button @click="randomizeAll()" id="random" class="ibtt randomize"></button>
               </label>
             </div>
           </div>
@@ -62,7 +66,8 @@ import {
   BehaviorSubjects,
   changeWeapon,
   stopTimer,
-  changeGadget
+  changeGadget,
+  randomizeAll
 } from "../services/ipcfront";
 
 import { Subscription } from "rxjs";
@@ -147,6 +152,10 @@ export default class Host extends Vue {
 
   stopTimer() {
     stopTimer(this.timerCheck);
+  }
+
+  randomizeAll() {
+    randomizeAll();
   }
 }
 </script>
@@ -266,7 +275,7 @@ $pink: #ff4b77;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px;
+    margin-bottom: 16px;
   }
 
   .switch span:last-child {
@@ -321,6 +330,66 @@ $pink: #ff4b77;
     left: 8px;
     background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/checkmark-switcher.svg);
     background-size: 14px 14px;
+  }
+  .u-buttons {
+    padding: 16px;
+  }
+
+  .ibtt {
+    font-size: 18px;
+    font-weight: 400;
+    border: 0;
+  }
+
+  .randomize {
+    background: linear-gradient(
+      124deg,
+      #1ddde8,
+      #2b1de8,
+      #dd00f3,
+      #ff2400,
+      #e81d1d,
+      #e8b71d,
+      #e3e81d,
+      #1de840,
+      #1ddde8,
+      #2b1de8,
+      #dd00f3
+    );
+    height: 25px;
+    width: 50px;
+    padding: 0;
+    border-radius: 15px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4);
+    background-size: 600%;
+    background-position: right;
+    transition: all 0.8s;
+    &:active,
+    &:focus {
+      animation: btn-color 500ms forwards linear;
+    }
+    cursor: pointer;
+    &::after {
+      content: "";
+      background-image: url("data:image/svg+xml,%3Csvg height='300px' width='300px' fill='white' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' x='0px' y='0px' viewBox='0 0 32 32' enable-background='new 0 0 32 32' xml:space='preserve'%3E%3Cpath d='M21.709,21.142c-0.618-0.195-1.407-0.703-2.291-1.588c-0.757-0.741-1.539-1.697-2.341-2.74 c-0.19,0.256-0.381,0.51-0.573,0.77c-0.523,0.709-1.059,1.424-1.604,2.127c1.903,2.312,3.88,4.578,6.809,4.952v2.701l7.556-4.362 l-7.556-4.361V21.142z M9.115,12.42c0.756,0.741,1.538,1.697,2.339,2.739c0.195-0.262,0.39-0.521,0.587-0.788 c0.521-0.703,1.051-1.412,1.592-2.11C11.602,9.798,9.5,7.354,6.237,7.236h-3.5v3.5h3.5C6.893,10.71,7.919,11.222,9.115,12.42z M21.709,10.828v2.535L29.265,9l-7.556-4.363v2.647c-1.904,0.219-3.425,1.348-4.751,2.644c-2.196,2.184-4.116,5.167-6.011,7.538 c-1.867,2.438-3.741,3.896-4.712,3.771h-3.5v3.5h3.5c2.185-0.029,3.879-1.266,5.34-2.693c2.194-2.184,4.116-5.166,6.009-7.538 C19.128,12.49,20.669,11.166,21.709,10.828z'%3E%3C/path%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      display: block;
+      height: 25px;
+      width: 25px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+@keyframes btn-color {
+  from {
+    background-position: right;
+  }
+  to {
+    background-position: left;
   }
 }
 </style>

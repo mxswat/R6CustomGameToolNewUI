@@ -32,6 +32,10 @@ function changeGadget(playerIndex: string, slotIndex: string, gadgetIndex: strin
     });
 }
 
+function randomizeAll() {
+    windowAny.ipcRenderer.send('randomizeAll', 'doit');
+}
+
 windowAny.ipcRenderer.on('BattleyeIsRunning', (event: any, arg: any) => {
     BattleyeIsRunning$.next(arg);
     console.log('BattleyeIsRunning', arg);
@@ -56,5 +60,6 @@ export {
     changeWeapon,
     changeGadget,
     BehaviorSubjects,
-    stopTimer
+    stopTimer,
+    randomizeAll
 };
