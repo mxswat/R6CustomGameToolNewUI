@@ -77,6 +77,11 @@ namespace R6S_Custom_Game_Tool
                 label4.ForeColor = Color.Green;
             }
             timer.Start();
+            // Minimize it at start
+            this.WindowState = FormWindowState.Minimized;
+            ShowIcon = true;
+            notifyIcon1.Visible = true;
+            this.ShowInTaskbar = false;
         }
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)
@@ -633,6 +638,12 @@ namespace R6S_Custom_Game_Tool
                 m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},68,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "int", $"{textBox16.Text}");
             }
             catch (Exception) {; }
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.ShowInTaskbar = true;
+            this.WindowState = FormWindowState.Normal;
         }
     }
 }
