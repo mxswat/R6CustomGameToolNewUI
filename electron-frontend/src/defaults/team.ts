@@ -37,6 +37,14 @@ const TEAM = [
         links: {
             twitter: 'https://twitter.com/hanakomisa',
         }
+    },
+    {
+        name: 'benjaminstrike',
+        task: 'Beta Testing, C# support',
+        links: {
+            twitter: 'https://twitter.com/benjaminstrike',
+            github: 'http://github.com/benjaminstrike/',
+        }
     }
 ];
 

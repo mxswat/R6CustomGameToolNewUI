@@ -6,7 +6,7 @@
     </div>
     <div class="toolbar">
       <span class="link-btt">Battle eye: {{BattleyeIsRunning ? 'ON' : 'OFF'}}</span>
-      <span class="link-btt">R6SCGT: {{BattleyeIsRunning ? 'ON' : 'OFF'}}</span>
+      <span class="link-btt">Attached: {{BattleyeIsRunning ? 'Yes' : 'No'}}</span>
     </div>
     <div class="tabs-container">
       <div class="players tabs">
