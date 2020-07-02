@@ -76,15 +76,16 @@ namespace R6S_Custom_Game_Tool
             try
             {
                 int iProcID = m.GetProcIdFromName("RainbowSix_Vulkan");
-                GameManager = "RainbowSix_Vulkan.exe+0x6713ED8";
+                GameManager = "RainbowSix_Vulkan.exe+0x6560438";
                 RoundManager = "RainbowSix_Vulkan.exe+0x68E2CF0";
                 NetworkManager = "RainbowSix_Vulkan.exe+0x6923130";
                 IsRunning = "Vulkan";
 
                 if (iProcID == 0)
                 {
+                    // get new iProcID because 0 means no process found
                     iProcID = m.GetProcIdFromName("RainbowSix");
-                    GameManager = "RainbowSix.exe+0x6713ED8";
+                    GameManager = "RainbowSix.exe+0x6C21B48";
                     RoundManager = "RainbowSix.exe+0x6CA0848";
                     NetworkManager = "RainbowSix.exe+0x68E2CF0";
                     IsRunning = "DirectX";

@@ -79,11 +79,11 @@ namespace R6S_Custom_Game_Tool
                 //MessageBox.Show("MemEngine is Running");
             }
             timer.Start();
-            // Minimize it at start
-            this.WindowState = FormWindowState.Minimized;
-            ShowIcon = true;
-            notifyIcon1.Visible = true;
-            this.ShowInTaskbar = false;
+            // Minimize it at start TODO: Remind me to uncomment this
+            //this.WindowState = FormWindowState.Minimized;
+            //ShowIcon = true;
+            //notifyIcon1.Visible = true;
+            //this.ShowInTaskbar = false;
         }
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)
