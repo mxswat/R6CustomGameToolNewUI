@@ -134,5 +134,17 @@ button:focus {
     z-index: 999;
   }
 }
+
+.coming-soon-page {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  span {
+    font-size: 25px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+}
 </style>
 

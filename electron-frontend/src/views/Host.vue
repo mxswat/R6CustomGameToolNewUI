@@ -13,8 +13,8 @@
     <div class="router-container">
       <div class="sidebar">
         <router-link to="/host/weapons" class>Weapons</router-link>
-        <router-link to="/host/maps" class="disabled">Maps & Gamemodes</router-link>
-        <router-link to="/host/outfits" class="disabled">Outfits</router-link>
+        <router-link to="/host/maps" >Maps & Gamemodes</router-link>
+        <router-link to="/host/outfits" >Outfits</router-link>
       </div>
       <router-view></router-view>
       <div v-if="$route.name === 'Host'" class="helper">

@@ -71,7 +71,7 @@ export default class List extends Vue {
   @Prop({ default: "none" })
   Title!: string;
 
-  @Prop({ default: false })
+  @Prop({ default: true })
   enabled!: boolean;
 
   selectItem(slotIndex: string, elementIndex: string) {

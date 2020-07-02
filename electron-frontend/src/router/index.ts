@@ -4,6 +4,8 @@ import Home from '../views/Home.vue'
 import Host from '../views/Host.vue'
 import Weapons from '../views/Weapons.vue'
 import Credits from '../views/Credits.vue'
+import Maps from '../views/Maps.vue'
+import Outfits from '../views/Outfits.vue'
 
 Vue.use(VueRouter)
 
@@ -22,9 +24,16 @@ Vue.use(VueRouter)
         path: 'weapons',
         name: 'Weapons',
         component: Weapons,
-        children: [
-          
-        ]
+      },
+      {
+        path: 'maps',
+        name: 'Maps',
+        component: Maps,
+      },
+      {
+        path: 'outfits',
+        name: 'Outfits',
+        component: Outfits,
       },
     ]
   },
