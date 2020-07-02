@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Host from '../views/Host.vue'
+import Weapons from '../views/Weapons.vue'
 import Credits from '../views/Credits.vue'
 
 Vue.use(VueRouter)
@@ -15,7 +16,17 @@ Vue.use(VueRouter)
   {
     path: '/host',
     name: 'Host',
-    component: Host
+    component: Host,
+    children: [
+      {
+        path: 'weapons',
+        name: 'Weapons',
+        component: Weapons,
+        children: [
+          
+        ]
+      },
+    ]
   },
   {
     path: '/Credits',
