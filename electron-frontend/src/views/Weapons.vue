@@ -219,10 +219,6 @@ input.playerradio[type="radio"]:checked + label {
   z-index: 0;
 }
 
-.toolbar {
-  padding: 8px 16px;
-}
-
 $white: #e8e9ed;
 $gray: #ff4b77;
 $blue: #18172c;

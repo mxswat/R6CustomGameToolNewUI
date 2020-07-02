@@ -11,9 +11,14 @@
     <div class="router-container">
       <div class="sidebar">
         <router-link to="/host/weapons" class>Weapons</router-link>
-        <router-link to="/host/maps" class>Maps & Gamemodes</router-link>
+        <router-link to="/host/maps" class="disabled">Maps & Gamemodes</router-link>
+        <router-link to="/host/outfits" class="disabled">Outfits</router-link>
       </div>
       <router-view></router-view>
+      <div v-if="$route.name === 'Host'" class="helper">
+        <span class="welcome">Welcome to the host mod panel</span>
+        <span class="message">Start by choosing one option from the menu on the left side</span>
+      </div>
     </div>
   </div>
 </template>
@@ -79,6 +84,26 @@ export default class Host extends Vue {
   flex-direction: column;
 }
 
+.toolbar {
+  padding: 8px 16px;
+  background: #202225;
+}
+
+.helper {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  .welcome {
+    margin-top: 0;
+    font-weight: 500;
+  }
+  .message {
+    font-size: 20px;
+  }
+}
+
 .sidebar {
   padding: 8px;
   background: #2f3136;
@@ -90,6 +115,21 @@ export default class Host extends Vue {
     cursor: pointer;
     font-weight: 500;
     text-decoration: none;
+    border-radius: 20px;
+    margin-bottom: 8px;
+    &:hover {
+      background: gray;
+    }
+    &.router-link-active {
+      background: linear-gradient(to right, #8a2387, #e94057, #f27121);
+      font-weight: 600;
+    }
   }
+}
+
+.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
 }
 </style>
