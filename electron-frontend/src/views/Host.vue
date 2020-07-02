@@ -3,10 +3,12 @@
     <div class="History">
       <router-link to="/" class="link-btt underline-from-left">Home</router-link>
       <router-link to="/credits" class="link-btt underline-from-left">Help</router-link>
-    </div>
-    <div class="toolbar">
+      <div class="spacer"></div>
       <span class="link-btt">Battle eye: {{BattleyeIsRunning ? 'ON' : 'OFF'}}</span>
       <span class="link-btt">Attached: {{R6SCGT_IsRunning ? 'Yes' : 'No'}}</span>
+    </div>
+    <div class="toolbar">
+      <MxSwitch :id="'timerStop'" :label="'Stop timer'" v-model="timerCheck" v-on:changed="stopTimer"></MxSwitch>
     </div>
     <div class="router-container">
       <div class="sidebar">
@@ -25,6 +27,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import MxSwitch from "../components/Switch.vue";
 import {
   startTool,
   BehaviorSubjects,
@@ -35,12 +38,17 @@ import {
 } from "../services/ipcfront";
 import { Subscription } from "rxjs";
 
-@Component({})
+@Component({
+  components: {
+    MxSwitch
+  }
+})
 export default class Host extends Vue {
   BattleyeIsRunning: boolean = false;
   R6SCGT_IsRunning: boolean = false;
   BehaviorSubjects: any;
   subscriptions: Array<Subscription> = [];
+  timerCheck: boolean = false;
   created() {
     startTool();
     this.BehaviorSubjects = BehaviorSubjects;
@@ -61,6 +69,11 @@ export default class Host extends Vue {
 
   beforeDestroy() {
     this.subscriptions.forEach(x => x.unsubscribe());
+  }
+
+  stopTimer() {
+    this.timerCheck = !this.timerCheck;
+    stopTimer(this.timerCheck);
   }
 }
 </script>
@@ -86,7 +99,8 @@ export default class Host extends Vue {
 
 .toolbar {
   padding: 8px 16px;
-  background: #202225;
+  background: #282828;
+  display: flex;
 }
 
 .helper {

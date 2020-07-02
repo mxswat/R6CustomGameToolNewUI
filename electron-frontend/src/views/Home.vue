@@ -56,6 +56,11 @@ export default class Home extends Vue {}
 .History {
   padding: 8px 16px;
   background: #202225;
+  display: flex;
+  .spacer {
+    display: flex;
+    flex: 1 1 auto;
+  }
 }
 
 .welcome {

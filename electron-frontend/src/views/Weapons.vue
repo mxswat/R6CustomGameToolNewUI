@@ -20,30 +20,21 @@
       <div class="container">
         <List
           v-on:selectedElement="onSelectedItem($event, true)"
-          :enabled="timerCheck"
           :list="gunslist"
           :Title="'weapons'"
         ></List>
         <List
           v-on:selectedElement="onSelectedItem($event, false)"
-          :enabled="timerCheck"
           :list="gadgetslist"
           :Title="'gadgets'"
         ></List>
         <div class="utils">
           <h3 class="list-title">Utility</h3>
-          <div class="switch">
-            <div class="u-buttons">
-              <input type="checkbox" id="1" v-model="timerCheck" @change="stopTimer($event)" />
-              <label for="1">
-                <span class="switch-label">Stop timer</span>
-                <span></span>
-              </label>
-              <label for="random">
-                <span class="switch-label">Randomize all</span>
-                <button @click="randomizeAll()" id="random" class="ibtt randomize"></button>
-              </label>
-            </div>
+          <div class="utils-list">
+            <label class="randomize-lab">
+              <span class="switch-label">Randomize all</span>
+              <button @click="randomizeAll()" id="random" class="ibtt randomize"></button>
+            </label>
           </div>
         </div>
       </div>
@@ -68,10 +59,12 @@ import animationTabs from "../defaults/hosttabs";
 import GUNS from "../defaults/guns";
 import GADGETS from "../defaults/gadgets";
 import List from "./List.vue";
+import MxSwitch from "../components/Switch.vue";
 
 @Component({
   components: {
-    List
+    List,
+    MxSwitch
   }
 })
 export default class Weapons extends Vue {
@@ -81,8 +74,6 @@ export default class Weapons extends Vue {
   gunslist: any = [];
   gadgetslist: any = [];
   BehaviorSubjects: any;
-
-  timerCheck: boolean = false;
 
   created() {
     for (let i = 0; i < 10; i++) {
@@ -132,10 +123,6 @@ export default class Weapons extends Vue {
         event.elementIndex
       );
     }
-  }
-
-  stopTimer() {
-    stopTimer(this.timerCheck);
   }
 
   randomizeAll() {
@@ -219,99 +206,8 @@ input.playerradio[type="radio"]:checked + label {
   z-index: 0;
 }
 
-$white: #e8e9ed;
-$gray: #ff4b77;
-$blue: #18172c;
-$green: #00d084;
-$pink: #ff4b77;
-
 .utils {
-  label {
-    cursor: pointer;
-  }
-
-  [type="checkbox"] {
-    position: absolute;
-    left: -9999px;
-  }
-
-  .switch li::before {
-    content: counter(switchCounter);
-    position: absolute;
-    top: 50%;
-    left: -30px;
-    transform: translateY(-50%);
-    font-size: 2rem;
-    font-weight: bold;
-    color: $pink;
-  }
-
-  .switch-label {
-    font-size: 18px;
-    font-weight: 400;
-  }
-
-  .switch label {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-  }
-
-  .switch span:last-child {
-    position: relative;
-    width: 50px;
-    height: 26px;
-    border-radius: 15px;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4);
-    background: $gray;
-    transition: all 0.3s;
-  }
-
-  .switch span:last-child::before,
-  .switch span:last-child::after {
-    content: "";
-    position: absolute;
-  }
-
-  .switch span:last-child::before {
-    left: 1px;
-    top: 1px;
-    width: 24px;
-    height: 24px;
-    background: $white;
-    border-radius: 50%;
-    z-index: 1;
-    transition: transform 0.3s;
-  }
-
-  .switch span:last-child::after {
-    top: 50%;
-    right: 8px;
-    width: 12px;
-    height: 12px;
-    transform: translateY(-50%);
-    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/uncheck-switcher.svg);
-    background-size: 12px 12px;
-  }
-
-  .switch [type="checkbox"]:checked + label span:last-child {
-    background: $green;
-  }
-
-  .switch [type="checkbox"]:checked + label span:last-child::before {
-    transform: translateX(24px);
-  }
-
-  .switch [type="checkbox"]:checked + label span:last-child::after {
-    width: 14px;
-    height: 14px;
-    /*right: auto;*/
-    left: 8px;
-    background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/checkmark-switcher.svg);
-    background-size: 14px 14px;
-  }
-  .u-buttons {
+  .utils-list {
     padding: 16px;
   }
 
@@ -319,6 +215,15 @@ $pink: #ff4b77;
     font-size: 18px;
     font-weight: 400;
     border: 0;
+  }
+
+  .randomize-lab {
+    display: flex;
+    .switch-label {
+      font-size: 18px;
+      font-weight: 400;
+      flex: 1 1 auto;
+    }
   }
 
   .randomize {
