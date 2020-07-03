@@ -1,7 +1,11 @@
 <template>
-  <div>
-    Hello client
-    <input type="text" name="ip" id="ip" v-model="ipAddress"/>
+  <div class="client-socket">
+    <div class="History">
+      <router-link to="/" class="link-btt underline-from-left">Home</router-link>
+      <router-link to="/credits" class="link-btt underline-from-left">Help</router-link>
+      <div class="spacer"></div>
+    </div>Hello client
+    <input type="text" name="ip" id="ip" v-model="ipAddress" />
     <br />
     <a @click="connectToSocketIoServer()">Connect to socket.io server</a>
     <br />
@@ -16,7 +20,7 @@ import io from "socket.io-client";
 @Component
 export default class ClientSocket extends Vue {
   socket: any;
-  ipAddress: string = 'ipgoeshere';
+  ipAddress: string = "ipgoeshere";
   created() {
     // const ipAddress = 'localhost';
     // // TODO Reming me to use portfinder!

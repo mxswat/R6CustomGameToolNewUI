@@ -65,7 +65,7 @@ input:focus {
 }
 
 button:focus {
-    outline: none;
+  outline: none;
 }
 
 ::-webkit-scrollbar {
@@ -145,6 +145,11 @@ button:focus {
     text-transform: uppercase;
     font-weight: 500;
   }
+}
+
+.spacer {
+  display: flex;
+  flex: 1 1 auto;
 }
 </style>
 

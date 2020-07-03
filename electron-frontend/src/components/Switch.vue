@@ -45,6 +45,7 @@ $green: #00d084;
 .switch-label {
   font-size: 18px;
   font-weight: 400;
+  margin-left: 8px;
 }
 
 .switch label {

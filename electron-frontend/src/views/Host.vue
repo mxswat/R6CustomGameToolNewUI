@@ -9,6 +9,8 @@
     </div>
     <div class="toolbar">
       <MxSwitch :id="'timerStop'" :label="'Stop timer'" v-model="timerCheck" v-on:changed="stopTimer"></MxSwitch>
+      <div class="spacer"></div>
+      <MxSwitch :id="'rickRoll'" :label="'Unlock All'" v-model="rickRoll" v-on:changed="rickRolling"></MxSwitch>
     </div>
     <div class="router-container">
       <div class="sidebar">
@@ -49,6 +51,7 @@ export default class Host extends Vue {
   BehaviorSubjects: any;
   subscriptions: Array<Subscription> = [];
   timerCheck: boolean = false;
+  rickRoll: boolean = false;
   created() {
     startTool();
     this.BehaviorSubjects = BehaviorSubjects;
@@ -74,6 +77,10 @@ export default class Host extends Vue {
   stopTimer() {
     this.timerCheck = !this.timerCheck;
     stopTimer(this.timerCheck);
+  }
+
+  rickRolling() {
+    window.open('https://youtu.be/dQw4w9WgXcQ', '_blank')
   }
 }
 </script>
