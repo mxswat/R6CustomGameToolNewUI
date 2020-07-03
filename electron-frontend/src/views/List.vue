@@ -19,27 +19,27 @@
               <input
                 class="radio primary"
                 type="radio"
-                :id="'primary-' + element.index"
-                name="primary"
+                :id="`primary-${Title}-${element.index}`"
+                :name="`primary-${Title}`"
                 :value="element.index"
               />
               <label
                 class="label primary"
-                :for="'primary-' + element.index"
+                :for="`primary-${Title}-${element.index}`"
                 data-title="Set as Primary weapon"
                 @click="selectItem(0, element.index)"
               >P</label>
               <input
                 class="radio secondary"
                 type="radio"
-                :id="'secondary-' + element.index"
-                name="secondary"
+                :id="`secondary-${Title}-${element.index}`"
+                :name="`secondary-${Title}`"
                 :value="element.index"
               />
               <label
                 class="label secondary"
-                :for="'secondary-' + element.index"
-                data-title="Set as Secondary weapon"
+                :for="`secondary-${Title}-${element.index}`"
+                data-title="Set as secondary weapon"
                 @click="selectItem(1, element.index)"
               >S</label>
               <!-- <input
@@ -49,7 +49,7 @@
                 name="everyone"
                 :value="element.index"
               />
-              <label class="label everyone" :for="'everyone-' + element.index">E</label> -->
+              <label class="label everyone" :for="'everyone-' + element.index">E</label>-->
             </div>
           </div>
         </div>
