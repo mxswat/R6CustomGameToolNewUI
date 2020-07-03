@@ -20,6 +20,7 @@ protocol.registerSchemesAsPrivileged([
 ])
 
 function createWindow() {
+  runSocketIo();
   // Create the browser window.
   win = new BrowserWindow({
     width: 1400,
@@ -109,4 +110,28 @@ if (isDevelopment) {
       app.quit()
     })
   }
+}
+
+
+function runSocketIo() {
+  const app = require('express')();
+  const http = require('http').Server(app);
+  const io = require('socket.io')(http);
+  const port = process.env.PORT || 3000;
+
+  app.get('/', function (req: any, res: any) {
+    res.send('hello world!');
+  });
+
+  io.on('connection', function (socket: any) {
+    socket.on('chat message', function (msg: any) {
+      io.emit('chat message', msg);
+    });
+  });
+
+  http.listen(port, function () {
+    console.log('listening on *:' + port);
+
+  });
+
 }

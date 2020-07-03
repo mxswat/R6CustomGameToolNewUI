@@ -17,7 +17,8 @@ module.exports = {
                     "from": "tool",
                     "to": "./resources/app.asar.unpacked/tool/"
                 },
-            }
+            },
+            externals: ['socket.io', 'socket.io-client'], 
         }
     }
 }
