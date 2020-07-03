@@ -12,6 +12,7 @@
   },
   "main": "background.js",
   "dependencies": {
+    "@types/socket.io-client": "^1.4.33",
     "core-js": "^3.6.5",
     "express": "^4.15.2",
     "rxjs": "^6.5.5",

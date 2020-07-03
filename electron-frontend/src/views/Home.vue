@@ -8,7 +8,7 @@
       <span class="buttonsub">Mod your custom game or THUNT</span>
     </div>
     <div class="links">
-      <router-link to="/" class="join">
+      <router-link to="/client" class="join">
         Join a modded game
         <br />
         <span class="buttonsub">custom loadout as client coming soon</span>
@@ -94,11 +94,6 @@ export default class Home extends Vue {}
 .buttonsub {
   font-size: 13px;
   text-transform: uppercase;
-}
-
-.join {
-  color: gray;
-  cursor: not-allowed;
 }
 
 .home-link {

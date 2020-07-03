@@ -124,14 +124,15 @@ function runSocketIo() {
   });
 
   io.on('connection', function (socket: any) {
+    console.log('connection');
     socket.on('chat message', function (msg: any) {
+      console.log('chat message', msg)
       io.emit('chat message', msg);
     });
   });
 
   http.listen(port, function () {
     console.log('listening on *:' + port);
-
   });
 
 }
