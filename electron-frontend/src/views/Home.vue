@@ -8,11 +8,9 @@
       <span class="buttonsub">Mod your custom game or THUNT</span>
     </div>
     <div class="links">
-      <router-link to="/client" class="join underline-from-left">
-        Join a modded game
-        <br />
-        <span class="buttonsub">custom loadout as client coming soon</span>
-      </router-link>
+      <router-link to="/client" class="join underline-from-left">Join a modded game</router-link>
+      <br />
+      <span class="buttonsub">custom loadout as client and more!</span>
     </div>
     <div class="links">
       <router-link to="/credits" class="home-link underline-from-left">Credits and Help</router-link>

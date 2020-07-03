@@ -151,5 +151,13 @@ button:focus {
   display: flex;
   flex: 1 1 auto;
 }
+
+.overflow-container {
+  overflow: hidden;
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+}
 </style>
 
