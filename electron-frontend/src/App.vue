@@ -159,5 +159,17 @@ button:focus {
   flex-shrink: 1;
   flex-basis: auto;
 }
+
+.mxbtt {
+  color: white;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border: 0;
+  display: block;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 50px;
+  background: linear-gradient(to right, #c33764, #1d2671);
+}
 </style>
 

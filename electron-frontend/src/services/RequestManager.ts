@@ -7,7 +7,11 @@ class RequestManager {
 
     constructor() {
         this.loadoutRequests$ = new BehaviorSubject(this.loadoutRequests);
-        this.loadoutRequests$.next([{
+        this.debugUi();
+    }
+
+    debugUi() {
+        const example = {
             uplayName: 'TestUser',
             loadout: {
                 Weapon: [{
@@ -19,7 +23,16 @@ class RequestManager {
                     elementIndex: 0,
                 }]
             }
-        }]);
+        }
+        const tester = [];
+        const count = 8;
+        for (let i = 0; i < count; i++) {
+            tester.push({
+                uplayName: example.uplayName + i,
+                loadout: example.loadout
+            })
+        }
+        this.loadoutRequests$.next(tester);
     }
 
     pushLoadoutRequests(request: any) {
