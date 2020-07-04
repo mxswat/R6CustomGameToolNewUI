@@ -8,4 +8,13 @@ enum ITEM_TYPE {
     Gadget
 }
 
-export { SLOT, ITEM_TYPE }
+type PlayerData = {
+    index: number;
+    name: string;
+    primary: string;
+    secondary: string;
+    primarygadget: string;
+    secondarygadget: string;
+}
+
+export { SLOT, ITEM_TYPE, PlayerData }

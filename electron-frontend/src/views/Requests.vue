@@ -60,8 +60,8 @@ export default class Requests extends Vue {
     document.getElementsByClassName("request")[idx].classList.add(cssclass);
     const _this = this;
     setTimeout(() => {
-      // TODO REPLACE ME WITH REQUEST REMOVE FNC
       RequestManagerInst.removeLoadoutRequests(idx);
+      // TODO WAIT FOR OLE UPDATE SO I CAN LINK THIS TO REAL ACTION
     }, 1000);
   }
 }

@@ -3,10 +3,9 @@ import { BehaviorSubject } from 'rxjs';
 class RequestManager {
     private loadoutRequests: Array<any> = [];
     // BehaviorSubject because I might need to compare statuses
-    private loadoutRequests$: BehaviorSubject<Array<any>> | any = new BehaviorSubject([]);
+    private loadoutRequests$ = new BehaviorSubject<Array<any>>([]);
 
     constructor() {
-        this.loadoutRequests$ = new BehaviorSubject(this.loadoutRequests);
         this.debugUi();
     }
 

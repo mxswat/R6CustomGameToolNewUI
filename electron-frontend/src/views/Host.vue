@@ -8,16 +8,29 @@
       <span class="link-btt">Attached: {{R6SCGT_IsRunning ? 'Yes' : 'No'}}</span>
     </div>
     <div class="toolbar">
-      <MxSwitch :id="'timerStop'" :label="'Stop timer'" v-model="timerCheck" v-on:changed="stopTimer"></MxSwitch>
+      <MxSwitch
+        :id="'timerStop'"
+        :label="'Stop timer'"
+        v-model="timerCheck"
+        v-on:changed="stopTimer"
+      ></MxSwitch>
       <div class="spacer"></div>
-      <MxSwitch :id="'rickRoll'" :label="'Unlock All'" v-model="rickRoll" v-on:changed="rickRolling"></MxSwitch>
+      <MxSwitch
+        :id="'rickRoll'"
+        :label="'Unlock All'"
+        v-model="rickRoll"
+        v-on:changed="rickRolling"
+      ></MxSwitch>
     </div>
     <div class="router-container">
       <div class="sidebar">
         <router-link to="/host/weapons" class>Weapons</router-link>
-        <router-link to="/host/maps" >Maps & Gamemodes</router-link>
-        <router-link to="/host/outfits" >Outfits</router-link>
-        <router-link to="/host/requests" >Loadout Requests {{getRequestsCount()}}</router-link>
+        <router-link to="/host/maps">Maps & Gamemodes</router-link>
+        <router-link to="/host/outfits">Outfits</router-link>
+        <router-link to="/host/requests">
+          Loadout Requests
+          <span class="countReq" v-if="getRequestsCount()">{{getRequestsCount()}}</span>
+        </router-link>
       </div>
       <router-view></router-view>
       <div v-if="$route.name === 'Host'" class="helper">
@@ -87,11 +100,11 @@ export default class Host extends Vue {
   }
 
   getRequestsCount() {
-    return this.loadoutRequestsCount ? `(${this.loadoutRequestsCount})` : '';
+    return this.loadoutRequestsCount ? this.loadoutRequestsCount : false;
   }
 
   rickRolling() {
-    window.open('https://youtu.be/dQw4w9WgXcQ', '_blank')
+    window.open("https://youtu.be/dQw4w9WgXcQ", "_blank");
   }
 }
 </script>
@@ -163,5 +176,11 @@ export default class Host extends Vue {
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.5;
+}
+
+span.countReq {
+  background: red;
+  padding: 3px 8px;
+  border-radius: 50%;
 }
 </style>

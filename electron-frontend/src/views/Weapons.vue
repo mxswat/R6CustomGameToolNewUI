@@ -60,6 +60,7 @@ import GUNS from "../defaults/guns";
 import GADGETS from "../defaults/gadgets";
 import List from "./List.vue";
 import MxSwitch from "../components/Switch.vue";
+import { PlayerData } from "../defaults/general";
 
 @Component({
   components: {
@@ -98,7 +99,7 @@ export default class Weapons extends Vue {
     ];
   }
 
-  onPlayerUpdated(playerData: any) {
+  onPlayerUpdated(playerData: PlayerData) {
     if (playerData && playerData.name !== null) {
       const index = playerData.index;
       this.players[index].username = playerData.name;

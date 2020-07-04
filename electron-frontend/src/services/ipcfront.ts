@@ -2,12 +2,16 @@ import {
     BehaviorSubject,
 } from 'rxjs';
 import RequestManagerInst from './RequestManager';
+import { PlayerData } from '@/defaults/general';
 
 const windowAny: any = window;
 
 const BattleyeIsRunning$ = new BehaviorSubject(null);
 const R6SCGT_IsRunning$ = new BehaviorSubject(null);
 const PlayerUpdated$ = new BehaviorSubject(null);
+
+const playerList: Array<PlayerData> = [];
+const PlayerList$ = new BehaviorSubject<Array<PlayerData>>([]);
 
 function startTool() {
     windowAny.ipcRenderer.send('start-tool', 'start');
@@ -47,8 +51,10 @@ windowAny.ipcRenderer.on('R6SCGT_IsRunning', (event: any, arg: any) => {
     console.log('R6SCGT_IsRunning', arg);
 })
 
-windowAny.ipcRenderer.on('PlayerUpdated', (event: any, arg: any) => {
-    PlayerUpdated$.next(arg);
+windowAny.ipcRenderer.on('PlayerUpdated', (event: any, playerData: PlayerData) => {
+    PlayerUpdated$.next(playerData as any);
+    playerList[playerData.index] = playerData;
+    PlayerList$.next(playerList);
 })
 
 windowAny.ipcRenderer.on('request_loadout', (event: any, arg: any) => {
@@ -59,6 +65,7 @@ const BehaviorSubjects = {
     BattleyeIsRunning$,
     R6SCGT_IsRunning$,
     PlayerUpdated$,
+    PlayerList$
 }
 
 export {
