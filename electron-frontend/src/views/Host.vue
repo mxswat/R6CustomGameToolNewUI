@@ -179,7 +179,7 @@ export default class Host extends Vue {
 }
 
 span.countReq {
-  background: red;
+  background: #f04747;
   padding: 3px 8px;
   border-radius: 50%;
 }

@@ -12,6 +12,7 @@ class RequestManager {
     debugUi() {
         const example = {
             uplayName: 'TestUser',
+            debug: true,
             loadout: {
                 Weapon: [{
                     slotIndex: 0,

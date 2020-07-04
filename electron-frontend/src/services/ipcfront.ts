@@ -6,9 +6,9 @@ import { PlayerData } from '@/defaults/general';
 
 const windowAny: any = window;
 
-const BattleyeIsRunning$ = new BehaviorSubject(null);
-const R6SCGT_IsRunning$ = new BehaviorSubject(null);
-const PlayerUpdated$ = new BehaviorSubject(null);
+const BattleyeIsRunning$ = new BehaviorSubject<boolean>(false);
+const R6SCGT_IsRunning$ = new BehaviorSubject<boolean>(false);
+const PlayerUpdated$ = new BehaviorSubject<any>(null);
 
 const playerList: Array<PlayerData> = [];
 const PlayerList$ = new BehaviorSubject<Array<PlayerData>>([]);

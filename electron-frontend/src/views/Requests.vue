@@ -43,15 +43,20 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import RequestManagerInst from "../services/RequestManager";
-import { SLOT } from "../defaults/general";
+import { SLOT, PlayerData } from "../defaults/general";
+import { BehaviorSubjects, changeWeapon, changeGadget } from "../services/ipcfront";
 @Component
 export default class Requests extends Vue {
   loadoutRequests: Array<any> = [];
   slot = SLOT;
+  playerList: Array<PlayerData> = [];
   created() {
     // console.log('reeeeeee')
     RequestManagerInst.getRequests$().subscribe((value: any) => {
       this.loadoutRequests = value;
+    });
+    BehaviorSubjects.PlayerList$.subscribe((playerList: Array<PlayerData>) => {
+      this.playerList = playerList;
     });
   }
 
@@ -59,9 +64,23 @@ export default class Requests extends Vue {
     const cssclass = isApproved ? "approved" : "refused";
     document.getElementsByClassName("request")[idx].classList.add(cssclass);
     const _this = this;
+    const request = this.loadoutRequests[idx];
+    if (!request.debug && isApproved) {
+      // Bad code but should work
+      const idx = this.playerList.findIndex(element => {
+        return element.name == this.loadoutRequests[idx].uplayName;
+      });
+      for (let i = 0; i < request.Weapon.length; i++) {
+        const weapon = request.Weapon[i];
+        changeWeapon(idx.toString(), weapon.slotIndex, weapon.elementIndex);
+      }
+      for (let i = 0; i < request.Gadget.length; i++) {
+        const gadget = request.Gadget[i];
+        changeGadget(idx.toString(), gadget.slotIndex, gadget.elementIndex);
+      }
+    }
     setTimeout(() => {
       RequestManagerInst.removeLoadoutRequests(idx);
-      // TODO WAIT FOR OLE UPDATE SO I CAN LINK THIS TO REAL ACTION
     }, 1000);
   }
 }
@@ -123,7 +142,11 @@ export default class Requests extends Vue {
 
 .approved,
 .refused {
-  background: linear-gradient(90deg, rgba(2,0,36,0) 0%, rgba(107,229,133,1) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 0) 0%,
+    rgba(107, 229, 133, 1) 100%
+  );
   .username,
   .loadout {
     pointer-events: none;
@@ -135,6 +158,10 @@ export default class Requests extends Vue {
 }
 
 .refused {
-  background: linear-gradient(90deg, rgba(2,0,36,0) 0%, rgba(147,41,30,1) 100%);;
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 0) 0%,
+    rgba(147, 41, 30, 1) 100%
+  );
 }
 </style>
