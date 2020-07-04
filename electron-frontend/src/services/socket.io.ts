@@ -1,3 +1,5 @@
+import IpcBackIns from './ipcBack';
+
 class SocketIoService {
 
     constructor() { }
@@ -16,6 +18,7 @@ class SocketIoService {
             console.log('connection');
             socket.on('request_loadout', function (msg: any) {
                 console.log('request_loadout', msg)
+                IpcBackIns.sendDataToFront('request_loadout', msg);
             });
         });
 

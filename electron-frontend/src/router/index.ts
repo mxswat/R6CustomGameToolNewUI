@@ -6,6 +6,7 @@ import Weapons from '../views/Weapons.vue'
 import Credits from '../views/Credits.vue'
 import Maps from '../views/Maps.vue'
 import Outfits from '../views/Outfits.vue'
+import Requests from '../views/Requests.vue'
 import ClientSocket from '../views/ClientSocket.vue'
 
 Vue.use(VueRouter)
@@ -35,6 +36,11 @@ Vue.use(VueRouter)
         path: 'outfits',
         name: 'Outfits',
         component: Outfits,
+      },
+      {
+        path: 'requests',
+        name: 'Requests',
+        component: Requests,
       },
     ]
   },

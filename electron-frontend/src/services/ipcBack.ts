@@ -37,6 +37,10 @@ class IpcBack {
             ComunicationServiceInst.sendToC('randomizeAll', arg);
         });
     }
+
+    sendDataToFront(eventName: string, request: any) {
+        this.win.webContents.send(eventName, request);
+    }
 }
 
 const IpcBackIns = new IpcBack();
