@@ -17,7 +17,7 @@
         <router-link to="/host/weapons" class>Weapons</router-link>
         <router-link to="/host/maps" >Maps & Gamemodes</router-link>
         <router-link to="/host/outfits" >Outfits</router-link>
-        <router-link to="/host/requests" >Loadout Requests</router-link>
+        <router-link to="/host/requests" >Loadout Requests {{getRequestsCount()}}</router-link>
       </div>
       <router-view></router-view>
       <div v-if="$route.name === 'Host'" class="helper">
@@ -40,6 +40,7 @@ import {
   randomizeAll
 } from "../services/ipcfront";
 import { Subscription } from "rxjs";
+import RequestManagerInst from "../services/RequestManager";
 
 @Component({
   components: {
@@ -53,6 +54,8 @@ export default class Host extends Vue {
   subscriptions: Array<Subscription> = [];
   timerCheck: boolean = false;
   rickRoll: boolean = false;
+  loadoutRequestsCount: number = 0;
+
   created() {
     startTool();
     this.BehaviorSubjects = BehaviorSubjects;
@@ -67,6 +70,9 @@ export default class Host extends Vue {
       }),
       BehaviorSubjects.R6SCGT_IsRunning$.subscribe((value: any) => {
         _this.R6SCGT_IsRunning = value;
+      }),
+      RequestManagerInst.getRequests$().subscribe((value: Array<any>) => {
+        _this.loadoutRequestsCount = value.length;
       })
     ];
   }
@@ -78,6 +84,10 @@ export default class Host extends Vue {
   stopTimer() {
     this.timerCheck = !this.timerCheck;
     stopTimer(this.timerCheck);
+  }
+
+  getRequestsCount() {
+    return this.loadoutRequestsCount ? `(${this.loadoutRequestsCount})` : '';
   }
 
   rickRolling() {

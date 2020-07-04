@@ -52,13 +52,13 @@ export default class Requests extends Vue {
   }
 
   approve(idx: number, isApproved: boolean) {
-    const cssclass = isApproved ? 'approved' : 'refused';
-    document.getElementsByClassName('request')[idx].classList.add(cssclass);
-    // TODO REPLACE ME WITH REQUEST REMOVE FNC
+    const cssclass = isApproved ? "approved" : "refused";
+    document.getElementsByClassName("request")[idx].classList.add(cssclass);
     const _this = this;
     setTimeout(() => {
+      // TODO REPLACE ME WITH REQUEST REMOVE FNC
       _this.loadoutRequests.splice(idx, 1);
-    }, 500);
+    }, 1000);
   }
 }
 </script>
@@ -108,13 +108,20 @@ export default class Requests extends Vue {
   }
 }
 
-.approved, .refused {
-  pointer-events: none;
-  transform: translateX(100%);
-  transition: all 500ms;
+.approved,
+.refused {
+  background: linear-gradient(90deg, rgba(2,0,36,0) 0%, rgba(107,229,133,1) 100%);
+  .username,
+  .loadout {
+    pointer-events: none;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: all 1000ms;
+    display: flex;
+  }
 }
 
 .refused {
-  
+  background: linear-gradient(90deg, rgba(2,0,36,0) 0%, rgba(147,41,30,1) 100%);;
 }
 </style>
