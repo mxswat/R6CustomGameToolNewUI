@@ -1,6 +1,10 @@
 <template>
   <div class="requests-main">
     <!-- <h3 class="list-title">Requests</h3> -->
+    <div class="toolbar">
+      <button class="mxbtt approve" @click="approve(idx, true)">Approve All</button>
+      <button class="mxbtt refuse" @click="approve(idx, false)">Refuse All</button>
+    </div>
     <div class="requests-list">
       <div
         class="request"
@@ -57,7 +61,7 @@ export default class Requests extends Vue {
     const _this = this;
     setTimeout(() => {
       // TODO REPLACE ME WITH REQUEST REMOVE FNC
-      _this.loadoutRequests.splice(idx, 1);
+      RequestManagerInst.removeLoadoutRequests(idx);
     }, 1000);
   }
 }
@@ -105,6 +109,15 @@ export default class Requests extends Vue {
   }
   &.refuse {
     background: linear-gradient(to right, #ed213a, #93291e);
+  }
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  padding: 0px 8px;
+  button {
+    margin-right: 16px;
   }
 }
 

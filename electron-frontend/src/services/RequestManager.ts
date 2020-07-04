@@ -32,6 +32,7 @@ class RequestManager {
                 loadout: example.loadout
             })
         }
+        this.loadoutRequests = tester;
         this.loadoutRequests$.next(tester);
     }
 
