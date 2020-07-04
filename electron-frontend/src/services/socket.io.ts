@@ -18,7 +18,7 @@ class SocketIoService {
             console.log('connection');
             socket.on('request_loadout', function (msg: any) {
                 console.log('request_loadout', msg)
-                IpcBackIns.sendDataToFront('request_loadout', msg);
+                IpcBackIns.sendDataToIpcFront('request_loadout', msg);
             });
         });
 

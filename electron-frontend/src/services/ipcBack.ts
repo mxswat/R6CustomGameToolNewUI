@@ -38,7 +38,7 @@ class IpcBack {
         });
     }
 
-    sendDataToFront(eventName: string, request: any) {
+    sendDataToIpcFront(eventName: string, request: any) {
         this.win.webContents.send(eventName, request);
     }
 }

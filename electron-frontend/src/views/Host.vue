@@ -17,6 +17,7 @@
         <router-link to="/host/weapons" class>Weapons</router-link>
         <router-link to="/host/maps" >Maps & Gamemodes</router-link>
         <router-link to="/host/outfits" >Outfits</router-link>
+        <router-link to="/host/requests" >Loadout Requests</router-link>
       </div>
       <router-view></router-view>
       <div v-if="$route.name === 'Host'" class="helper">
