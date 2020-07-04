@@ -2,7 +2,11 @@
   <div class="requests-main">
     <!-- <h3 class="list-title">Requests</h3> -->
     <div class="requests-list">
-      <div class="request" v-for="(loadoutRequest, idx) in loadoutRequests" v-bind:key="idx">
+      <div
+        class="request"
+        v-for="(loadoutRequest, idx) in loadoutRequests"
+        v-bind:key="loadoutRequest.uplayName + idx"
+      >
         <span class="username">{{loadoutRequest.uplayName}}</span>
         <div class="loadout">
           <div class="category">
@@ -22,8 +26,8 @@
             >{{slot[gadget.slotIndex]}}: {{gadget.elementIndex}}</span>
           </div>
           <div class="buttons">
-            <button class="mxbtt approve">Approve</button>
-            <button class="mxbtt refuse">Refuse</button>
+            <button class="mxbtt approve" @click="approve(idx, true)">Approve</button>
+            <button class="mxbtt refuse" @click="approve(idx, false)">Refuse</button>
           </div>
         </div>
       </div>
@@ -41,9 +45,20 @@ export default class Requests extends Vue {
   loadoutRequests: Array<any> = [];
   slot = SLOT;
   created() {
+    // console.log('reeeeeee')
     RequestManagerInst.getRequests$().subscribe((value: any) => {
       this.loadoutRequests = value;
     });
+  }
+
+  approve(idx: number, isApproved: boolean) {
+    const cssclass = isApproved ? 'approved' : 'refused';
+    document.getElementsByClassName('request')[idx].classList.add(cssclass);
+    // TODO REPLACE ME WITH REQUEST REMOVE FNC
+    const _this = this;
+    setTimeout(() => {
+      _this.loadoutRequests.splice(idx, 1);
+    }, 500);
   }
 }
 </script>
@@ -79,6 +94,7 @@ export default class Requests extends Vue {
 
 .requests-list {
   overflow: auto;
+  overflow-x: hidden;
 }
 
 .mxbtt {
@@ -92,7 +108,13 @@ export default class Requests extends Vue {
   }
 }
 
-// .request:nth-child(odd) {
-//   background: red;
-// }
+.approved, .refused {
+  pointer-events: none;
+  transform: translateX(100%);
+  transition: all 500ms;
+}
+
+.refused {
+  
+}
 </style>
