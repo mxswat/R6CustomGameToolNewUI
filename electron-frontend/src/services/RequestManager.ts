@@ -7,6 +7,19 @@ class RequestManager {
 
     constructor() {
         this.loadoutRequests$ = new BehaviorSubject(this.loadoutRequests);
+        this.loadoutRequests$.next([{
+            uplayName: 'TestUser',
+            loadout: {
+                Weapon: [{
+                    slotIndex: 0,
+                    elementIndex: 0,
+                }],
+                Gadget: [{
+                    slotIndex: 0,
+                    elementIndex: 0,
+                }]
+            }
+        }]);
     }
 
     pushLoadoutRequests(request: any) {
