@@ -27,10 +27,10 @@
         <router-link to="/host/weapons" class>Weapons</router-link>
         <router-link to="/host/maps">Maps & Gamemodes</router-link>
         <router-link to="/host/outfits">Outfits</router-link>
-        <router-link to="/host/requests">
-          Loadout Requests
+        <div class="loadouts-link">
+          <router-link to="/host/requests">Loadout Requests</router-link>
           <span class="countReq" v-if="getRequestsCount()">{{getRequestsCount()}}</span>
-        </router-link>
+        </div>
       </div>
       <router-view></router-view>
       <div v-if="$route.name === 'Host'" class="helper">
@@ -152,6 +152,8 @@ export default class Host extends Vue {
 .sidebar {
   padding: 8px;
   background: #2f3136;
+  display: flex;
+  flex-direction: column;
   a {
     display: block;
     text-transform: uppercase;
@@ -178,9 +180,25 @@ export default class Host extends Vue {
   opacity: 0.5;
 }
 
-span.countReq {
+.countReq {
   background: #f04747;
-  padding: 3px 8px;
   border-radius: 50%;
+  font-weight: 600;
+  position: absolute;
+  right: -6px;
+  bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  border: 3px solid #2f3136;
 }
+
+.loadouts-link {
+  display: flex;
+  align-items: baseline;
+  position: relative;
+}
+// .router-link-active .countReq {
+
+// }
 </style>
