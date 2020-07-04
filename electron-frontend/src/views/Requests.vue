@@ -44,7 +44,11 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import RequestManagerInst from "../services/RequestManager";
 import { SLOT, PlayerData } from "../defaults/general";
-import { BehaviorSubjects, changeWeapon, changeGadget } from "../services/ipcfront";
+import {
+  BehaviorSubjects,
+  changeWeapon,
+  changeGadget
+} from "../services/ipcfront";
 @Component
 export default class Requests extends Vue {
   loadoutRequests: Array<any> = [];
@@ -163,5 +167,11 @@ export default class Requests extends Vue {
     rgba(2, 0, 36, 0) 0%,
     rgba(147, 41, 30, 1) 100%
   );
+}
+
+.buttons {
+  .mxbtt:first-child {
+    margin-top: 0px;
+  }
 }
 </style>
