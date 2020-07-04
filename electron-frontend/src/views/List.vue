@@ -61,6 +61,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
+import { SLOT } from "../defaults/general";
 
 @Component
 export default class List extends Vue {
@@ -74,7 +75,7 @@ export default class List extends Vue {
   @Prop({ default: true })
   enabled!: boolean;
 
-  selectItem(slotIndex: string, elementIndex: string) {
+  selectItem(slotIndex: SLOT, elementIndex: string) {
     this.$emit("selectedElement", {
       slotIndex,
       elementIndex

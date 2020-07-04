@@ -5,7 +5,7 @@
       <router-link to="/credits" class="link-btt underline-from-left">Help</router-link>
       <div class="spacer"></div>
     </div>
-    <div class="c-panel" v-if="!isConnected">
+    <div class="c-panel" v-if="connectionStatus !== connectionStatuses.Connected">
       <span class="welcome">Welcome to the client panel</span>
       <span class="todo">You can connect to another mod tool and request a custom loadout</span>
       <div class="ip-n-port">
@@ -39,23 +39,32 @@
         />
       </div>
       <button class="connectbtt" @click="connectToSocketIoServer()">Connect</button>
+      <span
+        v-if="connectionStatus === connectionStatuses.Connecting"
+        class="connectionfail"
+      >Connecting to {{ipAddress}}:{{port}} as {{uplayName}}</span>
+      <span v-if="connectionStatus === connectionStatuses.Error" class="connectionfail">
+        Connection Error
+        <br />Check the IP Address and Port,
+        <br />if they are correct the host probably has the firewall blocking the port
+      </span>
     </div>
     <div class="overflow-container">
-      <div class="request-panel" v-if="isConnected">
+      <div class="request-panel" v-if="connectionStatus === connectionStatuses.Connected">
         <List
-          v-on:selectedElement="onSelectedItem($event, true)"
+          v-on:selectedElement="onSelectedItem($event, item_type.Weapon)"
           :list="gunslist"
           :Title="'weapons'"
         ></List>
         <List
-          v-on:selectedElement="onSelectedItem($event, false)"
+          v-on:selectedElement="onSelectedItem($event, item_type.Gadget)"
           :list="gadgetslist"
           :Title="'gadgets'"
         ></List>
         <div class="request-tab">
           <h3 class="list-title">Request options</h3>
           <div class="request-options">
-            <button class="requestbbt">Request loadout</button>
+            <button @click="requestLoadout()" class="requestbbt">Request loadout</button>
           </div>
         </div>
       </div>
@@ -70,7 +79,7 @@ import io from "socket.io-client";
 import GUNS from "../defaults/guns";
 import GADGETS from "../defaults/gadgets";
 import List from "./List.vue";
-
+import { SLOT, ITEM_TYPE } from "../defaults/general";
 @Component({
   components: {
     List
@@ -81,20 +90,44 @@ export default class ClientSocket extends Vue {
   ipAddress: string = "";
   port: string = "3000";
   uplayName: string = "";
-  isConnected: boolean = false;
   gunslist: any = [];
   gadgetslist: any = [];
+  connectionStatus: ConnectionStatuses = ConnectionStatuses.New;
+  connectionStatuses = ConnectionStatuses;
+  item_type = ITEM_TYPE;
+  loadout: any = {
+    Weapon: [],
+    Gadget: []
+  };
   created() {
     this.gunslist = GUNS;
     this.gadgetslist = GADGETS;
+    this.uplayName = localStorage.getItem("uplayName") || "";
+    this.ipAddress = localStorage.getItem("ipAddress") || "";
+    this.port = localStorage.getItem("port") || this.port;
   }
 
+  // TODO Reming me to use portfinder on server!
   connectToSocketIoServer() {
-    // TODO Reming me to use portfinder on server!
-    // TODO Check status https://stackoverflow.com/questions/16518153/get-connection-status-on-socket-io-client
+    localStorage.setItem("uplayName", this.uplayName);
+    localStorage.setItem("ipAddress", this.ipAddress);
+    localStorage.setItem("port", this.port);
+    console.log("Attempting Connection to socket.io server");
+    this.connectionStatus = ConnectionStatuses.Connecting;
     if (this.ipAddress && this.uplayName && this.port) {
-      this.isConnected = true; // todo handle correctly
-      // this.socket = io(`http:// + ${this.ipAddress}:${this.port}`);
+      this.socket = io(`http://${this.ipAddress}:${this.port}`, {
+        reconnection: false
+      });
+      const _this = this;
+      this.socket.on("connect", () => {
+        console.log("connect", this.socket.connected);
+        _this.connectionStatus = ConnectionStatuses.Connected;
+      });
+
+      this.socket.on("connect_error", () => {
+        console.log("connect_error", this.socket.connected);
+        _this.connectionStatus = ConnectionStatuses.Error;
+      });
     }
   }
 
@@ -102,10 +135,22 @@ export default class ClientSocket extends Vue {
     this.socket.emit("chat message", "imAlive");
   }
 
-  onSelectedItem() {
-    
+  onSelectedItem(item: any, GorW: ITEM_TYPE) {
+    this.loadout[ITEM_TYPE[GorW]] = this.loadout[ITEM_TYPE[GorW]] || {};
+    this.loadout[ITEM_TYPE[GorW]][item.slotIndex] = item;
+  }
+
+  requestLoadout() {
+    console.log(this.loadout);
   }
   // Todo kill socket on going back to home
+}
+
+enum ConnectionStatuses {
+  New,
+  Connecting,
+  Connected,
+  Error
 }
 </script>
 
@@ -180,7 +225,9 @@ a {
   margin-left: auto;
   margin-right: auto;
 }
-// .todo {
-//   text-transform: uppercase;
-// }
+.connectionfail {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 18px;
+}
 </style>
