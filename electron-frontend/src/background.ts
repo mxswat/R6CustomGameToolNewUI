@@ -8,6 +8,7 @@ import {
 
 import path from "path";
 import IpcBackIns from './services/ipcBack';
+import SocketIoServiceInst from "./services/socket.io";
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -20,7 +21,7 @@ protocol.registerSchemesAsPrivileged([
 ])
 
 function createWindow() {
-  runSocketIo();
+  SocketIoServiceInst.runSocketIo();
   // Create the browser window.
   win = new BrowserWindow({
     width: 1400,
@@ -113,26 +114,3 @@ if (isDevelopment) {
 }
 
 
-function runSocketIo() {
-  const app = require('express')();
-  const http = require('http').Server(app);
-  const io = require('socket.io')(http);
-  const port = process.env.PORT || 3000;
-
-  app.get('/', function (req: any, res: any) {
-    res.send('hello world!');
-  });
-
-  io.on('connection', function (socket: any) {
-    console.log('connection');
-    socket.on('chat message', function (msg: any) {
-      console.log('chat message', msg)
-      io.emit('chat message', msg);
-    });
-  });
-
-  http.listen(port, function () {
-    console.log('listening on *:' + port);
-  });
-
-}

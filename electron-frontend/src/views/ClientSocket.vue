@@ -131,10 +131,6 @@ export default class ClientSocket extends Vue {
     }
   }
 
-  sendMessage() {
-    this.socket.emit("chat message", "imAlive");
-  }
-
   onSelectedItem(item: any, GorW: ITEM_TYPE) {
     this.loadout[ITEM_TYPE[GorW]] = this.loadout[ITEM_TYPE[GorW]] || {};
     this.loadout[ITEM_TYPE[GorW]][item.slotIndex] = item;
@@ -142,6 +138,10 @@ export default class ClientSocket extends Vue {
 
   requestLoadout() {
     console.log(this.loadout);
+    this.socket.emit("request_loadout", {
+      uplayName: this.uplayName,
+      loadout: this.loadout
+    });
   }
   // Todo kill socket on going back to home
 }
