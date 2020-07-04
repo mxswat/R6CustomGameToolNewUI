@@ -86,8 +86,8 @@ namespace R6S_Custom_Game_Tool
                     // get new iProcID because 0 means no process found
                     iProcID = m.GetProcIdFromName("RainbowSix");
                     GameManager = "RainbowSix.exe+0x6C21B48";
-                    RoundManager = "RainbowSix.exe+0x6CA0848";
-                    NetworkManager = "RainbowSix.exe+0x68E2CF0";
+                    RoundManager = "RainbowSix.exe+0x6CAA248";
+                    NetworkManager = "RainbowSix.exe+0x5FCFC68";
                     IsRunning = "DirectX";
                 }
 
