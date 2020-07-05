@@ -1,6 +1,6 @@
 <template>
   <div class="home" id="home">
-    <h1 class="welcome">Welcome to R6S Custom game tool</h1>
+    <h1 class="welcome">Welcome to -Unnamed project- </h1>
     <h2 class="todo">What do you want to do?</h2>
     <div class="links">
       <router-link to="/host" class="home-link underline-from-left">Mod a custom game</router-link>

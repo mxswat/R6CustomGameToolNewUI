@@ -12,7 +12,6 @@ class RequestManager {
     debugUi() {
         const example = {
             uplayName: 'TestUser',
-            debug: true,
             loadout: {
                 Weapon: [{
                     slotIndex: 0,
@@ -28,6 +27,7 @@ class RequestManager {
         const count = 8;
         for (let i = 0; i < count; i++) {
             tester.push({
+                debug: true,
                 uplayName: example.uplayName + i,
                 loadout: example.loadout
             })

@@ -82,7 +82,6 @@ export default class Weapons extends Vue {
         username: "Player " + (i + 1)
       });
     }
-    startTool();
     this.gunslist = GUNS;
     this.gadgetslist = GADGETS;
     this.BehaviorSubjects = BehaviorSubjects;
