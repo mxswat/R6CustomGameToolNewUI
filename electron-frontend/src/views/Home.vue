@@ -5,7 +5,7 @@
     <div class="links">
       <router-link to="/host" class="home-link underline-from-left">Mod a custom game</router-link>
       <br />
-      <span class="buttonsub">Mod your custom game or THUNT</span>
+      <span class="buttonsub">Mod your custom game or THUNT (Only directx, vulkan coming soon!)</span>
     </div>
     <div class="links">
       <router-link to="/client" class="join underline-from-left">Join a modded game</router-link>
