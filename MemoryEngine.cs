@@ -52,12 +52,12 @@ namespace R6S_Custom_Game_Tool
             "10", // Primary
             "18"  // Secondary
         };
-        public string[] Weapons = { "63840", "63808", "59456", "59584", "60768", "61632", "57184", "58752", "59296", "57408", "58016", "57984", "58592", "54752", "56128", "59008", "55200", "60320", "60384", "55936", "54880", "55552", "54624", "59776", "54656", "59136", "63648", "58784", "57952", "58944", "54944", "62560", "59104", "57120", "56960", "58624", "56064", "61120", "55584", "62208", "56608", "60576", "58112", "58304", "60000", "60032", "56288", "56864", "57824", "60928", "62912", "55168", "58368", "56672", "57312", "62784", "61088", "61024", "60128", "59680", "63680", "57760", "58240", "60064", "56224", "57440", "56736", "55008", "55328", "58464", "58496", "55968", "56352", "57280", "61056", "60224", "63072", "59168", "56576", "59488", "59552", "59968", "57504", "62400", "62304", "57344", "58560", "56416", "60864", "58912", "63040", "63328", "58144", "57248", "60160", "60192", "55488", "57856", "59840", "63552", "55456", "62432", "60672", "59648", "59328", "58848", "55136", "54816", "55616", "55712", "57472", "63616" };
+        public string[] Weapons = { "64832", "64800", "60448", "60576", "61760", "62624", "58176", "59744", "60288", "58400", "59008", "58976", "59584", "55744", "57120", "60000", "56192", "61312", "61376", "56928", "55872", "56544", "55616", "60768", "55648", "60128", "64640", "63360", "58944", "59936", "55936", "63552", "60096", "58112", "57952", "59616", "57056", "62112", "56576", "63200", "57600", "61568", "61504", "62432", "58592", "58624", "64224", "57856", "56064", "61920", "63904", "63808", "59360", "62720", "58304", "63776", "63744", "63680", "61120", "60672", "64672", "57504", "59232", "58656", "64160", "58432", "55680", "56000", "63936", "59456", "59488", "56960", "62688", "58272", "63712", "63616", "60864", "59328", "56576", "57568", "62368", "62400", "58560", "58496", "64192", "64096", "58336", "55776", "56096", "61856", "63872", "59424", "62752", "58240", "63584", "63520", "56480", "60704", "60832", "64544", "56448", "63424", "61664", "60640", "60320", "59840", "56128", "55808", "56640", "56736", "58464", "64608" };
         public string[] Gadgets = { "F8", "118", "148", "1C8", "198", "1F8", "248", "D8", "158", "230", "270", "278", "E0", "F0", "100", "108", "168", "1A8", "1C0", "290", "E8", "170", "190", "1E0", "1E8", "210", "220", "228", "288", "258", "268", "120", "140", "150", "1D8", "160", "188", "1A0", "298", "218", "1F0", "238", "240", "128", "208", "110", "130", "1B0", "280", "180", "200", "250", "138", "1B8" };
         /// <summary>
         /// Weapon Depedant Gadgets, Le Roc, MK17 CQB, OTs-03, CCE SHIELD, C8-SFW, G52-Tactical Shield, CSRX 300
         /// </summary>
-        public string[] WeaponsDependant = { "55456", "56128", "56960", "59648", "58592", "60672", "62208" };
+        public string[] WeaponsDependant = { "56448", "57120", "57952", "60640", "59584", "61664", "63200" };
 
         private static MemoryEngine _instance;
 
@@ -86,8 +86,8 @@ namespace R6S_Custom_Game_Tool
                     // get new iProcID because 0 means no process found
                     iProcID = m.GetProcIdFromName("RainbowSix");
                     GameManager = "RainbowSix.exe+0x6C21B48";
-                    RoundManager = "RainbowSix.exe+0x6CAA248";
-                    NetworkManager = "RainbowSix.exe+0x5FCFC68";
+                    RoundManager = "RainbowSix.exe+0x6cf0988";
+                    NetworkManager = "RainbowSix.exe+0x64643B0";
                     IsRunning = "DirectX";
                 }
 
@@ -152,8 +152,8 @@ namespace R6S_Custom_Game_Tool
         {
             Random random = new Random();
             string[] GadgetsNoLaunchers = { "D8", "158", "230", "270", "278", "E8", "170", "190", "1E0", "1E8", "210", "220", "228", "288", "258", "268", "120", "140", "150", "1D8", "160", "188", "1A0", "298", "218", "1F0", "238", "240", "128", "208", "110", "130", "1B0", "280", "180", "200", "250" };
-            string[] WeaponsP = { "63840", "63808", "59456", "59584", "60768", "61632", "57184", "58752", "59296", "57408", "58016", "57984", "58592", "54752", "56128", "59008", "55200", "60320", "60384", "55936", "54880", "55552", "54624", "59776", "54656", "59136", "63648", "58784", "57952", "58944", "54944", "62560", "59104", "57120", "56960", "58624", "56064", "61120", "55584", "62208", "56608", "60576", "39712", "58112", "58304", "60000", "60032", "56288", "56864", "57824", "60928", "62912", "55168", "58368", "56672", "57312", "62784", "61088", "61024", "60128", "59680", "63680", "57760", "58240", "60064", "56224", "57440", "56736", "55008", "55328", "58464", "58496", "55968", "56352", "57280", "61056", "60224", "63072", "59168", "56576", "59488", "59552", "59968", "57504", "62400", "62304", "57344", "58560", "56416", "60864", "58912", "63040", "63328", "58144", "57248", "60160", "60192", "55488", "57856", "59840", "63552" };
-            string[] WeaponsS = { "63840", "63808", "59456", "59584", "60768", "61632", "57184", "58752", "59296", "57408", "58016", "57984", "58592", "54752", "56128", "59008", "55200", "60320", "60384", "55936", "54880", "55552", "54624", "59776", "54656", "59136", "63648", "58784", "57952", "58944", "54944", "62560", "59104", "57120", "56960", "58624", "56064", "61120", "55584", "62208", "56608", "60576", "39712", "58112", "58304", "60000", "60032", "56288", "56864", "57824", "60928", "62912", "55168", "58368", "56672", "57312", "62784", "61088", "61024", "60128", "59680", "63680", "57760", "58240", "60064", "56224", "57440", "56736", "55008", "55328", "58464", "58496", "55968", "56352", "57280", "61056", "60224", "63072", "59168", "56576", "59488", "59552", "59968", "57504", "62400", "62304", "57344", "58560", "56416", "60864", "58912", "63040", "63328", "58144", "57248", "60160", "60192", "55488", "57856", "59840" };
+            string[] WeaponsP = { "64832", "64800", "60448", "60576", "61760", "62624", "58176", "59744", "60288", "58400", "59008", "58976", "59584", "55744", "57120", "60000", "56192", "61312", "61376", "56928", "55872", "56544", "55616", "60768", "55648", "60128", "64640", "63360", "58944", "59936", "55936", "63552", "60096", "58112", "57952", "59616", "57056", "62112", "56576", "63200", "57600", "61568", "61504", "62432", "58592", "58624", "64224", "57856", "56064", "61920", "63904", "63808", "59360", "62720", "58304", "63776", "63744", "63680", "61120", "60672", "64672", "57504", "59232", "58656", "64160", "58432", "55680", "56000", "63936", "59456", "59488", "56960", "62688", "58272", "63712", "63616", "60864", "59328", "56576", "57568", "62368", "62400", "58560", "58496", "64192", "64096", "58336", "55776", "56096", "61856", "63872", "59424", "62752", "58240", "63584", "63520", "56480", "60704", "60832", "64544", "56448", "63424", "61664" };
+            string[] WeaponsS = { "64832", "64800", "60448", "60576", "61760", "62624", "58176", "59744", "60288", "58400", "59008", "58976", "59584", "55744", "57120", "60000", "56192", "61312", "61376", "56928", "55872", "56544", "55616", "60768", "55648", "60128", "64640", "63360", "58944", "59936", "55936", "63552", "60096", "58112", "57952", "59616", "57056", "62112", "56576", "63200", "57600", "61568", "61504", "62432", "58592", "58624", "64224", "57856", "56064", "61920", "63904", "63808", "59360", "62720", "58304", "63776", "63744", "63680", "61120", "60672", "64672", "57504", "59232", "58656", "64160", "58432", "55680", "56000", "63936", "59456", "59488", "56960", "62688", "58272", "63712", "63616", "60864", "59328", "56576", "57568", "62368", "62400", "58560", "58496", "64192", "64096", "58336", "55776", "56096", "61856", "63872", "59424", "62752", "58240", "63584", "63520", "56480", "60704", "60832", "64544" };
             try
             {
                 for (int j = 0; j < 10; j++)
@@ -186,35 +186,35 @@ namespace R6S_Custom_Game_Tool
                     break;
                 case "E0":
                     //Zofia Launcher
-                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "54816");
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "55808");
                     break;
                 case "F0":
                     //Hibana Launcher
-                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "55136");
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "56128");
                     break;
                 case "100":
                     //BlowTorch
-                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "55616");
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "56640");
                     break;
                 case "108":
                     //GaraHook
-                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "55712");
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "56736");
                     break;
                 case "168":
                     //Stim Pistol
-                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "57472");
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "58464");
                     break;
                 case "1A8":
                     //Capitao Crossbow
-                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "58848");
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "59840");
                     break;
                 case "1C0":
                     //Ash Launcher
-                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "59328");
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "60320");
                     break;
                 case "290":
                     //Mozzie Pest Launcher
-                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "63616");
+                    m.WriteMemory($"{GameManager},{LoadoutOffset1},{PlayerID},{LoadoutOffset2},{LoadoutOffset3},{LoadoutOffset4},{LoadoutOffset5},20,{LoadoutOffset6},{LoadoutOffset7},{LoadoutOffset8}", "2bytes", "64608");
                     break;
                 default:
                     break;
