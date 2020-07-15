@@ -45,6 +45,7 @@ now inside the `electron-frontend` folder run the following commands using CMD o
 
 #### How to build the UI to release the tool
 
+* Build the C# solution as Release => x64 (Be sure is "x64" NOT "any cpu")
 * Copy  `R6S Custom Game Tool.exe` from `/bin/x64/Release/R6S Custom Game Tool.exe` to `\electron-frontend\tool` and obfuscate it (how to do it as @Zer0)
 * run CMD or Powershell `npm run electron:build`
 
