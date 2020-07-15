@@ -6,7 +6,7 @@ class RequestManager {
     private loadoutRequests$ = new BehaviorSubject<Array<any>>([]);
 
     constructor() {
-        this.debugUi();
+        // this.debugUi();
     }
 
     debugUi() {
