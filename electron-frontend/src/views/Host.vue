@@ -26,19 +26,19 @@
       <div class="sidebar" :class="{ 'collapsed': collapsed }">
         <router-link to="/host/weapons" class="item">
           <span class="name">Weapons</span>
-          <img src="../assets/weapon.png" class="icon"/>
+          <img src="../assets/weapon.png" class="icon" />
         </router-link>
         <router-link to="/host/maps" class="item">
           <span class="name">Maps & Gamemodes</span>
-          <img src="../assets/map.png" class="icon"/>
+          <img src="../assets/map.png" class="icon" />
         </router-link>
         <router-link to="/host/outfits" class="item">
           <span class="name">Outfits</span>
-          <img src="../assets/operator.png" class="icon"/>
+          <img src="../assets/operator.png" class="icon" />
         </router-link>
         <router-link to="/host/requests" class="item">
           <span class="name">Loadout Requests</span>
-          <img src="../assets/gear.png" class="icon"/>
+          <img src="../assets/gear.png" class="icon" />
           <span class="countReq" v-if="getRequestsCount()">{{getRequestsCount()}}</span>
         </router-link>
         <div class="item collapse-btt" @click="collapse()">
@@ -181,10 +181,6 @@ export default class Host extends Vue {
     .item {
       min-width: 28px;
       .icon {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        transition: all 350ms ease-in-out;
       }
       .name {
         max-width: 0;
@@ -228,12 +224,8 @@ export default class Host extends Vue {
       margin-right: 8px;
     }
     .icon {
-      right: 0px;
-      left: 198px;
+      right: 14px;
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      transition: all 350ms ease-in-out;
     }
     &:hover {
       background: gray;
