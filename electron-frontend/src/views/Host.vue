@@ -41,7 +41,7 @@
           <img src="../assets/gear.png" />
           <span class="countReq" v-if="getRequestsCount()">{{getRequestsCount()}}</span>
         </router-link>
-        <div class="item collapse" @click="collapse()">
+        <div class="item collapse-btt" @click="collapse()">
           <span class="name">Collapse</span>
           <img src="../assets/collapseleft.png" />
         </div>
@@ -178,18 +178,23 @@ export default class Host extends Vue {
   display: flex;
   flex-direction: column;
   &.collapsed {
-    .name {
-      display: none;
-    }
-    .collapse {
-      img {
-        transform: rotate(180deg);
-        transition: transform 250ms ease-in-out;
+    .item {
+      .name {
+        // display: none;
+        max-width: 0;
+        transition: all 350ms ease-in-out;
+        margin-right: 0px;
+      }
+      &.collapse-btt {
+        img {
+          transform: rotate(180deg);
+          transition: transform 350ms ease-in-out;
+        }
       }
     }
   }
   .item {
-    display: flex;
+    // display: flex;
     text-transform: uppercase;
     padding: 8px 16px;
     cursor: pointer;
@@ -198,19 +203,27 @@ export default class Host extends Vue {
     border-radius: 20px;
     margin-bottom: 8px;
     position: relative;
-    flex-direction: row;
-    align-items: center;
-    &.collapse {
+    // flex-direction: row;
+    // align-items: center;
+    transition: all 350ms ease-in-out;
+    &.collapse-btt {
       margin-top: auto;
       img {
-        transition: transform 250ms ease-in-out;
+        transition: transform 350ms ease-in-out;
       }
     }
     .name {
+      display: inline-block;
+      transition: all 350ms ease-in-out;
+      overflow: hidden;
+      max-width: 250px;
+      line-height: 30px;
+      // max-height: 30px;
+      white-space: nowrap;
       margin-right: 8px;
     }
     img {
-      margin-left: auto;
+      float: right;
     }
     &:hover {
       background: gray;
