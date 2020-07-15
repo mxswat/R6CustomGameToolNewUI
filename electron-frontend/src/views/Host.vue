@@ -10,7 +10,7 @@
     <div class="toolbar">
       <MxSwitch
         :id="'timerStop'"
-        :label="'Stop timer'"
+        :label="'Stop in-game timer'"
         v-model="timerCheck"
         v-on:changed="stopTimer"
       ></MxSwitch>
