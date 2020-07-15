@@ -177,6 +177,7 @@ export default class Host extends Vue {
   background: #2f3136;
   display: flex;
   flex-direction: column;
+  min-width: 240px;
   &.collapsed {
     .item {
       .name {
