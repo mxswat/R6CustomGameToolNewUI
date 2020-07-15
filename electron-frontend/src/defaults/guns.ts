@@ -563,43 +563,78 @@ const GUNS = [
                 "type": "MISC"
             },
             {
-                "name": "Capitao's Crossbow",
+                "name": "Ash's Launcher Tomb Raider",
                 "index": "105",
                 "type": "MISC"
             },
             {
-                "name": "Hibana's Launcher",
+                "name": "Ash's Launcher Outbreak Free",
                 "index": "106",
                 "type": "MISC"
             },
             {
-                "name": "Zofia's Launcher",
+                "name": "Ash's Launcher Outbreak Paid", /**  haha funny test  */
                 "index": "107",
                 "type": "MISC"
             },
             {
-                "name": "Mavrick's Blowtorch",
+                "name": "Capitao's Crossbow",
                 "index": "108",
                 "type": "MISC"
             },
             {
-                "name": "Amaru's Garahook",
+                "name": "Capitao's Crossbow Elite",
                 "index": "109",
                 "type": "MISC"
             },
             {
-                "name": "Doc's Stims",
+                "name": "Hibana's Launcher",
                 "index": "110",
                 "type": "MISC"
             },
             {
-                "name": "Mozzie's Pest Launcher",
+                "name": "Hibana's Launcher Elite",
                 "index": "111",
                 "type": "MISC"
             },
             {
-                "name": "Hands",
+                "name": "Zofia's Launcher",
+                "index": "112",
+                "type": "MISC"
+            },
+            {
+                "name": "Zofia's Launcher Elite",
+                "index": "113",
+                "type": "MISC"
+            },
+            {
+                "name": "Mavrick's Blowtorch",
                 "index": "114",
+                "type": "MISC"
+            },
+            {
+                "name": "Amaru's Garahook",
+                "index": "115",
+                "type": "MISC"
+            },
+            {
+                "name": "Doc's Stims",
+                "index": "116",
+                "type": "MISC"
+            },
+            {
+                "name": "Doc's Stims Elite",
+                "index": "117",
+                "type": "MISC"
+            },
+            {
+                "name": "Mozzie's Pest Launcher",
+                "index": "118",
+                "type": "MISC"
+            },
+            {
+                "name": "Hands",
+                "index": "119",
                 "type": "MISC"
             }
         ]

@@ -342,3 +342,6 @@ healthchecksdb
 
 # Obfuscator project file
 Obfuscator/R6Manifesttool.nrproj
+
+# local history for vs plugin
+.history
