@@ -177,12 +177,13 @@ export default class Host extends Vue {
   background: #2f3136;
   display: flex;
   flex-direction: column;
-  min-width: 240px;
   &.collapsed {
-    min-width: 0px;
     .item {
+      min-width: 28px;
+      img  {
+        right: 13px;
+      }
       .name {
-        // display: none;
         max-width: 0;
         transition: all 350ms ease-in-out;
         margin-right: 0px;
@@ -196,7 +197,6 @@ export default class Host extends Vue {
     }
   }
   .item {
-    // display: flex;
     text-transform: uppercase;
     padding: 8px 16px;
     cursor: pointer;
@@ -205,8 +205,8 @@ export default class Host extends Vue {
     border-radius: 20px;
     margin-bottom: 8px;
     position: relative;
-    // flex-direction: row;
-    // align-items: center;
+    min-width: 210px;
+    height: 30px;
     transition: all 350ms ease-in-out;
     &.collapse-btt {
       margin-top: auto;
@@ -220,12 +220,12 @@ export default class Host extends Vue {
       overflow: hidden;
       max-width: 250px;
       line-height: 30px;
-      // max-height: 30px;
       white-space: nowrap;
       margin-right: 8px;
     }
     img {
-      float: right;
+      position: absolute;
+      right: 10px;
     }
     &:hover {
       background: gray;
