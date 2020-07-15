@@ -23,7 +23,7 @@
       ></MxSwitch>
     </div>
     <div class="router-container">
-      <div class="sidebar" :class="{ 'collapsed': collapsed }">
+      <div class="sidebar" :class="{ 'collapsed': collapsed, 'centerIcons' : centerIcons }">
         <router-link to="/host/weapons" class="item">
           <span class="name">Weapons</span>
           <img src="../assets/weapon.png" class="icon" />
@@ -38,7 +38,7 @@
         </router-link>
         <router-link to="/host/requests" class="item">
           <span class="name">Loadout Requests</span>
-          <img src="../assets/connection.png" />
+          <img src="../assets/connection.png" class="icon" />
           <span class="countReq" v-if="getRequestsCount()">{{getRequestsCount()}}</span>
         </router-link>
         <div class="item collapse-btt" @click="collapse()">
@@ -83,6 +83,7 @@ export default class Host extends Vue {
   rickRoll: boolean = false;
   loadoutRequestsCount: number = 0;
   collapsed: boolean = false;
+  centerIcons: boolean = false;
 
   created() {
     console.log("Host.vue");
@@ -91,6 +92,7 @@ export default class Host extends Vue {
     this.subscribeToSubjects();
     this.collapsed =
       localStorage.getItem("collapsed") === "true" ? true : false;
+    this.centerIcons = this.collapsed;
   }
 
   subscribeToSubjects() {
@@ -128,6 +130,13 @@ export default class Host extends Vue {
   collapse() {
     this.collapsed = !this.collapsed;
     localStorage.setItem("collapsed", this.collapsed + "");
+    if (this.collapsed) {
+      setTimeout(() => {
+        this.centerIcons = this.collapsed;
+      }, 350);
+    } else {
+      this.centerIcons = this.collapsed;
+    }
   }
 }
 </script>
@@ -178,10 +187,16 @@ export default class Host extends Vue {
   display: flex;
   flex-direction: column;
   &.collapsed {
+    &.centerIcons {
+      .icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
     .item {
       min-width: 28px;
-      .icon {
-      }
       .name {
         max-width: 0;
         transition: all 350ms ease-in-out;
