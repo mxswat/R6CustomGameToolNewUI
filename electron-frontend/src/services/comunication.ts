@@ -2,7 +2,7 @@ import { ConnectionBuilder, Connection } from 'electron-cgi'
 import { logger, logColors } from './logger';
 import { app, BrowserWindow } from "electron";
 import path from 'path';
-
+import fs from 'fs';
 class ComunicationService {
   private connection: Connection = null as any;
   private win: BrowserWindow = null as any;
@@ -22,7 +22,15 @@ class ComunicationService {
       const pathToTool = process.env.NODE_ENV !== 'production'
         ? path.join(app.getAppPath(), '..', '..', '/bin/x64/Release/R6S Custom Game Tool.exe')
         : path.join(process.resourcesPath, '/app.asar.unpacked/tool/R6S Custom Game Tool.exe')
-      console.log(`Path to the tool is: ${pathToTool}`);
+
+        try {
+          if (fs.existsSync(pathToTool)) {
+            console.log(`Path to the tool is: ${pathToTool} and exist!`);
+          }
+        } catch(err) {
+          console.log(`Path to the tool is: ${pathToTool} Error!`, err);
+        }
+      
       this.connection = new ConnectionBuilder()
         .connectTo(pathToTool)
         .build();
