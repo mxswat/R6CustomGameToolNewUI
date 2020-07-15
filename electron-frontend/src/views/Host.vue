@@ -38,7 +38,7 @@
         </router-link>
         <router-link to="/host/requests" class="item">
           <span class="name">Loadout Requests</span>
-          <img src="../assets/gear.png" class="icon" />
+          <img src="../assets/connection.png" />
           <span class="countReq" v-if="getRequestsCount()">{{getRequestsCount()}}</span>
         </router-link>
         <div class="item collapse-btt" @click="collapse()">
