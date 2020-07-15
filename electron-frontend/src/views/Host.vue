@@ -23,13 +23,27 @@
       ></MxSwitch>
     </div>
     <div class="router-container">
-      <div class="sidebar">
-        <router-link to="/host/weapons" class>Weapons</router-link>
-        <router-link to="/host/maps">Maps & Gamemodes</router-link>
-        <router-link to="/host/outfits">Outfits</router-link>
-        <div class="loadouts-link">
-          <router-link to="/host/requests">Loadout Requests</router-link>
+      <div class="sidebar" :class="{ 'collapsed': collapsed }">
+        <router-link to="/host/weapons" class="item">
+          <span class="name">Weapons</span>
+          <img src="../assets/weapon.png" />
+        </router-link>
+        <router-link to="/host/maps" class="item">
+          <span class="name">Maps & Gamemodes</span>
+          <img src="../assets/map.png" />
+        </router-link>
+        <router-link to="/host/outfits" class="item">
+          <span class="name">Outfits</span>
+          <img src="../assets/operator.png" />
+        </router-link>
+        <router-link to="/host/requests" class="item">
+          <span class="name">Loadout Requests</span>
+          <img src="../assets/gear.png" />
           <span class="countReq" v-if="getRequestsCount()">{{getRequestsCount()}}</span>
+        </router-link>
+        <div class="item collapse" @click="collapse()">
+          <span class="name">Collapse</span>
+          <img src="../assets/collapseleft.png" />
         </div>
       </div>
       <router-view></router-view>
@@ -68,11 +82,15 @@ export default class Host extends Vue {
   timerCheck: boolean = false;
   rickRoll: boolean = false;
   loadoutRequestsCount: number = 0;
+  collapsed: boolean = false;
 
   created() {
+    console.log("Host.vue");
     startTool();
     this.BehaviorSubjects = BehaviorSubjects;
     this.subscribeToSubjects();
+    this.collapsed =
+      localStorage.getItem("collapsed") === "true" ? true : false;
   }
 
   subscribeToSubjects() {
@@ -105,6 +123,11 @@ export default class Host extends Vue {
 
   rickRolling() {
     window.open("https://youtu.be/dQw4w9WgXcQ", "_blank");
+  }
+
+  collapse() {
+    this.collapsed = !this.collapsed;
+    localStorage.setItem("collapsed", this.collapsed + "");
   }
 }
 </script>
@@ -154,22 +177,59 @@ export default class Host extends Vue {
   background: #2f3136;
   display: flex;
   flex-direction: column;
-  a {
-    display: block;
+  &.collapsed {
+    .name {
+      display: none;
+    }
+    .collapse {
+      img {
+        transform: rotate(180deg);
+        transition: transform 250ms ease-in-out;
+      }
+    }
+  }
+  .item {
+    display: flex;
     text-transform: uppercase;
     padding: 8px 16px;
-    display: block;
     cursor: pointer;
     font-weight: 500;
     text-decoration: none;
     border-radius: 20px;
     margin-bottom: 8px;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    &.collapse {
+      margin-top: auto;
+      img {
+        transition: transform 250ms ease-in-out;
+      }
+    }
+    .name {
+      margin-right: 8px;
+    }
+    img {
+      margin-left: auto;
+    }
     &:hover {
       background: gray;
     }
     &.router-link-active {
       background: linear-gradient(to right, #8a2387, #e94057, #f27121);
       font-weight: 600;
+    }
+    .countReq {
+      background: #f04747;
+      border-radius: 50%;
+      font-weight: 600;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 20px;
+      height: 20px;
+      text-align: center;
+      border: 3px solid #2f3136;
     }
   }
 }
@@ -179,26 +239,4 @@ export default class Host extends Vue {
   pointer-events: none;
   opacity: 0.5;
 }
-
-.countReq {
-  background: #f04747;
-  border-radius: 50%;
-  font-weight: 600;
-  position: absolute;
-  right: -6px;
-  bottom: 0;
-  width: 20px;
-  height: 20px;
-  text-align: center;
-  border: 3px solid #2f3136;
-}
-
-.loadouts-link {
-  display: flex;
-  align-items: baseline;
-  position: relative;
-}
-// .router-link-active .countReq {
-
-// }
 </style>
