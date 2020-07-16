@@ -2,8 +2,8 @@
   <div class="requests-main">
     <!-- <h3 class="list-title">Requests</h3> -->
     <div class="toolbar">
-      <button class="mxbtt approve" @click="approve(idx, true)">Approve All</button>
-      <button class="mxbtt refuse" @click="approve(idx, false)">Refuse All</button>
+      <button class="mxbtt approve" @click="requestSetApproval(idx, true)">Approve All</button>
+      <button class="mxbtt refuse" @click="requestSetApproval(idx, false)">Refuse All</button>
     </div>
     <div class="requests-list">
       <div
@@ -30,8 +30,8 @@
             >{{slot[gadget.slotIndex]}}: {{gadget.elementIndex}}</span>
           </div>
           <div class="buttons">
-            <button class="mxbtt approve" @click="approve(idx, true)">Approve</button>
-            <button class="mxbtt refuse" @click="approve(idx, false)">Refuse</button>
+            <button class="mxbtt approve" @click="requestSetApproval(idx, true)">Approve</button>
+            <button class="mxbtt refuse" @click="requestSetApproval(idx, false)">Refuse</button>
           </div>
         </div>
       </div>
@@ -64,7 +64,7 @@ export default class Requests extends Vue {
     });
   }
 
-  approve(idx: number, isApproved: boolean) {
+  requestSetApproval(idx: number, isApproved: boolean) {
     const cssclass = isApproved ? "approved" : "refused";
     document.getElementsByClassName("request")[idx].classList.add(cssclass);
     const _this = this;
