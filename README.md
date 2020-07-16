@@ -41,6 +41,7 @@ now inside the `electron-frontend` folder run the following commands using CMD o
 
 #### How to run the UI
 
+* Build the C# solution as Release => x64 (Be sure is "x64" NOT "any cpu")
 * run in CMD or Powershell `npm run electron:serve`
 
 #### How to build the UI to release the tool
