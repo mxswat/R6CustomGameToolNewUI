@@ -71,6 +71,7 @@ export default class Requests extends Vue {
     const request = this.loadoutRequests[idx];
     if (!request.debug && isApproved) {
       // Bad code but should work
+      // If Player name does not exist, I need to throw and error
       const idx = this.playerList.findIndex(element => {
         return element.name == this.loadoutRequests[idx].uplayName;
       });
