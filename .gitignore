@@ -345,3 +345,8 @@ Obfuscator/R6Manifesttool.nrproj
 
 # local history for vs plugin
 .history
+
+# some other shit
+electron-frontend/build.bat
+electron-frontend/devmode.bat
+electron-frontend/install requirements.bat

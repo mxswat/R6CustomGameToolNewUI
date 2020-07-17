@@ -17,7 +17,7 @@ const TEAM = [
     },
     {
         name: 'Zer0Bytes',
-        task: 'Sigs & UI Concepts',
+        task: 'Sigs, Value collection',
         links: {
             Reddit: 'https://www.reddit.com/user/Zer0Bytes_',
             GitHub: 'http://github.com/DataCluster0/',
@@ -35,15 +35,15 @@ const TEAM = [
         name: 'Misa Hanako',
         task: 'Beta Testing',
         links: {
-            twitter: 'https://twitter.com/hanakomisa',
+            Twitter: 'https://twitter.com/hanakomisa',
         }
     },
     {
         name: 'benjaminstrike',
         task: 'Beta Testing, C# support',
         links: {
-            twitter: 'https://twitter.com/benjaminstrike',
-            github: 'http://github.com/benjaminstrike/',
+            Twitter: 'https://twitter.com/benjaminstrike',
+            Github: 'http://github.com/benjaminstrike/',
         }
     }
 ];
